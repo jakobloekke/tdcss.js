@@ -15,7 +15,7 @@ Then, after the comment, add the html needed for the particular design element.
     <p>This is a demo element.</p>
 
     <!-- ### Demo elements -->
-    <a>This is a demo link.</a>
+    <a href="#">This is a demo link.</a>
 
 
     <!-- ### Another kind of elements -->
