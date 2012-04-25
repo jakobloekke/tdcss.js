@@ -26,6 +26,6 @@ Then, after the comment, add the html needed for the particular design element.
 htmlfragments.js will use the comment to present your design elements in a nice, structured way.
 The point is to help you develop reusable elements that are context-independent.
 
-![How it looks](/demo/preview.png)
+![How it looks](https://github.com/jakobloekke/htmlfragments.js/raw/master/demo/preview.png)
 
 This is also useful as a reference when communicating with designers or other developers on your team.
