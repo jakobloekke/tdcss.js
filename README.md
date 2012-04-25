@@ -12,6 +12,20 @@ Insert an html comment with the name of the section of the design element (eg. "
 Then, after the comment, add the html needed for the particular design element.
 
 	<!-- ### Demo elements -->
-	<p>This is a demo element.</p>
+    <p>This is a demo element.</p>
 
-htmlfragments.js will use the comment to present your design elements in a nice, structured way - which is also useful as a reference when communicating with designers or other developers on your team.
+    <!-- ### Demo elements -->
+    <a>This is a demo link.</a>
+
+
+    <!-- ### Another kind of elements -->
+    <div>
+        <h2>Here is an html structure with multiple tags.</h2>
+    </div>
+
+htmlfragments.js will use the comment to present your design elements in a nice, structured way.
+The point is to help you develop reusable elements that are context-independent.
+
+![How it looks](/demo/preview.png)
+
+This is also useful as a reference when communicating with designers or other developers on your team.
