@@ -3,7 +3,7 @@ htmlfragments.js
 
 A very small framework for structured/TDD-style HTML/CSS development.
 
-Inspired by the modular approach of OOCSS and SMACSS. Meant to help frontend-developers write more solid and modular code by styling design elements iin isolation.
+Inspired by the modular approach of OOCSS and SMACSS. Meant to help frontend-developers write more solid and modular code by styling design elements in isolation.
 
 Usage
 ---
