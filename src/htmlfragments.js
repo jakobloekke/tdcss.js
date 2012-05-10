@@ -28,7 +28,7 @@
                 last_section_name = section_name;
             }
 
-           addNewFragment( getFragmentHTML(e) );
+            addNewFragment( getFragmentHTML(e) );
 
         });
     }
@@ -46,7 +46,7 @@
     }
 
     function addNewFragment(fragment_html) {
-        if (typeof fragment_html !== "undefined") {
+        if (fragment_html) {
             $("#elements").append('<tr><td>' + fragment_html + '</td><td><textarea readonly>' + fragment_html + '</textarea></td></tr>');
         }
     }
