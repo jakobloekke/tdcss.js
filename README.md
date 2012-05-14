@@ -17,6 +17,7 @@ Then, if you insert a semi-colon, you can specify what *section* thefragment bel
 
 And finally, if you insert another semicolon, you can fix the height of the fragment container. This is useful for position:absolute type layouts.
 
+```html
 <div id="tdcss">
 
 <!-- ### Demo element -->
@@ -42,10 +43,10 @@ And finally, if you insert another semicolon, you can fix the height of the frag
 <h3>This is a test.</h3>
 
 </div>
-
+```
 
 In the header, insert a reference to tdcss.js and jQuery, then call tdcss.init() on dom ready:
-
+```html
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
 <script type="text/javascript" src="src/tdcss.js"></script>
@@ -55,9 +56,9 @@ In the header, insert a reference to tdcss.js and jQuery, then call tdcss.init()
          tdcss.init();
      })
 </script>
-
+```
 
 tdcss.js will interpret the comments and present your design elements in a nice, structured way.
 The point is to help you make your design elements context independent.
 
-![How it looks](https://github.com/jakobloekke/htmlfragments.js/raw/master/demo/preview.png)
+![How it looks](https://github.com/jakobloekke/tdcss.js/raw/master/demo/preview.png)
