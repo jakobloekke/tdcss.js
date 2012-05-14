@@ -2,8 +2,8 @@ var tdcss = (function ($) {
     "use strict";
 
     var settings = {
-            fragment_identifier: "### ",
-            fragment_info_splitter: "; "
+            fragment_identifier: "###",
+            fragment_info_splitter: ";"
         },
         module = {
             fragments: []
