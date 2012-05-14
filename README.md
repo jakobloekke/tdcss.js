@@ -48,9 +48,7 @@ And finally, if you insert another semicolon, you can fix the height of the frag
 In the header, insert a reference to tdcss.js and jQuery, then call tdcss.init() on dom ready:
 ```html
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
 <script type="text/javascript" src="src/tdcss.js"></script>
-
 <script type="text/javascript">
      $(function(){
          tdcss.init();
