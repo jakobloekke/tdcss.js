@@ -3,32 +3,47 @@
 <head>
     <title>htmlfragments.js demo</title>
 
-    <link rel="stylesheet" href="src/htmlfragments.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="src/tdcss.css" type="text/css" media="screen">
 
     <!-- Project CSS -->
     <link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
 
-
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="src/htmlfragments.js"></script>
+    <script type="text/javascript" src="src/tdcss.js"></script>
+    <script type="text/javascript">
+         $(function(){
+             tdcss.init();
+         })
+    </script>
 
 </head>
 <body>
 
+<div id="tdcss">
 
-<!-- ### Demo elements -->
-<p>This is a demo element.</p>
+<!-- ### Demo element -->
+<div class="some-structure">
+    <p>This is a demo element.</p>
+</div>
 
-<!-- ### Demo elements -->
+<!-- ### Another demo elements -->
 <a href="#">This is a demo link.</a>
 
 
-<!-- ### Another kind of elements -->
-<div>
-    <h2>Here is an html structure with multiple tags.</h2>
+<!-- ### H1; typography -->
+<h1>This is a test.</h1>
+
+<!-- ### H2; typography -->
+<h2>This is a test.</h2>
+
+<!-- ### H3; typography -->
+<h3>This is a test.</h3>
+
+
+<!-- ### Some element that needs a lot of space; Custom height; 500px -->
+<h3>This is a test.</h3>
+
 </div>
-
-
 
 </body>
 </html>
