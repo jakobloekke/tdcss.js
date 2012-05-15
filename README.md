@@ -20,6 +20,12 @@ In the header, insert a reference to jquery and tdcss.js, then call tdcss.init()
 </script>
 ```
 
+Also, you need to reference the stylesheet(s) that you will be testing:
+```html
+<!-- Project CSS -->
+<link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
+```
+
 Inside a div with the id #tdcss, insert an html comment with the text "###" to denote a fragment.
 
 The first text after the prefix is the title of the fragment:
