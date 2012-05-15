@@ -28,7 +28,7 @@ var tdcss = (function ($) {
             var fragment = {
                 title: getFragmentTitle(this),
                 section: getFragmentSection(this),
-                height: getFragmentHeight(this),
+                height: getFragmentCustomHeight(this),
                 html: getFragmentHTML(this)
             };
 
@@ -64,7 +64,7 @@ var tdcss = (function ($) {
         }
     }
 
-    function getFragmentHeight(e) {
+    function getFragmentCustomHeight(e) {
         var height = getFragmentMeta(e)[2];
         if (typeof height !== "undefined"){
             return height.trim();
@@ -113,12 +113,21 @@ var tdcss = (function ($) {
     function addNewFragment(fragment) {
         var title = fragment.title || '',
             html = fragment.html,
-            height = fragment.height || 'auto',
+            //height = fragment.height || 'auto',
+            height = getFragmentHeightCSSProperty(fragment),
             $row = $("<tr class='fragment'></tr>")
                     .append("<td style='height:" + height + "'>" + html + "</td>")
                     .append("<td><h3>" + title + "</h3><textarea readonly>" + html + "</textarea></td>");
 
         $("#elements").append($row);
+    }
+
+    function getFragmentHeightCSSProperty(fragment) {
+        if (fragment.height) {
+            return fragment.height;
+        } else {
+            return "auto";
+        }
     }
 
     module.init = function () {
