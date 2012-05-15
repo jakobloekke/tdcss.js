@@ -47,7 +47,7 @@ Here's the markup that produces the screenshot below:
     <p>This is a demo element.</p>
 </div>
 
-<!-- ### Another demo elements -->
+<!-- ### Another demo element -->
 <a href="#">This is a demo link.</a>
 
 
