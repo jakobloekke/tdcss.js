@@ -3,10 +3,14 @@ tdcss.js - Test-driven CSS development
 
 A very small framework for structured/TDD-style HTML/CSS development.
 
-Inspired by the modular approach of Object-oriented CSS (<http://oocss.org>) and SMACSS (<http://smacss.com>).
-Especially well suited to use these techniques to model up Style Tiles (<http://styletil.es/>).
+Write solid and reusable code by styling design elements in isolation.
 
-It's meant to help frontend-developers write solid and modular code by styling design elements in isolation.
+What's the benefit
+---
+tdcss.js was inspired by the modular approach of Object-oriented CSS (<http://oocss.org>) and SMACSS (<http://smacss.com>).
+
+It's especially well suited for using these techniques to model up style tiles (<http://styletil.es/>) in frontend code.
+
 
 How to use
 ---
