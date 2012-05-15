@@ -26,14 +26,17 @@ Also, you need to reference the stylesheet(s) that you will be testing:
 <link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
 ```
 
-Inside a div with the id #tdcss, insert an html comment with the text "###" to denote a fragment.
+Inside a div with the id #tdcss, insert an html comment with the text "###" to denote a fragment:
+```html
+<!-- ### -->
+```
 
-The first text after the prefix is the title of the fragment:
+The first text after the prefix becomes the title of the fragment:
 ```html
 <!-- ### Element title -->
 ```
 
-Then, if you insert a semi-colon, you can specify what **section** the fragment belongs to:
+Then, if you insert a semi-colon, you can specify which **section** the fragment belongs to:
 ```html
 <!-- ### Element title; Title styles -->
 ```
