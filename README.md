@@ -33,7 +33,7 @@ Then, if you insert a semi-colon, you can specify what **section** the fragment 
 ```
 
 And finally, if you insert another semicolon, you can fix the height of the fragment container.
-This is useful for position:absolute type layouts:
+This is useful for position:absolute type layouts that don't by themselfes force the container to expand:
 ```html
 <!-- ### Element title; Title styles; 400px -->
 ```
