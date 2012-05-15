@@ -11,9 +11,11 @@ How to use
 
 Inside a div with the id #tdcss, insert an html comment with the text "###" to denote a fragment.
 
-The first text after the prefix is the title of the fragment.
+The first text after the prefix is the title of the fragment:
 
-Then, if you insert a semi-colon, you can specify what *section* thefragment belongs to.
+<!-- ### Element title -->
+
+Then, if you insert a semi-colon, you can specify what **section** the fragment belongs to.
 
 And finally, if you insert another semicolon, you can fix the height of the fragment container. This is useful for position:absolute type layouts.
 
