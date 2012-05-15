@@ -9,7 +9,7 @@ Meant to help frontend-developers write solid and modular code by styling design
 How to use
 ---
 
-In the header, insert a reference to tdcss.js and jQuery, then call tdcss.init() on dom ready:
+In the header, insert a reference to jquery and tdcss.js, then call tdcss.init() on dom ready:
 ```html
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="src/tdcss.js"></script>
