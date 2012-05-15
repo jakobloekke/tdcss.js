@@ -12,12 +12,20 @@ How to use
 Inside a div with the id #tdcss, insert an html comment with the text "###" to denote a fragment.
 
 The first text after the prefix is the title of the fragment:
-
+```html
 <!-- ### Element title -->
+```
 
 Then, if you insert a semi-colon, you can specify what **section** the fragment belongs to.
+```html
+<!-- ### Element title; Title styles -->
+```
 
-And finally, if you insert another semicolon, you can fix the height of the fragment container. This is useful for position:absolute type layouts.
+And finally, if you insert another semicolon, you can fix the height of the fragment container.
+This is useful for position:absolute type layouts.
+```html
+<!-- ### Element title; Title styles; 400px -->
+```
 
 ```html
 <div id="tdcss">
