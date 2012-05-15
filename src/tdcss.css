@@ -6,17 +6,31 @@
     border: 1px solid #add8e6;
     overflow: auto;
     text-align: center;
-    padding: 1em 1em 3em;
     position: relative;
+    padding: 0;
 }
-#tdcss #elements > tbody > tr > td > textarea {
+#tdcss #elements > tbody > tr > td > .tdcss-fragment-container {
+    position: relative;
+    margin: 1em;
+}
+#tdcss #elements > tbody > tr > td:last-child {
+    padding: 1em 1em 4em;
+}
+
+#tdcss #elements > tbody > tr.fragment > td > textarea {
     display: block;
     width: 100%;
     height: 100%;
     min-height: 50px;
 }
-#tdcss #elements > tbody > tr > td:last-child {
+#tdcss #elements > tbody > tr.fragment > td:last-child {
     text-align: left;
+}
+#tdcss #elements > tbody > tr.fragment > td:last-child h3 {
+    font-weight: bold;
+    color: white;
+    background-color: #add8e6;
+    padding: 0.5em;
 }
 #tdcss #elements > tbody > tr.section > td {
     padding: 0;

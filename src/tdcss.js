@@ -116,7 +116,7 @@ var tdcss = (function ($) {
             //height = fragment.height || 'auto',
             height = getFragmentHeightCSSProperty(fragment),
             $row = $("<tr class='fragment'></tr>")
-                    .append("<td style='height:" + height + "'>" + html + "</td>")
+                    .append("<td style='height:" + height + "'><div class='tdcss-fragment-container'>" + html + "</div></td>")
                     .append("<td><h3>" + title + "</h3><textarea readonly>" + html + "</textarea></td>");
 
         $("#elements").append($row);
