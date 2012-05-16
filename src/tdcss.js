@@ -22,9 +22,9 @@ var tdcss = (function ($) {
     }
 
     function parseRawFragments() {
-        var fragments = getRawFragments();
+        var fragmentIdentifierComments = getFragmentIdentifierComments();
 
-        fragments.each(function(){
+        fragmentIdentifierComments.each(function(){
             var fragment = {
                 title: getFragmentTitle(this),
                 section: getFragmentSection(this),
@@ -38,7 +38,7 @@ var tdcss = (function ($) {
         })
     }
 
-    function getRawFragments() {
+    function getFragmentIdentifierComments() {
         return $("body #fragments").contents().filter(
             function() {
                 return this.nodeType === 8 && this.nodeValue.match(new RegExp(settings.fragment_identifier));
