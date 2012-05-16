@@ -113,7 +113,6 @@ var tdcss = (function ($) {
     function addNewFragment(fragment) {
         var title = fragment.title || '',
             html = fragment.html,
-            //height = fragment.height || 'auto',
             height = getFragmentHeightCSSProperty(fragment),
             $row = $("<tr class='fragment'></tr>")
                     .append("<td style='height:" + height + "'><div class='tdcss-fragment-container'>" + html + "</div></td>")
@@ -122,6 +121,7 @@ var tdcss = (function ($) {
         $("#elements").append($row);
     }
 
+    // Factored into separate function in case some special handling is needed in the future
     function getFragmentHeightCSSProperty(fragment) {
         if (fragment.height) {
             return fragment.height;
