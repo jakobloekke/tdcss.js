@@ -123,15 +123,13 @@ describe("TDCSS module", function() {
             expect($('#elements tr:eq(4)').attr("class")).toBe("section");
             expect($('#elements tr:eq(5)').attr("class")).toBe("fragment");
             expect($('#elements tr:eq(6)').attr("class")).toBe("fragment");
-
-            expect($('#elements tr:eq(6) td:first').height()).toBe(500);
         });
 
         it("should fix the height of the left td, if a value is specified", function() {
             loadFixtures('multiple-sections.html');
             tdcss.init();
 
-            expect($('#elements tr:eq(6) td:first').height()).toBe(500);
+            expect($('#elements tr:eq(6) td:first').attr("style")).toContain("500px");
         });
 
         it("should render fragment rows, even if no sections are specified", function() {
