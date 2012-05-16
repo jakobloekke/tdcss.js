@@ -82,9 +82,12 @@ Here's the markup that produces the screenshot below:
 </div>
 ```
 
-
-
 tdcss.js will interpret the comments and present your design elements in a nice, structured way.
 The point is to help you make your design elements context independent.
 
+
 ![How it looks](https://github.com/jakobloekke/tdcss.js/raw/master/demo/preview.png)
+
+Todo
+---
+Make a better looking demo + screenshot! :)
