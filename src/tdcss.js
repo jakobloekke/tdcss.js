@@ -13,6 +13,8 @@ var tdcss = (function ($) {
         setupTestSuite();
         parseRawFragments();
         renderFragments();
+        bindSectionCollapseHandlers();
+        restoreCollapsedStateFromUrl();
     }
 
     function setupTestSuite() {
@@ -104,8 +106,6 @@ var tdcss = (function ($) {
             }
             addNewFragment(fragment);
         }
-        bindSectionCollapseHandlers();
-        restoreCollapsedStateFromUrl();
     }
 
     function addNewSection(section_name) {
@@ -138,7 +138,7 @@ var tdcss = (function ($) {
         var that = this;
 
         that.header_element = header_element;
-        that.name = $("h2", header_element).text();
+        that.state_string = $(header_element).attr("id") + ";";
         that.collapsed = false;
         that.fragments = [];
 
@@ -165,17 +165,15 @@ var tdcss = (function ($) {
         };
 
         that.setCollapsedStateInUrl = function() {
-            var currentHash = window.location.hash,
-                stateString = encodeURIComponent(that.name) + ";";
+            var current_hash = window.location.hash;
 
-            if (currentHash.indexOf(stateString) === -1) {
-                window.location.hash = currentHash + stateString;
+            if (current_hash.indexOf(that.state_string) === -1) {
+                window.location.hash = current_hash + that.state_string;
             }
         };
 
         that.removeCollapsedStateFromUrl = function() {
-            var stateString = encodeURIComponent(that.name) + ";";
-            window.location.hash = window.location.hash.replace(stateString, "");
+            window.location.hash = window.location.hash.replace(that.state_string, "");
         };
 
         that.addFragments();
