@@ -34,7 +34,7 @@
     padding: 0.5em;
 }
 #tdcss #elements > tbody > tr.section > td {
-    padding: 0;
+    padding: 1px 0 0 0;
     border: none;
     vertical-align: bottom;
     width: 100%;
@@ -48,6 +48,10 @@
     margin: 0;
     background-color: #add8e6;
     padding: 0.5em;
+}
+#tdcss #elements > tbody > tr.section > td:hover h2 {
+    background-color: #b1dcea;
+    cursor: default;
 }
 
 #tdcss #fragments {

@@ -104,10 +104,87 @@ var tdcss = (function ($) {
             }
             addNewFragment(fragment);
         }
+        bindSectionCollapseHandlers();
+        restoreCollapsedStateFromUrl();
     }
 
     function addNewSection(section_name) {
-        $("#elements").append('<tr class="section"><td colspan="2"><h2>' + section_name + '</h2></td></tr>');
+        $("#elements").append('<tr class="section" id="' + encodeURIComponent(section_name) + '"><td colspan="2"><h2>' + section_name + '</h2></td></tr>');
+    }
+
+    function bindSectionCollapseHandlers() {
+        $(".section").each(function(){
+            new Section(this);
+        })
+    }
+
+    function restoreCollapsedStateFromUrl() {
+        if (window.location.hash) {
+            var hash = window.location.hash.split("#")[1],
+                collapsedSections = hash.split(";"),
+                section,
+                selector;
+
+            for (section in collapsedSections) {
+                if (collapsedSections[section].length) {
+                    selector = "#"+collapsedSections[section];
+                    $(selector).click();
+                }
+            }
+        }
+    }
+
+    function Section(header_element) {
+        var that = this;
+
+        that.header_element = header_element;
+        that.name = $("h2", header_element).text();
+        that.collapsed = false;
+        that.fragments = [];
+
+        that.addFragments = function() {
+            function addElementToArrayIfFragment (elem) {
+                if ($(elem).hasClass("fragment")) {
+                    that.fragments.push($(elem));
+                    addElementToArrayIfFragment($(elem).next("tr.fragment"));
+                }
+            }
+            addElementToArrayIfFragment($(that.header_element).next("tr.fragment"));
+        };
+
+        that.toggle = function() {
+            that.collapsed = that.collapsed ? false : true;
+
+            if (that.collapsed) {
+                $(that.fragments).each(function(){$(this).hide();});
+                that.setCollapsedStateInUrl();
+            } else {
+                $(that.fragments).each(function(){$(this).show();});
+                that.removeCollapsedStateFromUrl();
+            }
+        };
+
+        that.setCollapsedStateInUrl = function() {
+            var currentHash = window.location.hash,
+                stateString = encodeURIComponent(that.name) + ";";
+
+            if (currentHash.indexOf(stateString) === -1) {
+                window.location.hash = currentHash + stateString;
+            }
+        };
+
+        that.removeCollapsedStateFromUrl = function() {
+            var stateString = encodeURIComponent(that.name) + ";";
+            window.location.hash = window.location.hash.replace(stateString, "");
+        };
+
+        that.addFragments();
+
+        $(that.header_element).on("click", function(){
+            that.toggle();
+        });
+
+        return that;
     }
 
     function addNewFragment(fragment) {
