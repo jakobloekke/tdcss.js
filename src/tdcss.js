@@ -20,7 +20,7 @@ var tdcss = (function ($) {
     function setupTestSuite() {
         $("#tdcss")
             .wrapInner("<div id='fragments'></div>")
-            .append('<table id="elements"></table>');
+            .append("<table id='elements'></table>");
     }
 
     function parseRawFragments() {
