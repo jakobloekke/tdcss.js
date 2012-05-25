@@ -4,6 +4,7 @@ describe("TDCSS module", function() {
     beforeEach(function() {
         expect(typeof module).toBe("object");
         module.fragments.length = 0; //Reset the module
+        window.location.hash = "";
     });
 
     it("should self-instantiate as a js object", function() {
@@ -14,9 +15,9 @@ describe("TDCSS module", function() {
         it("should hide the initial HTML inside the #tdcss div", function() {
             loadFixtures('simple.html');
             expect($('#shouldbehidden')).toHaveHtml("This should be hidden");
-            expect($('#shouldbehidden')).toBeVisible();
+            expect($('#shouldbehidden').is(":visible")).toBe(true);
             tdcss.init();
-            expect($('#shouldbehidden')).toBeHidden();
+            expect($('#shouldbehidden').is(":visible")).toBe(false);
         });
 
         it("should insert a basic html table structure for viewing the tests", function(){
@@ -139,5 +140,92 @@ describe("TDCSS module", function() {
             expect($('#elements tr.fragment').length).toBe(1);
         });
     });
+
+    describe("Interaction", function() {
+        it("should collapse and expand sections, when section header is clicked", function() {
+            loadFixtures('multiple-sections.html');
+            tdcss.init();
+
+            var section_header = $('#elements tr.section:first'),
+                section_fragment_1 = $(section_header).next("tr.fragment"),
+                section_fragment_2 = $(section_fragment_1).next("tr.fragment"),
+                section_fragment_3 = $(section_fragment_2).next("tr.fragment"),
+                other_section_fragment = $("#elements tr.section:eq(1)").next("tr.fragment");
+
+            expect(section_fragment_1.is(":visible")).toBe(true);
+            expect(section_fragment_2.is(":visible")).toBe(true);
+            expect(section_fragment_3.is(":visible")).toBe(true);
+
+            // Other sections are not collapsed
+            expect(other_section_fragment.is(":visible")).toBe(true);
+
+            section_header.click();
+            expect(section_fragment_1.is(":visible")).toBe(false);
+            expect(section_fragment_2.is(":visible")).toBe(false);
+            expect(section_fragment_3.is(":visible")).toBe(false);
+
+            // Other sections are not collapsed
+            expect(other_section_fragment.is(":visible")).toBe(true);
+
+            section_header.click();
+            expect(section_fragment_1.is(":visible")).toBe(true);
+            expect(section_fragment_2.is(":visible")).toBe(true);
+            expect(section_fragment_3.is(":visible")).toBe(true);
+
+            // Other sections are not collapsed
+            expect(other_section_fragment.is(":visible")).toBe(true);
+        });
+
+        it("should store information on collapsed sections in url fragment", function() {
+            loadFixtures('multiple-sections.html');
+            tdcss.init();
+
+            var first_section_header = $('#elements tr.section:first'),
+                second_section_header = $('#elements tr.section:eq(1)');
+
+            first_section_header.click();
+            expect(window.location.hash).toContain("Basics");
+
+            second_section_header.click();
+            expect(window.location.hash).toContain("New%20section");
+
+        });
+
+        it("should remove information on collapsed sections from url fragment, when they are shown again", function() {
+            loadFixtures('multiple-sections.html');
+            tdcss.init();
+
+            var first_section_header = $('#elements tr.section:first'),
+                second_section_header = $('#elements tr.section:eq(1)');
+
+            first_section_header.click();
+            second_section_header.click();
+
+            first_section_header.click();
+            expect(window.location.hash).toNotContain("Basics");
+
+            second_section_header.click();
+            expect(window.location.hash).toNotContain("New%20section");
+
+        });
+
+        it("should restore section collapsed states based on url when loading page", function() {
+            loadFixtures('multiple-sections.html');
+            window.location.hash = "Basics;";
+            tdcss.init();
+
+            var section_fragment_1 = $('#elements tr.section:first').next("tr.fragment"),
+                section_fragment_2 = $(section_fragment_1).next("tr.fragment"),
+                section_fragment_3 = $(section_fragment_2).next("tr.fragment"),
+                other_section_fragment = $("#elements tr.section:eq(1)").next("tr.fragment");
+
+            expect(section_fragment_1.is(":visible")).toBe(false);
+            expect(section_fragment_2.is(":visible")).toBe(false);
+            expect(section_fragment_3.is(":visible")).toBe(false);
+            expect(other_section_fragment.is(":visible")).toBe(true);
+
+        });
+
+    })
 
 });
