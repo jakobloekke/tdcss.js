@@ -187,12 +187,11 @@ describe("TDCSS module", function() {
                 second_section_header = $('#elements tr.section:eq(1)');
 
             first_section_header.click();
-            expect(window.location.hash).toContain(first_section_header.attr("id"));
+            expect(window.location.hash).toContain( decodeURIComponent(first_section_header.attr("id")) );
 
             second_section_header.click();
 
-            //This will fail in Firefox, because it strips the encoding from the address bar.
-            expect(window.location.hash).toContain(second_section_header.attr("id"));
+            expect(window.location.hash).toContain( decodeURIComponent(first_section_header.attr("id")) );
 
         });
 
