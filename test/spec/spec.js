@@ -4,6 +4,9 @@ describe("TDCSS module", function() {
     beforeEach(function() {
         expect(typeof module).toBe("object");
         module.fragments.length = 0; //Reset the module
+    });
+
+    afterEach(function() {
         window.location.hash = "";
     });
 
@@ -185,8 +188,6 @@ describe("TDCSS module", function() {
 
             first_section_header.click();
             expect(window.location.hash).toContain(first_section_header.attr("id"));
-
-            console.log(second_section_header);
 
             second_section_header.click();
 
