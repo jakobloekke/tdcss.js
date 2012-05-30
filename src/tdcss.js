@@ -51,7 +51,7 @@ var tdcss = (function ($) {
     function getFragmentTitle(e) {
         var title = getFragmentMeta(e)[0];
         if (typeof title !== "undefined"){
-            return title.trim();
+            return $.trim(title);
         } else {
             return null;
         }
@@ -60,7 +60,7 @@ var tdcss = (function ($) {
     function getFragmentSection(e) {
         var section = getFragmentMeta(e)[1];
         if (typeof section !== "undefined"){
-            return section.trim();
+            return $.trim(section);
         } else {
             return null;
         }
@@ -69,7 +69,7 @@ var tdcss = (function ($) {
     function getFragmentCustomHeight(e) {
         var height = getFragmentMeta(e)[2];
         if (typeof height !== "undefined"){
-            return height.trim();
+            return $.trim(height);
         } else {
             return false;
         }
