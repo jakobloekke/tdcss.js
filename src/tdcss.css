@@ -2,6 +2,7 @@
     width: 100%;
     table-layout: fixed;
 }
+
 #tdcss #elements > tbody > tr > td {
     border: 1px solid #add8e6;
     overflow: auto;
@@ -26,12 +27,6 @@
 }
 #tdcss #elements > tbody > tr.fragment > td:last-child {
     text-align: left;
-}
-
-@media only screen and (max-width: 800px) {
-    #tdcss #elements > tbody > tr.fragment > td:last-child {
-        display: none;
-    }
 }
 
 #tdcss #elements > tbody > tr.fragment > td:last-child h3 {
