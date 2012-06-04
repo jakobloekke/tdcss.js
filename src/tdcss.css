@@ -27,6 +27,13 @@
 #tdcss #elements > tbody > tr.fragment > td:last-child {
     text-align: left;
 }
+
+@media only screen and (max-width: 800px) {
+    #tdcss #elements > tbody > tr.fragment > td:last-child {
+        display: none;
+    }
+}
+
 #tdcss #elements > tbody > tr.fragment > td:last-child h3 {
     font-weight: bold;
     color: white;
