@@ -25,7 +25,7 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 #HTMLReporter .skippedAlert:first-child { background-color: #333333; }
 #HTMLReporter .skippedAlert:hover { text-decoration: none; color: white; text-decoration: underline; }
 #HTMLReporter .passingAlert { background-color: #a6b779; }
-#HTMLReporter .passingAlert:first-child { background-color: #5E7D00; }
+#HTMLReporter .passingAlert:first-child { background-color: #5e7d00; }
 #HTMLReporter .failingAlert { background-color: #cf867e; }
 #HTMLReporter .failingAlert:first-child { background-color: #b03911; }
 #HTMLReporter .results { margin-top: 14px; }
