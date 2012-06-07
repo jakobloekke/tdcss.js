@@ -15,13 +15,13 @@ It's especially well suited for using these techniques to model up style tiles (
 How to use
 ---
 
-In the header, insert a reference to jquery and tdcss.js, then call tdcss.init() on dom ready:
+In the header, insert a reference to jQuery and tdcss.js, then apply $.tdcss() on the container holding your fragments:
 ```html
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="src/tdcss.js"></script>
 <script type="text/javascript">
      $(function(){
-         tdcss.init();
+         $("#my-fragments").tdcss();
      })
 </script>
 ```
