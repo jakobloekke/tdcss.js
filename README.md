@@ -55,7 +55,7 @@ This is useful for position:absolute type layouts that don't by themselfes force
 
 Here's the markup that produces the screenshot below:
 ```html
-<div id="tdcss">
+<div id="my-fragments">
 
 <!-- ### Demo element -->
 <div class="some-structure">
