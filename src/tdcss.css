@@ -1,61 +1,80 @@
-#tdcss #elements {
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+         -o-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body {
+    font-family: Corbel, "Lucida Grande", Verdana, sans-serif;
+    font-size: 13px;
+}
+
+#fragments {
+    display: none;
+}
+
+#elements {
     width: 100%;
-    table-layout: fixed;
 }
 
-#tdcss #elements > tbody > tr > td {
-    border: 1px solid #add8e6;
-    overflow: auto;
-    text-align: center;
-    position: relative;
-    padding: 0;
-}
-#tdcss #elements > tbody > tr > td > .tdcss-fragment-container {
-    position: relative;
-    margin: 1em;
-
-}
-#tdcss #elements > tbody > tr > td:last-child {
-    padding: 1em 1em 4em;
-}
-
-#tdcss #elements > tbody > tr.fragment > td > textarea {
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-height: 50px;
-}
-#tdcss #elements > tbody > tr.fragment > td:last-child {
-    text-align: left;
-}
-
-#tdcss #elements > tbody > tr.fragment > td:last-child h3 {
-    font-weight: bold;
-    color: white;
-    background-color: #add8e6;
-    padding: 0.5em;
-}
-#tdcss #elements > tbody > tr.section > td {
+.section {
     padding: 1px 0 0 0;
     border: none;
     vertical-align: bottom;
     width: 100%;
+    margin-bottom: 1em;
 }
-#tdcss #elements > tbody > tr.section > td > h2 {
-    font-size: 18px;
+.section h2 {
     color: white;
-}
-#tdcss #elements > tbody > tr.section > td h2 {
     font-size: 1.5em;
     margin: 0;
     background-color: #add8e6;
     padding: 0.5em;
 }
-#tdcss #elements > tbody > tr.section > td:hover h2 {
+.section:hover h2 {
     background-color: #b1dcea;
-    cursor: default;
 }
 
-#tdcss #fragments {
-    display: none;
+.fragment {
+    overflow: auto;
+    position: relative;
+    padding: 0 1em;
+    margin-bottom: 1em;
 }
+.dom-example,
+.code-example {
+    float: left;
+}
+.dom-example {
+    padding-right: 1em;
+    border-right: 1px solid #add8e6;
+    width: 60%;
+}
+.dom-example iframe {
+    width: 100%;
+    border: none;
+}
+.code-example {
+    width: 40%;
+    padding-left: 1em;
+}
+.code-example h3 {
+    font-weight: bold;
+    color: white;
+    background-color: #add8e6;
+    margin-top: 0;
+    padding: 0.25em;
+}
+.code-example textarea {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 50px;
+    border: 1px solid #bbb;
+    font-size: 0.9em;
+    line-height: 1.25em;
+    padding: 0.25em;
+}
+
