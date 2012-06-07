@@ -8,65 +8,34 @@
                 fragment_info_splitter: ";"
             }, options),
 
-            ready = false,
-
             module = {
-                styles: "",
-                fragments: [],
-                ready: function(){ return ready }
+                container: null,
+                fragments: []
             };
 
-        return this.each(function(){
+        return this.each(function(i){
 
-            var $this = this;
+            module.container = this;
 
             resetValues();
-            setupTestSuite($this);
+            setupTestSuite();
             parseRawFragments();
-            getStyles( render );
+            renderFragments();
+            bindSectionCollapseHandlers();
+            restoreCollapsedStateFromUrl();
 
-            return module;
+            window.tdcss[i] = module;
 
         });
 
         function resetValues() {
             module.fragments.length = 0;
-            module.styles = "";
-            module.ready = new $.Deferred();
         }
 
-        function setupTestSuite(container) {
-            $(container)
-                .wrapInner("<div id='fragments'></div>")
-                .append("<div id='elements'></div>");
-        }
-
-        function getStyles(callback) {
-            var stylesheets = $("link.tdcss"),
-                async_callback = _.after(stylesheets.length, callback);
-
-            if (stylesheets.length === 0) {
-                callback();
-            } else {
-                stylesheets.each(
-                    function(){
-                        $.get( $(this).attr("href") ).then(
-                            function(data) {
-                                module.styles += data;
-                                async_callback();
-                            }
-                        )
-                    }
-                )
-            }
-        }
-
-        function render() {
-            renderFragments();
-            bindSectionCollapseHandlers();
-            restoreCollapsedStateFromUrl();
-
-            ready = true;
+        function setupTestSuite() {
+            $(module.container)
+                .addClass("tdcss-fragments")
+                .after("<div class='tdcss-elements'></div>");
         }
 
         function parseRawFragments() {
@@ -87,7 +56,7 @@
         }
 
         function getFragmentIdentifierComments() {
-            return $("body #fragments").contents().filter(
+            return $(module.container).contents().filter(
                 function() {
                     return this.nodeType === 8 && this.nodeValue.match(new RegExp(settings.fragment_identifier));
                 }
@@ -155,11 +124,34 @@
         }
 
         function addNewSection(section_name) {
-            $("#elements").append('<div class="section" id="' + encodeURIComponent(section_name) + '"><h2>' + section_name + '</h2></div>');
+            $(module.container).next(".tdcss-elements").append('<div class="tdcss-section" id="' + encodeURIComponent(section_name) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>');
+        }
+
+        function addNewFragment(fragment) {
+            var title = fragment.title || '',
+                html = fragment.html,
+                height = getFragmentHeightCSSProperty(fragment),
+                $row = $("<div style='height:" + height + "' class='tdcss-fragment'></div>"),
+                $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
+                $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><textarea class='tdcss-textarea' readonly>" + html + "</textarea></div>");
+
+            $row.append($dom_example);
+            $row.append($code_example);
+            $(module.container).next(".tdcss-elements").append($row);
+
+        }
+
+        // Factored into separate function in case some special handling is needed in the future
+        function getFragmentHeightCSSProperty(fragment) {
+            if (fragment.height) {
+                return fragment.height;
+            } else {
+                return "auto";
+            }
         }
 
         function bindSectionCollapseHandlers() {
-            $(".section").each(function(){
+            $(".tdcss-section").each(function(){
                 new Section(this);
             })
         }
@@ -190,12 +182,12 @@
 
             that.addFragments = function() {
                 function addElementToArrayIfFragment (elem) {
-                    if ($(elem).hasClass("fragment")) {
+                    if ($(elem).hasClass("tdcss-fragment")) {
                         that.fragments.push($(elem));
-                        addElementToArrayIfFragment($(elem).next(".fragment"));
+                        addElementToArrayIfFragment($(elem).next(".tdcss-fragment"));
                     }
                 }
-                addElementToArrayIfFragment($(that.header_element).next(".fragment"));
+                addElementToArrayIfFragment($(that.header_element).next(".tdcss-fragment"));
             };
 
             that.toggle = function() {
@@ -229,46 +221,6 @@
             });
 
             return that;
-        }
-
-        function addNewFragment(fragment) {
-            var title = fragment.title || '',
-                html = fragment.html,
-                height = getFragmentHeightCSSProperty(fragment),
-                $row = $("<div style='height:" + height + "' class='fragment'></div>"),
-                $dom_example = $("<div class='dom-example'></div>"),
-                $code_example = $("<div class='code-example'><h3>" + title + "</h3><textarea readonly>" + html + "</textarea></div>"),
-                iframe = document.createElement("iframe"),
-                iframe_content;
-
-            $dom_example.append(iframe);
-            $row.append($dom_example);
-            $row.append($code_example);
-            $("#elements").append($row);
-
-            // Set iframe content
-            iframe_content = '<!DOCTYPE html>'
-                + '<html><head>'
-                + '<style type="text/css">' + module.styles + '</style>'
-                + '</head>'
-                + '<body><p>'
-                + html
-                + '</p></body></html>';
-
-            iframe.src = "about:blank";
-            iframe.contentWindow.document.open("text/html", "replace");
-            iframe.contentWindow.document.write(iframe_content);
-            iframe.contentWindow.document.close();
-
-        }
-
-        // Factored into separate function in case some special handling is needed in the future
-        function getFragmentHeightCSSProperty(fragment) {
-            if (fragment.height) {
-                return fragment.height;
-            } else {
-                return "auto";
-            }
         }
     }
 })($);

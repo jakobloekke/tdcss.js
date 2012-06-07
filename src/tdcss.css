@@ -1,4 +1,17 @@
-* {
+.tdcss-fragments,
+.tdcss-elements,
+.tdcss-section,
+.tdcss-section .tdcss-h2,
+.tdcss-fragment,
+.tdcss-dom-example,
+.tdcss-code-example,
+.tdcss-dom-example,
+.tdcss-code-example,
+.tdcss-code-example .tdcss-h3,
+.tdcss-code-example .tdcss-textarea
+{
+    font-family: Corbel, "Lucida Grande", Verdana, sans-serif;
+    font-size: 13px;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
@@ -6,68 +19,59 @@
             box-sizing: border-box;
 }
 
-body {
-    font-family: Corbel, "Lucida Grande", Verdana, sans-serif;
-    font-size: 13px;
-}
-
-#fragments {
+.tdcss-fragments {
     display: none;
 }
 
-#elements {
+.tdcss-elements {
     width: 100%;
 }
 
-.section {
+.tdcss-section {
     padding: 1px 0 0 0;
     border: none;
     vertical-align: bottom;
     width: 100%;
     margin-bottom: 1em;
 }
-.section h2 {
+.tdcss-section .tdcss-h2 {
     color: white;
     font-size: 1.5em;
     margin: 0;
     background-color: #add8e6;
     padding: 0.5em;
 }
-.section:hover h2 {
+.tdcss-section:hover .tdcss-h2 {
     background-color: #b1dcea;
 }
 
-.fragment {
+.tdcss-fragment {
     overflow: auto;
     position: relative;
     padding: 0 1em;
     margin-bottom: 1em;
 }
-.dom-example,
-.code-example {
+.tdcss-dom-example,
+.tdcss-code-example {
     float: left;
 }
-.dom-example {
+.tdcss-dom-example {
     padding-right: 1em;
     border-right: 1px solid #add8e6;
     width: 60%;
 }
-.dom-example iframe {
-    width: 100%;
-    border: none;
-}
-.code-example {
+.tdcss-code-example {
     width: 40%;
     padding-left: 1em;
 }
-.code-example h3 {
+.tdcss-code-example .tdcss-h3 {
     font-weight: bold;
     color: white;
     background-color: #add8e6;
     margin-top: 0;
     padding: 0.25em;
 }
-.code-example textarea {
+.tdcss-code-example .tdcss-textarea {
     display: block;
     width: 100%;
     height: 100%;
