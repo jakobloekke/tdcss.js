@@ -56,20 +56,19 @@
     float: left;
 }
 .tdcss-dom-example {
-    padding-right: 1em;
+    padding: 1em;
     border-right: 1px solid #add8e6;
     width: 60%;
 }
 .tdcss-code-example {
     width: 40%;
-    padding-left: 1em;
+    padding: 1em;
 }
 .tdcss-code-example .tdcss-h3 {
     font-weight: bold;
     color: white;
     background-color: #add8e6;
     margin-top: 0;
-    padding: 0.25em;
 }
 .tdcss-code-example .tdcss-textarea {
     display: block;
