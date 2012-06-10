@@ -159,14 +159,14 @@
         function restoreCollapsedStateFromUrl() {
             if (window.location.hash) {
                 var hash = window.location.hash.split("#")[1],
-                    collapsedSections = hash.split(";"),
-                    section,
-                    selector;
+                    collapsedSections = hash.split(";");
 
-                for (section in collapsedSections) {
-                    if (collapsedSections[section].length) {
-                        selector = "#"+collapsedSections[section];
-                        $(selector).click();
+                for (var section in collapsedSections) {
+                    if (collapsedSections.hasOwnProperty(section)) {
+                        if (collapsedSections[section].length) {
+                            var matching_section = document.getElementById(collapsedSections[section]);
+                            $(matching_section).click();
+                        }
                     }
                 }
             }

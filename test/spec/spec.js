@@ -86,8 +86,8 @@ describe("TDCSS", function() {
 
                 var elements = $('.tdcss-elements:first');
 
-                expect(tdcss[0].fragments[0].section).toBe("Basics");
-                expect($('div:eq(0) h2', elements).text()).toBe("Basics");
+                expect(tdcss[0].fragments[0].section).toBe("Basic section");
+                expect($('div:eq(0) h2', elements).text()).toBe("Basic section");
 
                 expect($('> div:eq(0)', elements).attr("class")).toBe("tdcss-section");
                 expect($('> div:eq(1)', elements).attr("class")).toBe("tdcss-fragment");
@@ -169,11 +169,11 @@ describe("TDCSS", function() {
                     second_section_header = $('.tdcss-elements:first .tdcss-section:eq(1)');
 
                 first_section_header.click();
-                expect(window.location.hash).toContain( decodeURIComponent(first_section_header.attr("id")) );
+                expect(window.location.hash).toContain( first_section_header.attr("id") );
 
                 second_section_header.click();
 
-                expect(window.location.hash).toContain( decodeURIComponent(first_section_header.attr("id")) );
+                expect(window.location.hash).toContain( first_section_header.attr("id") );
 
             });
 
@@ -204,7 +204,7 @@ describe("TDCSS", function() {
 
         it("should restore section collapsed states based on url when loading page", function() {
             loadFixtures('multiple-sections.html');
-            window.location.hash = "Basics;";
+            window.location.hash = "Basic%20section;";
             $(function(){
                 $("#tdcss").tdcss();
                 var section_fragment_1 = $('.tdcss-elements:first .tdcss-section:first').next(".tdcss-fragment"),
