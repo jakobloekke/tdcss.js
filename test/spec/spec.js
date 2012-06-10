@@ -79,7 +79,7 @@ describe("TDCSS", function() {
             });
         });
 
-        it("should render section dividers above each set of fragments that have similar section names specified", function() {
+        it("should render section dividers above each set of fragments that belong to a section", function() {
             loadFixtures('multiple-sections.html');
             $(function(){
                 $("#tdcss").tdcss();
@@ -87,7 +87,7 @@ describe("TDCSS", function() {
                 var elements = $('.tdcss-elements:first');
 
                 expect(tdcss[0].fragments[0].section).toBe("Basic section");
-                expect($('div:eq(0) h2', elements).text()).toBe("Basic section");
+                expect($('> div:eq(0) h2', elements).text()).toBe("Basic section");
 
                 expect($('> div:eq(0)', elements).attr("class")).toBe("tdcss-section");
                 expect($('> div:eq(1)', elements).attr("class")).toBe("tdcss-fragment");

@@ -4,7 +4,8 @@
         "use strict";
 
         var settings = $.extend({
-                fragment_identifier: "###",
+                section_identifier: "#",
+                fragment_identifier: ":",
                 fragment_info_splitter: ";"
             }, options),
 
@@ -17,10 +18,10 @@
 
             module.container = this;
 
-            resetValues();
-            setupTestSuite();
-            parseRawFragments();
-            renderFragments();
+            reset();
+            setup();
+            parse();
+            render();
             bindSectionCollapseHandlers();
             restoreCollapsedStateFromUrl();
 
@@ -28,43 +29,58 @@
 
         });
 
-        function resetValues() {
+        function reset() {
             module.fragments.length = 0;
         }
 
-        function setupTestSuite() {
+        function setup() {
             $(module.container)
                 .addClass("tdcss-fragments")
                 .after("<div class='tdcss-elements'></div>");
         }
 
-        function parseRawFragments() {
-            var fragmentIdentifierComments = getFragmentIdentifierComments();
+        function parse() {
+            var comments = getComments(),
+                section_name,
+                fragment;
 
-            fragmentIdentifierComments.each(function(){
-                var fragment = {
-                    title: getFragmentTitle(this),
-                    section: getFragmentSection(this),
-                    height: getFragmentCustomHeight(this),
-                    html: getFragmentHTML(this)
-                };
+            comments.each(function(){
+                if ( commentIsSection(this) ) {
+                    section_name = getSectionName(this);
+                }
+                else if ( commentIsFragment(this) ) {
+                    fragment = {
+                        title: getFragmentTitle(this),
+                        section: section_name || null,
+                        height: getFragmentCustomHeight(this),
+                        html: getFragmentHTML(this)
+                    };
 
-                if (fragment.html) {
-                    module.fragments.push(fragment);
+                    if (fragment.html) {
+                        module.fragments.push(fragment);
+                    }
                 }
             })
         }
 
-        function getFragmentIdentifierComments() {
+        function getComments() {
             return $(module.container).contents().filter(
                 function() {
-                    return this.nodeType === 8 && this.nodeValue.match(new RegExp(settings.fragment_identifier));
+                    return this.nodeType === 8;
                 }
             );
         }
 
-        function getFragmentTitle(e) {
-            var title = getFragmentMeta(e)[0];
+        function commentIsSection(comment) {
+            return !!comment.nodeValue.match(new RegExp(settings.section_identifier));
+        }
+
+        function commentIsFragment(comment) {
+            return !!comment.nodeValue.match(new RegExp(settings.fragment_identifier))
+        }
+
+        function getSectionName(e) {
+            var title = getCommentMeta( e )[0].split( settings.section_identifier )[1];
             if (typeof title !== "undefined"){
                 return $.trim(title);
             } else {
@@ -72,17 +88,17 @@
             }
         }
 
-        function getFragmentSection(e) {
-            var section = getFragmentMeta(e)[1];
-            if (typeof section !== "undefined"){
-                return $.trim(section);
+        function getFragmentTitle(e) {
+            var title = getCommentMeta( e )[0].split( settings.fragment_identifier )[1];
+            if (typeof title !== "undefined"){
+                return $.trim(title);
             } else {
                 return null;
             }
         }
 
         function getFragmentCustomHeight(e) {
-            var height = getFragmentMeta(e)[2];
+            var height = getCommentMeta(e)[1];
             if (typeof height !== "undefined"){
                 return $.trim(height);
             } else {
@@ -90,9 +106,8 @@
             }
         }
 
-        function getFragmentMeta(e) {
-            var raw_meta = e.nodeValue.split(settings.fragment_identifier)[1];
-            return raw_meta.split(settings.fragment_info_splitter);
+        function getCommentMeta(e) {
+            return e.nodeValue.split(settings.fragment_info_splitter);
         }
 
         function getFragmentHTML(e) {
@@ -107,7 +122,7 @@
             }
         }
 
-        function renderFragments() {
+        function render() {
             var last_section_name;
 
             for (var i = 0; i < module.fragments.length; i++) {
