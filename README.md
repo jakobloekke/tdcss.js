@@ -32,51 +32,56 @@ Also, you need to reference the stylesheet(s) that you will be testing:
 <link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
 ```
 
-Inside a div with the id #tdcss, insert an html comment with the text "###" to denote a fragment:
+Inside a div with the id #tdcss, insert an html comment with the text ":" to denote a fragment:
 ```html
-<!-- ### -->
+<!-- : -->
 ```
 
 The first text after the prefix becomes the title of the fragment:
 ```html
-<!-- ### Element title -->
+<!-- : Element title -->
 ```
 
-Then, if you insert a semi-colon, you can specify which **section** the fragment belongs to:
-```html
-<!-- ### Element title; Title styles -->
-```
-
-And finally, if you insert another semicolon, you can fix the height of the fragment container.
+You can fix the height of the fragment container by appending a CSS height value after a semicolon.
 This is useful for position:absolute type layouts that don't by themselfes force the container to expand:
 ```html
-<!-- ### Element title; Title styles; 400px -->
+<!-- : Element title; 400px -->
+```
+
+You can order your fragments into sections by inserting a section comment:
+```html
+<!-- # Section name -->
 ```
 
 Here's the markup that produces the screenshot below:
 ```html
 <div id="my-fragments">
 
-<!-- ### Demo element -->
+<!-- : Demo element -->
 <div class="some-structure">
     <p>This is a demo element.</p>
 </div>
 
-<!-- ### Another demo element -->
+<!-- : Another demo element -->
 <a href="#">This is a demo link.</a>
 
 
-<!-- ### H1; typography -->
+<!-- # Typography -->
+
+<!-- : H1 -->
 <h1>This is a test.</h1>
 
-<!-- ### H2; typography -->
+<!-- : H2 -->
 <h2>This is a test.</h2>
 
-<!-- ### H3; typography -->
+<!-- : H3 -->
 <h3>This is a test.</h3>
 
 
-<!-- ### Some element that needs a lot of space; Custom height; 500px -->
+
+<!-- # Custom height -->
+
+<!-- : Some element that needs a lot of space; 500px -->
 <h3>This is a test.</h3>
 
 </div>
