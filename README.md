@@ -60,6 +60,7 @@ $("#tdcss").tdcss({
 	fragment_identifier: ":",
 	fragment_info_splitter: ";"
 });
+```
 
 Here's the markup that produces the screenshot below:
 ```html
