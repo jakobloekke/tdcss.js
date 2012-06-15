@@ -53,7 +53,7 @@ You can order your fragments into sections by inserting a section comment:
 <!-- # Section name -->
 ```
 
-You can configure the syntax to fit your own preferences by passing a settings object to $.tdcss():
+You can customize the syntax by passing a settings object to $.tdcss():
 ```javascript
 $("#my-fragments").tdcss({
 	section_identifier: "#",
@@ -66,32 +66,33 @@ Here's the markup that produces the screenshot below:
 ```html
 <div id="my-fragments">
 
-<!-- : Demo element -->
-<div class="some-structure">
-    <p>This is a demo element.</p>
-</div>
+	<!-- : Demo element -->
+	<div class="some-structure">
+	    <p>This is a demo element.</p>
+	</div>
 
-<!-- : Another demo element -->
-<a href="#">This is a demo link.</a>
-
-
-<!-- # Typography -->
-
-<!-- : H1 -->
-<h1>This is a test.</h1>
-
-<!-- : H2 -->
-<h2>This is a test.</h2>
-
-<!-- : H3 -->
-<h3>This is a test.</h3>
+	<!-- : Another demo element -->
+	<a href="#">This is a demo link.</a>
 
 
 
-<!-- # Custom height -->
+	<!-- # Typography -->
 
-<!-- : Some element that needs a lot of space; 500px -->
-<h3>This is a test.</h3>
+	<!-- : H1 -->
+	<h1>This is a test.</h1>
+
+	<!-- : H2 -->
+	<h2>This is a test.</h2>
+
+	<!-- : H3 -->
+	<h3>This is a test.</h3>
+
+
+
+	<!-- # Custom height -->
+
+	<!-- : Some element that needs a lot of space; 500px -->
+	<h3>This is a test.</h3>
 
 </div>
 ```
