@@ -1,5 +1,7 @@
-tdcss.js - Test-driven CSS development (well, sort of anyway ...)
+tdcss.js - Test-driven CSS development
 ================
+(well, sort of anyway ...)
+---
 
 A very small framework for structured/TDD-style HTML/CSS development.
 
