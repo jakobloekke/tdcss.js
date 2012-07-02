@@ -209,9 +209,11 @@
                 that.collapsed = that.collapsed ? false : true;
 
                 if (that.collapsed) {
+                    $(that.header_element).addClass("is-collapsed");
                     $(that.fragments).each(function(){$(this).hide();});
                     that.setCollapsedStateInUrl();
                 } else {
+                    $(that.header_element).removeClass("is-collapsed");
                     $(that.fragments).each(function(){$(this).show();});
                     that.removeCollapsedStateFromUrl();
                 }

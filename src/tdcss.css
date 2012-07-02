@@ -34,31 +34,46 @@
 }
 .tdcss-section .tdcss-h2 {
     color: white;
-    font-size: 1.5em;
+    font-size: 20px;
+    font-family: verdana, sans-serif;
     margin: 0;
     background-color: #add8e6;
-    padding: 0.5em;
+    padding: 10px;
+    text-shadow: 0 -1px rgba(0,0,0,0.1);
+}
+.tdcss-section .tdcss-h2:after {
+    content: "\25BC";
+    float: right;
+    font-size: 65%;
+}
+.tdcss-section.is-collapsed .tdcss-h2:after {
+    content: "\25B2";
+    float: right;
 }
 .tdcss-section:hover .tdcss-h2 {
     background-color: #b1dcea;
 }
 
 .tdcss-fragment {
-    overflow: auto;
+    overflow: hidden;
     position: relative;
     padding: 0 1em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 .tdcss-dom-example,
 .tdcss-code-example {
     float: left;
 }
 .tdcss-dom-example {
+    position: relative;
     padding: 1em;
-    border-right: 1px solid #add8e6;
     width: 60%;
 }
 .tdcss-code-example {
+    position: relative;
+    border-left: 1px solid #add8e6;
+    background-color: white;
+    z-index: 1000;
     width: 40%;
     padding: 1em;
 }
@@ -72,10 +87,11 @@
     display: block;
     width: 100%;
     height: 100%;
-    min-height: 50px;
+    min-height: 100px;
     border: 1px solid #bbb;
     font-size: 0.9em;
     line-height: 1.25em;
     padding: 0.25em;
+    overflow: hidden;
 }
 
