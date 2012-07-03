@@ -33,13 +33,18 @@
     margin-bottom: 1em;
 }
 .tdcss-section .tdcss-h2 {
+    display: block;
     color: white;
     font-size: 20px;
     font-family: verdana, sans-serif;
     margin: 0;
-    background-color: #add8e6;
     padding: 10px;
     text-shadow: 0 -1px rgba(0,0,0,0.1);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #add8e6), color-stop(100%, #96cddf));
+    background: -webkit-linear-gradient(top, #add8e6, #96cddf);
+    background: -moz-linear-gradient(top, #add8e6, #96cddf);
+    background: -o-linear-gradient(top, #add8e6, #96cddf);
+    background: linear-gradient(top, #add8e6, #96cddf);
 }
 .tdcss-section .tdcss-h2:after {
     content: "\25BC";

@@ -160,6 +160,21 @@ describe("TDCSS", function() {
             });
         });
 
+        it("should add a css class to section headers, when collapsed", function(){
+            loadFixtures('multiple-sections.html');
+            $(function(){
+                $("#tdcss").tdcss();
+
+                var section_header = $('.tdcss-elements:first .tdcss-section:first');
+
+                expect(section_header).not.toHaveClass("is-collapsed");
+                section_header.click();
+                expect(section_header).toHaveClass("is-collapsed");
+                section_header.click();
+                expect(section_header).not.toHaveClass("is-collapsed");
+            })
+        });
+
         it("should store information on collapsed sections in url fragment", function() {
             loadFixtures('multiple-sections.html');
             $(function(){
