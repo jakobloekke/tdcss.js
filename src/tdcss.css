@@ -40,6 +40,7 @@
     margin: 0;
     padding: 10px;
     text-shadow: 0 -1px rgba(0,0,0,0.1);
+    background-color: #add8e6;
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #add8e6), color-stop(100%, #96cddf));
     background: -webkit-linear-gradient(top, #add8e6, #96cddf);
     background: -moz-linear-gradient(top, #add8e6, #96cddf);
@@ -87,6 +88,7 @@
     color: white;
     background-color: #add8e6;
     margin-top: 0;
+    margin-bottom: 0.5em;
 }
 .tdcss-code-example .tdcss-textarea {
     display: block;
@@ -94,9 +96,9 @@
     height: 100%;
     min-height: 100px;
     border: 1px solid #bbb;
+    border-radius: 0;
     font-size: 0.9em;
     line-height: 1.25em;
-    padding: 0.25em;
     overflow: hidden;
 }
 

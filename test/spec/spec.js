@@ -1,7 +1,22 @@
 describe("TDCSS", function() {
 
     beforeEach(function() {
-        
+        this.addMatchers({
+
+            toBeWithin: function(expected, range) {
+                var actual = this.actual,
+                    low = actual - range/2,
+                    high = actual + range/2;
+
+                this.message = function () {
+                    return "Expected " + actual + " to be within " + range + " from " + expected;
+                };
+
+
+                return (actual >= low) && (actual <= high);
+            }
+
+        });
     });
 
     afterEach(function() {
@@ -111,8 +126,26 @@ describe("TDCSS", function() {
                 $("#tdcss").tdcss();
                 expect($(".tdcss-elements:first .tdcss-fragment:eq(4)").attr("style")).toContain("500px");
             });
-
         });
+
+        it("should adapt the height of the code-example container to fit the height of the row", function() {
+            loadFixtures('multiple-sections.html');
+            $(function(){
+                $("#tdcss").tdcss();
+
+                var row = $(".tdcss-fragment:first"),
+                    code_example = $(".tdcss-code-example", row),
+                    h3 = $(".tdcss-h3", row),
+                    textarea = $(".tdcss-textarea", row),
+
+                    expected_new_textarea_height = (code_example.height() - h3.outerHeight(true));
+
+
+                expect(textarea.outerHeight(true)).toBeWithin(expected_new_textarea_height, 5);
+
+            });
+        });
+
 
         it("should render fragment rows, even if no sections are specified", function() {
             loadFixtures('simple-no-meta.html');

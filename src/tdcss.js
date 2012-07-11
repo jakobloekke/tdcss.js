@@ -8,7 +8,6 @@
                 fragment_identifier: ":",
                 fragment_info_splitter: ";"
             }, options),
-
             module = {
                 container: null,
                 fragments: []
@@ -25,6 +24,7 @@
             bindSectionCollapseHandlers();
             restoreCollapsedStateFromUrl();
 
+            window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
 
         });
@@ -152,7 +152,19 @@
 
             $row.append($dom_example);
             $row.append($code_example);
+
             $(module.container).next(".tdcss-elements").append($row);
+
+            adjustCodeExampleHeight($row);
+
+        }
+
+        function adjustCodeExampleHeight($row) {
+            var h3 = $(".tdcss-h3", $row),
+                textarea = $(".tdcss-textarea", $row),
+                new_textarea_height = $row.outerHeight(false) - h3.outerHeight(false);
+
+            textarea.height(new_textarea_height);
 
         }
 

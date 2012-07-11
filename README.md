@@ -105,6 +105,11 @@ The point is to help you make your design elements context independent.
 
 ![How it looks](https://github.com/jakobloekke/tdcss.js/raw/master/demo/preview.png)
 
+Requirements
+---
+tdcss.js should work in all recent browsers.
+
+
 Todo
 ---
 Make a better looking demo + screenshot! :)
