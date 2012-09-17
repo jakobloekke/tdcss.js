@@ -45,7 +45,7 @@ Here's the markup that produces the screenshot below:
 
 
 
-	<!-- # typography -->
+	<!-- # Typography -->
 
 	<!-- : H1 -->
 	<h1>This is an H1 header.</h1>
