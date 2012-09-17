@@ -14,6 +14,60 @@ What's the benefit over other styleguide tools?
 - Flat files makes it super-easy to use TDCSS together with Livereload or similar browser refresh tools for an efficient workflow.
 
 
+Demo
+---
+Here's the markup that produces the screenshot below:
+```html
+<div id="tdcss">
+
+
+	<!-- # Box styles -->
+
+	<!-- : Basic box -->
+	<div class="box">
+	    <p>This is a basic box.</p>
+	</div>
+
+	<!-- : Notice box -->
+	<div class="box-notice">
+	    <p>This is a notice box.</p>
+	</div>
+
+	<!-- : Warning box -->
+	<div class="box-warning">
+	    <p>This is a warning box.</p>
+	</div>
+
+	<!-- : Alert box -->
+	<div class="box-alert">
+	    <p>This is an alert box.</p>
+	</div>
+
+
+	<!-- # typography -->
+
+	<!-- : H1 -->
+	<h1>This is an H1 header.</h1>
+	<!-- : H2 -->
+	<h2>This is an H2 header</h2>
+	<!-- : H3 -->
+	<h3>This is an H3 header</h3>
+
+
+
+	<!-- # Custom height -->
+
+	<!-- : Some element that needs a lot of space; 700px -->
+	<h3>This is a test.</h3>
+
+
+
+</div>
+```
+
+![How it looks](https://github.com/jakobloekke/tdcss.js/raw/master/demo/preview.png)
+
+
 How to use
 ---
 
@@ -67,60 +121,6 @@ $("#my-fragments").tdcss({
 });
 ```
 
-Here's the markup that produces the screenshot below:
-```html
-<div id="tdcss">
-
-
-	<!-- # Box styles -->
-
-	<!-- : Basic box -->
-	<div class="box">
-	    <p>This is a basic box.</p>
-	</div>
-
-	<!-- : Notice box -->
-	<div class="box-notice">
-	    <p>This is a notice box.</p>
-	</div>
-
-	<!-- : Warning box -->
-	<div class="box-warning">
-	    <p>This is a warning box.</p>
-	</div>
-
-	<!-- : Alert box -->
-	<div class="box-alert">
-	    <p>This is an alert box.</p>
-	</div>
-
-
-	<!-- # typography -->
-
-	<!-- : H1 -->
-	<h1>This is an H1 header.</h1>
-	<!-- : H2 -->
-	<h2>This is an H2 header</h2>
-	<!-- : H3 -->
-	<h3>This is an H3 header</h3>
-
-
-
-	<!-- # Custom height -->
-
-	<!-- : Some element that needs a lot of space; 700px -->
-	<h3>This is a test.</h3>
-
-
-
-</div>
-```
-
-tdcss.js will interpret the comments and present your design elements in a nice, structured way.
-The point is to help you make your design elements context independent.
-
-
-![How it looks](https://github.com/jakobloekke/tdcss.js/raw/master/demo/preview.png)
 
 Requirements
 ---
