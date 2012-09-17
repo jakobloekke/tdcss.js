@@ -162,10 +162,9 @@
         function adjustCodeExampleHeight($row) {
             var h3 = $(".tdcss-h3", $row),
                 textarea = $(".tdcss-textarea", $row),
-                new_textarea_height = $row.outerHeight(false) - h3.outerHeight(false);
+                new_textarea_height = $row.outerHeight(false) - h3.outerHeight(true)*2;
 
             textarea.height(new_textarea_height);
-
         }
 
         // Factored into separate function in case some special handling is needed in the future

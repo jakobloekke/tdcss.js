@@ -1,29 +1,32 @@
 tdcss.js - Test-driven CSS development
 ================
-(well, sort of anyway ...)
+
+TDCSS is a jQuery plugin that helps you write solid and reusable HTML and CSS.
+
+You can use it just as a styleguide tool, but it's especially well suited to adopt a test-driven approach to styling.
+
+
+
+What's the benefit over other styleguide tools?
 ---
-
-A very small framework for structured/TDD-style HTML/CSS development.
-
-Write solid and reusable code by styling design elements in isolation.
-
-What's the benefit
----
-tdcss.js was inspired by the modular approach of Object-oriented CSS (<http://oocss.org>) and SMACSS (<http://smacss.com>).
-
-It's especially well suited for using these techniques to model up style tiles (<http://styletil.es/>) in frontend code.
+- No server dependencies (no node.js, Ruby, PHP, etc.) - TDCSS is a simple to use jQuery plugin.
+- No markup bloat! TDCSS uses HTML comment tags for structuring.
+- Flat files makes it super-easy to use TDCSS together with Livereload or similar browser refresh tools for an efficient workflow.
 
 
 How to use
 ---
 
-In the header, insert a reference to jQuery and tdcss.js, then apply $.tdcss() on the container holding your fragments:
+Insert a reference to jQuery and the tdcss files, then apply $.tdcss() on the container holding your fragments:
 ```html
+<link rel="stylesheet" href="src/tdcss.css" type="text/css" media="screen">
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="src/tdcss.js"></script>
+
 <script type="text/javascript">
      $(function(){
-         $("#my-fragments").tdcss();
+         $("#tdcss").tdcss();
      })
 </script>
 ```
@@ -66,34 +69,45 @@ $("#my-fragments").tdcss({
 
 Here's the markup that produces the screenshot below:
 ```html
-<div id="my-fragments">
+<div id="tdcss">
 
-	<!-- : Demo element -->
-	<div class="some-structure">
-	    <p>This is a demo element.</p>
+	<!-- # Box styles -->
+
+	<!-- : Basic box -->
+	<div class="box">
+	    <p>This is a basic box.</p>
 	</div>
 
-	<!-- : Another demo element -->
-	<a href="#">This is a demo link.</a>
+	<!-- : Notice box -->
+	<div class="box box-notice">
+	    <p>This is a notice box.</p>
+	</div>
+
+	<!-- : Warning box -->
+	<div class="box box-warning">
+	    <p>This is a warning box.</p>
+	</div>
+
+	<!-- : Alert box -->
+	<div class="box box-alert">
+	    <p>This is an alert box.</p>
+	</div>
 
 
-
-	<!-- # Typography -->
+	<!-- # typography -->
 
 	<!-- : H1 -->
-	<h1>This is a test.</h1>
-
+	<h1>This is an H1 header.</h1>
 	<!-- : H2 -->
-	<h2>This is a test.</h2>
-
+	<h2>This is an H2 header</h2>
 	<!-- : H3 -->
-	<h3>This is a test.</h3>
+	<h3>This is an H3 header</h3>
 
 
 
 	<!-- # Custom height -->
 
-	<!-- : Some element that needs a lot of space; 500px -->
+	<!-- : Some element that needs a lot of space; 700px -->
 	<h3>This is a test.</h3>
 
 </div>
@@ -107,9 +121,4 @@ The point is to help you make your design elements context independent.
 
 Requirements
 ---
-tdcss.js should work in all recent browsers.
-
-
-Todo
----
-Make a better looking demo + screenshot! :)
+tdcss.js works in all modern browsers.
