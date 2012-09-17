@@ -115,7 +115,7 @@ You can order your fragments into sections by inserting a section comment:
 
 You can customize the syntax by passing a settings object to $.tdcss():
 ```javascript
-$("#my-fragments").tdcss({
+$("#tdcss").tdcss({
 	section_identifier: "#",
 	fragment_identifier: ":",
 	fragment_info_splitter: ";"
