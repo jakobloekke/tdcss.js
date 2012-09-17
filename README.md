@@ -71,6 +71,7 @@ Here's the markup that produces the screenshot below:
 ```html
 <div id="tdcss">
 
+
 	<!-- # Box styles -->
 
 	<!-- : Basic box -->
@@ -79,17 +80,17 @@ Here's the markup that produces the screenshot below:
 	</div>
 
 	<!-- : Notice box -->
-	<div class="box box-notice">
+	<div class="box-notice">
 	    <p>This is a notice box.</p>
 	</div>
 
 	<!-- : Warning box -->
-	<div class="box box-warning">
+	<div class="box-warning">
 	    <p>This is a warning box.</p>
 	</div>
 
 	<!-- : Alert box -->
-	<div class="box box-alert">
+	<div class="box-alert">
 	    <p>This is an alert box.</p>
 	</div>
 
@@ -109,6 +110,8 @@ Here's the markup that produces the screenshot below:
 
 	<!-- : Some element that needs a lot of space; 700px -->
 	<h3>This is a test.</h3>
+
+
 
 </div>
 ```
