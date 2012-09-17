@@ -121,8 +121,3 @@ $("#my-fragments").tdcss({
 	fragment_info_splitter: ";"
 });
 ```
-
-
-Requirements
----
-tdcss.js works in all modern browsers.
