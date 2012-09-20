@@ -10,13 +10,17 @@ You can use it just as a styleguide tool, but it's especially well suited to ado
 What's the benefit over other styleguide tools?
 ---
 - **No server dependencies** (no node.js, Ruby, PHP, etc.) - TDCSS is a simple to use jQuery plugin.
-- **No markup bloat!** TDCSS uses HTML comments for structuring.
-- **Snappy workflow.** Flat files makes it super-easy to use TDCSS together with Livereload or similar browser refresh tools for an efficient workflow.
+- **No markup bloat** - TDCSS uses HTML comments for structuring.
+- **Snappy workflow** - Flat files make it super-easy to use TDCSS together with Livereload or similar browser refresh tools for an efficient workflow.
 
 
 Demo
 ---
-Here's the markup that produces the screenshot below:
+
+[Try it out ...](https://dl.dropbox.com/u/2886688/web/tdcss.js/index.html "TDCSS.js demo")
+
+
+Here's the demo markup:
 ```html
 <div id="tdcss">
 
@@ -66,6 +70,7 @@ Here's the markup that produces the screenshot below:
 </div>
 ```
 
+Here's how that looks:
 ![How it looks](https://github.com/jakobloekke/tdcss.js/raw/master/demo/preview.png)
 
 

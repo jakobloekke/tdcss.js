@@ -71,6 +71,9 @@
             );
         }
 
+
+
+        // TODO: Fix DRY violation ---
         function commentIsSection(comment) {
             return !!comment.nodeValue.match(new RegExp(settings.section_identifier));
         }
@@ -78,7 +81,11 @@
         function commentIsFragment(comment) {
             return !!comment.nodeValue.match(new RegExp(settings.fragment_identifier))
         }
+        //---
 
+
+
+        // TODO: Fix DRY violation ---
         function getSectionName(e) {
             var title = getCommentMeta( e )[0].split( settings.section_identifier )[1];
             if (typeof title !== "undefined"){
@@ -105,6 +112,9 @@
                 return false;
             }
         }
+        //---
+
+
 
         function getCommentMeta(e) {
             return e.nodeValue.split(settings.fragment_info_splitter);
@@ -152,11 +162,8 @@
 
             $row.append($dom_example);
             $row.append($code_example);
-
             $(module.container).next(".tdcss-elements").append($row);
-
             adjustCodeExampleHeight($row);
-
         }
 
         function adjustCodeExampleHeight($row) {
@@ -167,7 +174,6 @@
             textarea.height(new_textarea_height);
         }
 
-        // Factored into separate function in case some special handling is needed in the future
         function getFragmentHeightCSSProperty(fragment) {
             if (fragment.height) {
                 return fragment.height;
@@ -191,7 +197,7 @@
                     if (collapsedSections.hasOwnProperty(section)) {
                         if (collapsedSections[section].length) {
                             var matching_section = document.getElementById(collapsedSections[section]);
-                            $(matching_section).click();
+                            $(matching_section).click(); //TODO: Using click() smells a little. Find a better way.
                         }
                     }
                 }
