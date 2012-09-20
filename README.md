@@ -77,13 +77,14 @@ Here's how that looks:
 How to use
 ---
 
-Insert a reference to jQuery and the tdcss files, then apply $.tdcss() on the container holding your fragments:
+Insert a reference to your own CSS, jQuery and the TDCSS files, then apply $.tdcss() on the container holding your fragments:
 ```html
+<!-- Project CSS -->
+<link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
+<!-- TDCSS -->
 <link rel="stylesheet" href="src/tdcss.css" type="text/css" media="screen">
-
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="src/tdcss.js"></script>
-
 <script type="text/javascript">
      $(function(){
          $("#tdcss").tdcss();
@@ -91,18 +92,12 @@ Insert a reference to jQuery and the tdcss files, then apply $.tdcss() on the co
 </script>
 ```
 
-Also, you need to reference the stylesheet(s) that you will be testing:
-```html
-<!-- Project CSS -->
-<link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
-```
-
-Inside a div with the id #tdcss, insert an html comment with the text ":" to denote a fragment:
+Inside your targeted container, insert an html comment with the text ":" to denote a fragment:
 ```html
 <!-- : -->
 ```
 
-The first text after the prefix becomes the title of the fragment:
+The optional first text after the prefix becomes the title of the fragment:
 ```html
 <!-- : Element title -->
 ```
