@@ -83,7 +83,7 @@ Insert a reference to your own CSS, jQuery and the TDCSS files, then apply $.tdc
 <link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
 <!-- TDCSS -->
 <link rel="stylesheet" href="src/tdcss.css" type="text/css" media="screen">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script type="text/javascript" src="src/tdcss.js"></script>
 <script type="text/javascript">
      $(function(){
