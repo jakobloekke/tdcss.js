@@ -7,7 +7,7 @@ You can use it just as a styleguide tool, but it's especially well suited to ado
 
 
 
-What's the benefit over other styleguide tools?
+What's the benefit over regular styleguide tools?
 ---
 - **No server dependencies** (no node.js, Ruby, PHP, etc.) - TDCSS is a simple to use jQuery plugin.
 - **No markup bloat** - TDCSS uses HTML comments for structuring.
