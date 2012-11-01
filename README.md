@@ -118,12 +118,3 @@ You may place description blocks anywhere in your markup:
 ```html
 <!-- & Descriptive text -->
 ```
-
-You can customize the syntax by passing a settings object to $.tdcss():
-```javascript
-$("#tdcss").tdcss({
-	section_identifier: "#",
-	fragment_identifier: ":",
-	fragment_info_splitter: ";"
-});
-```
