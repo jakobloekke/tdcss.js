@@ -26,6 +26,7 @@ Here's the demo markup:
 
 
 	<!-- # Box styles -->
+	<!-- & Box styles is a collection of generic boxes. -->
 
 	<!-- : Basic box -->
 	<div class="box">
@@ -111,6 +112,11 @@ This is useful for position:absolute type layouts that don't by themselfes force
 You can order your fragments into sections by inserting a section comment:
 ```html
 <!-- # Section name -->
+```
+
+You may place description blocks anywhere in your markup:
+```html
+<!-- & Descriptive text -->
 ```
 
 You can customize the syntax by passing a settings object to $.tdcss():

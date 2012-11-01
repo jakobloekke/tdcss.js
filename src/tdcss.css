@@ -30,7 +30,6 @@
     border: none;
     vertical-align: bottom;
     width: 100%;
-    margin-bottom: 1em;
 }
 .tdcss-section .tdcss-h2 {
     display: block;
@@ -57,15 +56,25 @@
     float: right;
 }
 .tdcss-section:hover .tdcss-h2 {
-    background-color: #b1dcea;
+    background-color: #44ea85;
 }
 
 .tdcss-fragment {
     overflow: hidden;
     position: relative;
     padding: 0 1em;
-    margin-bottom: 2em;
+    margin: 1em 0;
 }
+
+.tdcss-description {
+    font-size: 85%;
+    color: #a7a7a7;
+    background-color: #fbfbfb;
+    border: 1px solid #f4f4f4;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
 .tdcss-dom-example,
 .tdcss-code-example {
     float: left;
@@ -85,6 +94,8 @@
 }
 .tdcss-code-example .tdcss-h3 {
     font-weight: bold;
+    font-size: 85%;
+    padding: 0.25em;
     color: white;
     background-color: #add8e6;
     margin-top: 0;
