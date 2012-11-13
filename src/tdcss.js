@@ -26,6 +26,7 @@
             render();
             bindSectionCollapseHandlers();
             restoreCollapsedStateFromUrl();
+            prettify();
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
@@ -134,10 +135,11 @@
         function addNewSnippet(fragment) {
             var title = fragment.snippet_title || '',
                 html = fragment.html,
+                escaped_html = htmlEscape(html),
                 height = getFragmentHeightCSSProperty(fragment),
                 $row = $("<div style='height:" + height + "' class='tdcss-fragment'></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
-                $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><textarea class='tdcss-textarea' readonly>" + html + "</textarea></div>");
+                $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre class='prettyprint linenums'>" + escaped_html + "</pre></div>");
 
             $row.append($dom_example, $code_example);
             $(module.container).next(".tdcss-elements").append($row);
@@ -153,10 +155,18 @@
 
             function adjustCodeExampleHeight($row) {
                 var h3 = $(".tdcss-h3", $row),
-                    textarea = $(".tdcss-textarea", $row),
-                    new_textarea_height = $row.outerHeight(false) - h3.outerHeight(true)*2; //TODO: Eliminate magic number.
+                    textarea = $("pre", $row),
+                    new_textarea_height = $(".tdcss-dom-example", $row).height()
 
                 textarea.height(new_textarea_height);
+            }
+
+            function htmlEscape(html) {
+                return String(html)
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
             }
         }
 
@@ -228,8 +238,59 @@
                 }
             }
         }
+
+        function prettify() {
+
+            try {
+                loadScriptSynchronously("src/vendors/google-code-prettify/prettify.js", "prettyPrint", function(){
+                    prettyPrint();
+                });
+            } catch(err) {
+                console.log(err)
+            }
+
+            function loadScriptSynchronously(url, symbol, callback) {
+                var script, expire;
+
+                // Already there?
+                if (window[symbol]) {
+                    setTimeout(function() {
+                        callback('already loaded');
+                    }, 0);
+                }
+
+                // Determine when to give up
+                expire = new Date().getTime() + 2000; // 2 seconds
+
+                // Load the script
+                script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = url;
+                document.body.appendChild(script);
+
+                // Start looking for the symbol to appear, yielding as
+                // briefly as the browser will let us.
+                setTimeout(lookForSymbol, 0);
+
+                // Our symbol-checking function
+                function lookForSymbol() {
+                    if (window[symbol]) {
+                        // There's the symbol, we're done
+                        callback('success');
+                    }
+                    else if (new Date().getTime() > expire) {
+                        // Timed out, tell the callback
+                        callback('timeout');
+                    }
+                    else {
+                        // Schedule the next check
+                        setTimeout(lookForSymbol, 100);
+                    }
+                }
+            }
+        }
+
     };
 })($);
-
 
 

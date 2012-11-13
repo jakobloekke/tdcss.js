@@ -93,11 +93,11 @@ describe("TDCSS", function() {
                 expect($('.tdcss-elements:first .tdcss-fragment .tdcss-dom-example')[0].innerHTML).toContain("Here's a basic fragment");
             });
 
-            it("should render the fragment HTML in a textarea", function() {
+            it("should render the fragment HTML in a pre block", function() {
                 loadFixtures('simple.html');
                 $("#tdcss").tdcss();
 
-                expect($('.tdcss-elements:first textarea')[0].value).toBe('<div class="basic_fragment">Here\'s a basic fragment</div>');
+                expect($('.tdcss-elements:first pre').html()).toContain('Here\'s a basic fragment');
             });
 
             it("should render the fragment title in an h3 above the textarea", function() {

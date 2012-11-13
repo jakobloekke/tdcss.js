@@ -1,8 +1,20 @@
+@import url(vendors/google-code-prettify/prettify.css);
+
+ol.linenums{
+    margin: 0;
+    padding: 0;
+}
+ol.linenums li {
+    list-style-type: none;
+}
+
+
 .tdcss-fragments,
 .tdcss-elements,
 .tdcss-section,
 .tdcss-section .tdcss-h2,
 .tdcss-fragment,
+.tdcss-description,
 .tdcss-dom-example,
 .tdcss-code-example,
 .tdcss-dom-example,
@@ -11,10 +23,10 @@
 .tdcss-code-example .tdcss-textarea
 {
     -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-         -o-box-sizing: border-box;
-            box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .tdcss-fragments {
@@ -49,7 +61,7 @@
 .tdcss-section .tdcss-h2:after {
     content: "\25BC";
     float: right;
-    font-size: 65%;
+    font-size: 12px;
 }
 .tdcss-section.is-collapsed .tdcss-h2:after {
     content: "\25B2";
@@ -67,10 +79,11 @@
 }
 
 .tdcss-description {
-    font-size: 85%;
-    color: #a7a7a7;
-    background-color: #fbfbfb;
-    border: 1px solid #f4f4f4;
+    font-family: verdana, sans-serif;
+    font-size: 14px;
+    color: #898989;
+    background-color: #f0f0f0;
+    border: 1px solid #e7e7e7;
     padding: 1em 10px;
     margin-bottom: 1em;
 }
@@ -93,23 +106,23 @@
     padding: 1em;
 }
 .tdcss-code-example .tdcss-h3 {
+    font-family: verdana, sans-serif;
     font-weight: bold;
-    font-size: 85%;
+    font-size: 14px;
     padding: 0.25em;
     color: white;
     background-color: #add8e6;
     margin-top: 0;
     margin-bottom: 0.5em;
 }
-.tdcss-code-example .tdcss-textarea {
+.tdcss-code-example pre {
     display: block;
-    width: 100%;
+    width:98%;
     height: 100%;
     min-height: 100px;
-    border: 1px solid #bbb;
+    border: 1px solid #eaeaea;
     border-radius: 0;
     font-size: 0.9em;
     line-height: 1.25em;
-    overflow: hidden;
+    overflow: auto;
 }
-
