@@ -5,7 +5,7 @@ TDCSS is a jQuery plugin that helps you write solid and reusable HTML and CSS.
 
 You can use it just as a styleguide tool, but it's especially well suited to adopt a test-driven approach to styling.
 
-
+![How it looks](https://dl.dropbox.com/u/2886688/web/tdcss.js/demo/preview.png)
 
 What's the benefit over regular styleguide tools?
 ---
@@ -70,9 +70,6 @@ Here's the demo markup:
 
 </div>
 ```
-
-Here's how that looks:
-![How it looks](https://dl.dropbox.com/u/2886688/web/tdcss.js/demo/preview.png)
 
 
 How to use
