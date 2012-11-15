@@ -26,7 +26,7 @@
             render();
             bindSectionCollapseHandlers();
             restoreCollapsedStateFromUrl();
-            prettify();
+            highlightSyntax();
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
@@ -239,7 +239,7 @@
             }
         }
 
-        function prettify() {
+        function highlightSyntax() {
 
             try {
                 loadScriptSynchronously("src/vendors/prism/prism.js", "Prism", function(){
