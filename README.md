@@ -72,7 +72,7 @@ Here's the demo markup:
 ```
 
 Here's how that looks:
-![How it looks](https://github.com/jakobloekke/tdcss.js/raw/master/demo/preview.png)
+![How it looks](https://dl.dropbox.com/u/2886688/web/tdcss.js/demo/preview.png)
 
 
 How to use
