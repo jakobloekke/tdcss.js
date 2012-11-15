@@ -75,10 +75,11 @@ Here's the demo markup:
 How to use
 ---
 
-Insert a reference to your own CSS, jQuery and the TDCSS files, then apply $.tdcss() on the container holding your fragments:
+Put this in the <head>:
 ```html
-<!-- Project CSS -->
+<!-- Project CSS - your styles -->
 <link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
+
 <!-- TDCSS -->
 <link rel="stylesheet" href="src/tdcss.css" type="text/css" media="screen">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
