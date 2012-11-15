@@ -74,7 +74,7 @@ The markup:
 ```
 
 
-How to use
+Usage
 ---
 
 An html comment with prefix ":" means the start of a fragment:
