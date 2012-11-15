@@ -91,28 +91,28 @@ Put this in the <head>:
 </script>
 ```
 
-Inside your targeted container, insert an html comment with the text ":" to denote a fragment:
+An html comment with prefix ":" means the start of a fragment:
 ```html
 <!-- : -->
 ```
 
-The optional first text after the prefix becomes the title of the fragment:
+The (optional) first text after the prefix becomes the title of the fragment:
 ```html
 <!-- : Element title -->
 ```
 
-You can fix the height of the fragment container by appending a CSS height value after a semicolon.
-This is useful for position:absolute type layouts that don't by themselfes force the container to expand:
+Fix the height of the fragment container by appending a CSS height value after a semicolon.
+This is useful for position:absolute type layouts that don't by themselfes expand their container:
 ```html
 <!-- : Element title; 400px -->
 ```
 
-You can order your fragments into sections by inserting a section comment:
+You can make section dividers by inserting a section comment:
 ```html
 <!-- # Section name -->
 ```
 
-You may place description blocks anywhere in your markup:
+You may also place description blocks anywhere in your markup:
 ```html
 <!-- & Descriptive text -->
 ```
