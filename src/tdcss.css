@@ -1,13 +1,4 @@
-@import url(vendors/google-code-prettify/prettify.css);
-
-ol.linenums{
-    margin: 0;
-    padding: 0;
-}
-ol.linenums li {
-    list-style-type: none;
-}
-
+@import url(vendors/prism/prism.css);
 
 .tdcss-fragments,
 .tdcss-elements,
@@ -114,15 +105,4 @@ ol.linenums li {
     background-color: #add8e6;
     margin-top: 0;
     margin-bottom: 0.5em;
-}
-.tdcss-code-example pre {
-    display: block;
-    width:98%;
-    height: 100%;
-    min-height: 100px;
-    border: 1px solid #eaeaea;
-    border-radius: 0;
-    font-size: 0.9em;
-    line-height: 1.25em;
-    overflow: auto;
 }

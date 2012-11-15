@@ -139,7 +139,7 @@
                 height = getFragmentHeightCSSProperty(fragment),
                 $row = $("<div style='height:" + height + "' class='tdcss-fragment'></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
-                $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre class='prettyprint linenums'>" + escaped_html + "</pre></div>");
+                $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
 
             $row.append($dom_example, $code_example);
             $(module.container).next(".tdcss-elements").append($row);
@@ -156,7 +156,7 @@
             function adjustCodeExampleHeight($row) {
                 var h3 = $(".tdcss-h3", $row),
                     textarea = $("pre", $row),
-                    new_textarea_height = $(".tdcss-dom-example", $row).height()
+                    new_textarea_height = $(".tdcss-dom-example", $row).height();
 
                 textarea.height(new_textarea_height);
             }
@@ -242,8 +242,8 @@
         function prettify() {
 
             try {
-                loadScriptSynchronously("src/vendors/google-code-prettify/prettify.js", "prettyPrint", function(){
-                    prettyPrint();
+                loadScriptSynchronously("src/vendors/prism/prism.js", "Prism", function(){
+                    Prism.highlightAll();
                 });
             } catch(err) {
                 console.log(err)
