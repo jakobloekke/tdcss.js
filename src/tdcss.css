@@ -53,10 +53,10 @@
     content: "\25BC";
     float: right;
     font-size: 12px;
+    padding: 6px;
 }
 .tdcss-section.is-collapsed .tdcss-h2:after {
     content: "\25B2";
-    float: right;
 }
 .tdcss-section:hover .tdcss-h2 {
     background-color: #44ea85;
