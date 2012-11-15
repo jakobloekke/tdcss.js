@@ -1,17 +1,17 @@
-tdcss.js - Test-driven CSS development
+tdcss.js - Super simple styleguide tool
 ================
 
-TDCSS is a jQuery plugin that helps you write solid and reusable HTML and CSS.
+TDCSS aims to help you write solid, maintainable and modular CSS.
 
-You can use it just as a styleguide tool, but it's especially well suited to adopt a test-driven approach to styling.
+It's especially well suited to adopt a test-driven approach to CSS styling - but of course you may just as well use it to build a regular online styleguide.
 
-![How it looks](https://dl.dropbox.com/u/2886688/web/tdcss.js/demo/preview.png)
+![tdcss.js in action](https://dl.dropbox.com/u/2886688/web/tdcss.js/demo/preview.png)
 
-What's the benefit over regular styleguide tools?
+What's the benefit over other styleguide tools?
 ---
-- **No server dependencies** (no node.js, Ruby, PHP, etc.) - TDCSS is a simple to use jQuery plugin.
+- **No server tech dependencies** (no need for node.js, Ruby, PHP, etc.) - TDCSS is just a jQuery plugin that works on flat HTML files.
 - **No markup bloat** - TDCSS uses HTML comments for structuring.
-- **Snappy workflow** - Flat files make it super-easy to use TDCSS together with Livereload or similar browser refresh tools for an efficient workflow.
+- **Hassle-free setup** - Flat files make it super-easy to use TDCSS together with Livereload or similar browser refresh tools for an efficient workflow.
 
 
 Demo
