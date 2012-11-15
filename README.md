@@ -64,7 +64,7 @@ How to use
 
 Put this in the <head>:
 ```html
-<!-- Project CSS - your styles -->
+<!-- Your own CSS -->
 <link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
 
 <!-- TDCSS -->
