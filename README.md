@@ -19,8 +19,23 @@ Demo
 
 [See it in action ...](https://dl.dropbox.com/u/2886688/web/tdcss.js/index.html "TDCSS.js demo")
 
+In the head:
+```html
+<!-- Your own CSS -->
+<link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
 
-Here's the demo markup:
+<!-- TDCSS -->
+<link rel="stylesheet" href="src/tdcss.css" type="text/css" media="screen">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script type="text/javascript" src="src/tdcss.js"></script>
+<script type="text/javascript">
+     $(function(){
+         $("#tdcss").tdcss();
+     })
+</script>
+```
+
+The markup:
 ```html
 <div id="tdcss">
 
@@ -61,22 +76,6 @@ Here's the demo markup:
 
 How to use
 ---
-
-Put this in the head:
-```html
-<!-- Your own CSS -->
-<link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
-
-<!-- TDCSS -->
-<link rel="stylesheet" href="src/tdcss.css" type="text/css" media="screen">
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script type="text/javascript" src="src/tdcss.js"></script>
-<script type="text/javascript">
-     $(function(){
-         $("#tdcss").tdcss();
-     })
-</script>
-```
 
 An html comment with prefix ":" means the start of a fragment:
 ```html
