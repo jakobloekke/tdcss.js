@@ -62,7 +62,7 @@ Here's the demo markup:
 How to use
 ---
 
-Put this in the <head>:
+Put this in the head:
 ```html
 <!-- Your own CSS -->
 <link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
