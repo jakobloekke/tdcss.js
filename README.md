@@ -17,7 +17,7 @@ What's the benefit over other styleguide tools?
 Demo
 ---
 
-[Try it out ...](https://dl.dropbox.com/u/2886688/web/tdcss.js/index.html "TDCSS.js demo")
+[See it in action ...](https://dl.dropbox.com/u/2886688/web/tdcss.js/index.html "TDCSS.js demo")
 
 
 Here's the demo markup:
