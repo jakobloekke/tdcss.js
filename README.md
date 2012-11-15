@@ -24,7 +24,6 @@ Here's the demo markup:
 ```html
 <div id="tdcss">
 
-
 	<!-- # Box styles -->
 	<!-- & Box styles is a collection of generic boxes. -->
 
@@ -49,7 +48,6 @@ Here's the demo markup:
 	</div>
 
 
-
 	<!-- # Typography -->
 
 	<!-- : H1 -->
@@ -60,13 +58,10 @@ Here's the demo markup:
 	<h3>This is an H3 header</h3>
 
 
-
 	<!-- # Custom height -->
 
 	<!-- : Some element that needs a lot of space; 700px -->
 	<h3>This is a test.</h3>
-
-
 
 </div>
 ```
