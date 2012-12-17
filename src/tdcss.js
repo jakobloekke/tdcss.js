@@ -9,7 +9,8 @@
                     snippet: {identifier: ":"},
                     description: {identifier: "&"}
                 },
-                fragment_info_splitter: ";"
+                fragment_info_splitter: ";",
+                hideSrcContent: true
             }, options),
             module = {
                 container: null,
@@ -244,11 +245,24 @@
             try {
                 loadScriptSynchronously("src/vendors/prism/prism.js", "Prism", function(){
                     Prism.highlightAll();
+
+                    if (settings.hideSrcContent) {
+                        src_attrs.each(function(){
+                            $(this).text("=\"...\"");
+                        });
+                    }
                 });
             } catch(err) {
                 console.log(err)
             }
 
+            /**
+             * Load script synchronously to circumvent ajax limitations when browsing local files.
+             * Based on T.J. Crowder's answer here: http://stackoverflow.com/questions/4539740/jquery-how-do-you-synchronously-load-a-script-from-another-directory-via-an-aja
+             * @param url
+             * @param symbol
+             * @param callback
+             */
             function loadScriptSynchronously(url, symbol, callback) {
                 var script, expire;
 
