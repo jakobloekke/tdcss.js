@@ -11,7 +11,7 @@
                 },
                 fragment_info_splitter: ";",
                 replacementContent: "...",
-                hideTextContent: true,
+                hideTextContent: false,
                 hideTheseAttributesContent: [
                     'src',
                     'href'
