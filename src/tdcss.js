@@ -59,6 +59,8 @@
             comments.each(function(){
                 module.fragments.push( new Fragment(this) );
             });
+
+            $(module.container).empty(); // Now we can empty the container to avoid having duplicate DOM nodes in the background
         }
 
         function Fragment(raw_comment_node) {
