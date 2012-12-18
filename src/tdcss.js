@@ -166,7 +166,11 @@
                     textarea = $("pre", $row),
                     new_textarea_height = $(".tdcss-dom-example", $row).height();
 
-                textarea.height(new_textarea_height);
+                if (fragment.custom_height === "") {
+                    textarea.height(new_textarea_height);
+                } else {
+                    textarea.height(fragment.custom_height);
+                }
             }
 
             function htmlEscape(html) {
