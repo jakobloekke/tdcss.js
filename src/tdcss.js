@@ -10,7 +10,12 @@
                     description: {identifier: "&"}
                 },
                 fragment_info_splitter: ";",
-                hideSrcContent: true
+                replacementContent: "...",
+                hideTextContent: true,
+                hideTheseAttributesContent: [
+                    'src',
+                    'href'
+                ]
             }, options),
             module = {
                 container: null,
@@ -242,15 +247,58 @@
 
         function highlightSyntax() {
 
-            try {
-                loadScriptSynchronously("src/vendors/prism/prism.js", "Prism", function(){
-                    Prism.highlightAll();
+            /**
+             * http://stackoverflow.com/questions/13792910/is-there-an-alternative-to-jquery-sizzle-that-supports-textnodes-as-first-clas?lq=1
+             */
+            jQuery.fn.getTextNodes = function(val,_case) {
+                var nodes = [],
+                    noVal = typeof val === "undefined",
+                    regExp = !noVal && jQuery.type(val) === "regexp",
+                    nodeType, nodeValue;
+                if (!noVal && _case && !regExp) val = val.toLowerCase();
+                this.each(function() {
 
-                    if (settings.hideSrcContent) {
-                        src_attrs.each(function(){
-                            $(this).text("=\"...\"");
+                    if ((nodeType = this.nodeType) !== 3 && nodeType !== 8) {
+                        jQuery.each(this.childNodes, function() {
+                            if (this.nodeType === 3) {
+                                nodeValue = _case ? this.nodeValue.toLowerCase() : this.nodeValue;
+                                if (noVal || (regExp ? val.test(nodeValue) : nodeValue === val)) nodes.push(this);
+                            }
                         });
                     }
+                });
+                return this.pushStack(nodes, "getTextNodes", val || "");
+            };
+
+            try {
+                loadScriptSynchronously("src/vendors/prism/prism.js", "Prism", function(){
+
+                    Prism.highlightAll(false, function() {
+                        var that = this;
+
+                        if (settings.hideTextContent) {
+                            replaceNodes($(this));
+                        }
+
+                        $(settings.hideTheseAttributesContent).each(function(){
+                            replaceNodes($(".token.attr-name:contains('"+this+"')", that).next(".attr-value"));
+                        })
+                    });
+
+                    function replaceNodes(selector, threshold, replaceWithText) {
+                        threshold = (typeof threshold === "undefined") ? 0 : threshold;
+                        replaceWithText = (typeof replaceWithText === "undefined") ? settings.replacementContent : replaceWithText;
+
+                        selector.getTextNodes().each(function(){
+                            var text = $.trim($(this).text());
+
+                            if (text.length > threshold) {
+                                $(this).replaceWith(replaceWithText);
+                            }
+                        })
+
+                    }
+
                 });
             } catch(err) {
                 console.log(err)
