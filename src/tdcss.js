@@ -1,3 +1,10 @@
+/**
+ * tdcss.js: Super-simple styleguide tool
+ * MIT License http://www.opensource.org/licenses/mit-license.php/
+ * @author Jakob Løkke Madsen
+ * @url http://www.jakobloekkemadsen.com
+ */
+
 (function($){
     "use strict";
 
