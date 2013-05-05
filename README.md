@@ -5,7 +5,7 @@ TDCSS aims to help you write solid, maintainable and modular CSS.
 
 It's especially well suited to adopt a test-driven approach to CSS styling - but of course you may just as well use it to build a regular online styleguide.
 
-![tdcss.js in action](https://dl.dropbox.com/u/2886688/web/tdcss.js/demo/preview.png)
+![tdcss.js in action](https://dl.dropbox.com/u/2886688/web/projekter/tdcss.js/demo/preview.png)
 
 What's the benefit over other styleguide tools?
 ---
@@ -17,7 +17,7 @@ Demo
 ---
 [Introduction presentation from Frontendersdk meetup ...](http://prezi.com/piifihs2ohet/test-driven-css/ "A prezi")
 
-[See it in action ...](https://dl.dropbox.com/u/2886688/web/tdcss.js/index.html "TDCSS.js demo")
+[See it in action ...](https://dl.dropbox.com/u/2886688/web/projekter/tdcss.js/index.html "TDCSS.js demo")
 
 In the head:
 ```html
