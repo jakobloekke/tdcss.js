@@ -5,10 +5,10 @@
  * @url http://www.jakobloekkemadsen.com
  */
 
-(function($){
+(function ($) {
     "use strict";
 
-    $.fn.tdcss = function( options ) {
+    $.fn.tdcss = function (options) {
 
         var settings = $.extend({
                 fragment_types: {
@@ -29,7 +29,7 @@
                 fragments: []
             };
 
-        return this.each(function(i){
+        return this.each(function (i) {
 
             module.container = this;
 
@@ -58,13 +58,13 @@
 
         function parse() {
             var comments = $(module.container).contents().filter(
-                function() {
+                function () {
                     return this.nodeType === 8;
                 }
             );
 
-            comments.each(function(){
-                module.fragments.push( new Fragment(this) );
+            comments.each(function () {
+                module.fragments.push(new Fragment(this));
             });
 
             $(module.container).empty(); // Now we can empty the container to avoid having duplicate DOM nodes in the background
@@ -77,19 +77,19 @@
             that.type = getFragmentType();
 
             if (that.type === "section") {
-                that.section_name = $.trim( getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.section.identifier)[1] );
+                that.section_name = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types.section.identifier)[1]);
             }
 
             if (that.type === "description") {
-                that.description_text = $.trim( getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.description.identifier)[1] );
+                that.description_text = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types.description.identifier)[1]);
             }
 
             if (that.type === "snippet") {
-                that.snippet_title = $.trim( getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.snippet.identifier)[1] );
-                that.custom_height = $.trim( getCommentMeta(that.raw_comment_node)[1] );
+                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types.snippet.identifier)[1]);
+                that.custom_height = $.trim(getCommentMeta(that.raw_comment_node)[1]);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
@@ -100,7 +100,7 @@
                 for (var fragment_type in settings.fragment_types) {
                     if (settings.fragment_types.hasOwnProperty(fragment_type)) {
                         var identifier = settings.fragment_types[fragment_type].identifier;
-                        if ( that.raw_comment_node.nodeValue.match( new RegExp(identifier) ) ) {
+                        if (that.raw_comment_node.nodeValue.match(new RegExp(identifier))) {
                             found_type = fragment_type;
                         }
                     }
@@ -195,16 +195,16 @@
         }
 
         function bindSectionCollapseHandlers() {
-            $.fn.makeCollapsible = function() {
+            $.fn.makeCollapsible = function () {
                 var that = this;
-                return that.each(function(){
+                return that.each(function () {
                     var that = this;
                     that.header_element = $(that);
                     that.state_string = $(that).attr("id") + ";";
                     that.collapsed = false;
                     that.fragments_in_section = that.header_element.nextUntil(".tdcss-section");
 
-                    that.toggle = function() {
+                    that.toggle = function () {
                         that.collapsed = that.collapsed ? false : true;
 
                         if (that.collapsed) {
@@ -218,20 +218,19 @@
                         }
                     };
 
-                    that.setCollapsedStateInUrl = function() {
+                    that.setCollapsedStateInUrl = function () {
                         var current_hash = window.location.hash;
                         if (current_hash.indexOf(that.state_string) === -1) {
                             window.location.hash = current_hash + that.state_string;
                         }
                     };
 
-                    that.removeCollapsedStateFromUrl = function() {
+                    that.removeCollapsedStateFromUrl = function () {
                         window.location.hash = window.location.hash.replace(that.state_string, "");
                     };
 
 
-
-                    $(that.header_element).on("click", function(){
+                    $(that.header_element).on("click", function () {
                         that.toggle();
                     });
 
@@ -263,16 +262,16 @@
             /**
              * http://stackoverflow.com/questions/13792910/is-there-an-alternative-to-jquery-sizzle-that-supports-textnodes-as-first-clas?lq=1
              */
-            jQuery.fn.getTextNodes = function(val,_case) {
+            jQuery.fn.getTextNodes = function (val, _case) {
                 var nodes = [],
                     noVal = typeof val === "undefined",
                     regExp = !noVal && jQuery.type(val) === "regexp",
                     nodeType, nodeValue;
                 if (!noVal && _case && !regExp) val = val.toLowerCase();
-                this.each(function() {
+                this.each(function () {
 
                     if ((nodeType = this.nodeType) !== 3 && nodeType !== 8) {
-                        jQuery.each(this.childNodes, function() {
+                        jQuery.each(this.childNodes, function () {
                             if (this.nodeType === 3) {
                                 nodeValue = _case ? this.nodeValue.toLowerCase() : this.nodeValue;
                                 if (noVal || (regExp ? val.test(nodeValue) : nodeValue === val)) nodes.push(this);
@@ -284,17 +283,17 @@
             };
 
             try {
-                loadScriptSynchronously("src/vendors/prism/prism.js", "Prism", function(){
+                loadScriptSynchronously("src/vendors/prism/prism.js", "Prism", function () {
 
-                    Prism.highlightAll(false, function() {
+                    Prism.highlightAll(false, function () {
                         var that = this;
 
                         if (settings.hideTextContent) {
                             replaceNodes($(this));
                         }
 
-                        $(settings.hideTheseAttributesContent).each(function(){
-                            replaceNodes($(".token.attr-name:contains('"+this+"')", that).next(".attr-value"));
+                        $(settings.hideTheseAttributesContent).each(function () {
+                            replaceNodes($(".token.attr-name:contains('" + this + "')", that).next(".attr-value"));
                         })
                     });
 
@@ -302,7 +301,7 @@
                         threshold = (typeof threshold === "undefined") ? 0 : threshold;
                         replaceWithText = (typeof replaceWithText === "undefined") ? settings.replacementContent : replaceWithText;
 
-                        selector.getTextNodes().each(function(){
+                        selector.getTextNodes().each(function () {
                             var text = $.trim($(this).text());
 
                             if (text.length > threshold) {
@@ -313,7 +312,7 @@
                     }
 
                 });
-            } catch(err) {
+            } catch (err) {
                 console.log(err)
             }
 
@@ -329,7 +328,7 @@
 
                 // Already there?
                 if (window[symbol]) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         callback('already loaded');
                     }, 0);
                 }
