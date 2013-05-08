@@ -1,6 +1,0 @@
-[submodule "src/vendors/resemble"]
-	path = src/vendors/resemble
-	url = https://github.com/Huddle/Resemble.js.git
-[submodule "src/vendors/html2canvas"]
-	path = src/vendors/html2canvas
-	url = https://github.com/niklasvh/html2canvas
