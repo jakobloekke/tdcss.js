@@ -342,13 +342,23 @@
                                     }
 
                                     resemble(current_image_data).compareTo(stored_image_data).onComplete(function(data){
-                                        //console.log(data);
                                         if (data.misMatchPercentage > 0) {
                                             var diff_image = $("<img />").addClass("tdcss-diff-image").attr("src", data.getImageDataUrl()),
-                                                diff_stats = $("<div />").addClass("tdcss-diff-stats").text(data.misMatchPercentage + "% mismatch");
+                                                diff_stats = $("<div />").addClass("tdcss-diff-stats").text(data.misMatchPercentage + "% mismatch"),
+                                                diff_warning = $("<div />").addClass("tdcss-diff-warning").text("Mismatch detected!"),
+                                                diff_clear_btn = $("<a />").attr("href", "#").text("Clear").click(function(){
+                                                    localStorage.clear();
+                                                    location.reload();
+                                                    return false;
+                                                });
+
                                             row.prepend(diff_image);
                                             row.addClass("tdcss-has-diff");
-                                            row.append(diff_stats)
+                                            row.append(diff_stats);
+
+                                            diff_warning.append(diff_clear_btn);
+
+                                            $(".tdcss-elements").prepend(diff_warning);
                                         }
                                     });
 

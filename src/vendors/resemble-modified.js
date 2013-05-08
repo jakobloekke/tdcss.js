@@ -83,7 +83,9 @@
             /*fileReader.onload = function (event) {
              hiddenImage.src = event.target.result;
              };*/
-            hiddenImage.src = fileData;
+            if (typeof fileData !== "undefined") {
+                hiddenImage.src = fileData;
+            }
 
             hiddenImage.onload = function() {
 
