@@ -26,7 +26,8 @@
             }, options),
             module = {
                 container: null,
-                fragments: []
+                fragments: [],
+                snippet_count: 0
             };
 
         return this.each(function (i) {
@@ -40,6 +41,8 @@
             bindSectionCollapseHandlers();
             restoreCollapsedStateFromUrl();
             highlightSyntax();
+
+            compare();
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
@@ -134,6 +137,7 @@
                 }
 
                 if (fragment.type === "snippet") {
+                    module.snippet_count++;
                     addNewSnippet(fragment);
                 }
 
@@ -152,7 +156,7 @@
                 html = fragment.html,
                 escaped_html = htmlEscape(html),
                 height = getFragmentHeightCSSProperty(fragment),
-                $row = $("<div style='height:" + height + "' class='tdcss-fragment'></div>"),
+                $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
                 $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
 
@@ -258,7 +262,6 @@
         }
 
         function highlightSyntax() {
-
             /**
              * http://stackoverflow.com/questions/13792910/is-there-an-alternative-to-jquery-sizzle-that-supports-textnodes-as-first-clas?lq=1
              */
@@ -308,58 +311,100 @@
                                 $(this).replaceWith(replaceWithText);
                             }
                         })
-
                     }
-
                 });
             } catch (err) {
-                console.log(err)
+                console.log(err);
+            }
+        }
+
+        function compare() {
+            try {
+                loadScriptSynchronously("src/vendors/html2canvas.js", "html2canvas", function () {
+                    loadScriptSynchronously("src/vendors/resemble-modified.js", "resemble", function () {
+                        $(".tdcss-dom-example").each(function(){
+
+                            var fragment = this,
+                                row = $(this).parent(".tdcss-fragment"),
+                                id = row.attr("id"),
+                                current_image_data,
+                                stored_image_data;
+
+
+                            html2canvas([fragment], {
+                                onrendered: function(canvas) {
+                                    current_image_data = canvas.toDataURL('png');
+
+                                    if (!localStorage.getItem(id)) {
+                                        localStorage.setItem(id, current_image_data);
+                                    } else {
+                                        stored_image_data = localStorage.getItem(id);
+                                    }
+
+                                    resemble(current_image_data).compareTo(stored_image_data).onComplete(function(data){
+                                        //console.log(data);
+                                        if (data.misMatchPercentage > 0) {
+                                            var diff_image = $("<img />").addClass("tdcss-diff-image").attr("src", data.getImageDataUrl()),
+                                                diff_stats = $("<div />").addClass("tdcss-diff-stats").text(data.misMatchPercentage + "% mismatch");
+                                            row.prepend(diff_image);
+                                            row.addClass("tdcss-has-diff");
+                                            row.append(diff_stats)
+                                        }
+                                    });
+
+                                }
+                            });
+                        })
+                    });
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        /**
+         * Load script synchronously to circumvent ajax limitations when browsing local files.
+         * Based on T.J. Crowder's answer here: http://stackoverflow.com/questions/4539740/jquery-how-do-you-synchronously-load-a-script-from-another-directory-via-an-aja
+         * @param url
+         * @param symbol
+         * @param callback
+         */
+        function loadScriptSynchronously(url, symbol, callback) {
+            var script, expire;
+
+            // Already there?
+            if (window[symbol]) {
+                setTimeout(function () {
+                    callback('already loaded');
+                }, 0);
             }
 
-            /**
-             * Load script synchronously to circumvent ajax limitations when browsing local files.
-             * Based on T.J. Crowder's answer here: http://stackoverflow.com/questions/4539740/jquery-how-do-you-synchronously-load-a-script-from-another-directory-via-an-aja
-             * @param url
-             * @param symbol
-             * @param callback
-             */
-            function loadScriptSynchronously(url, symbol, callback) {
-                var script, expire;
+            // Determine when to give up
+            expire = new Date().getTime() + 2000; // 2 seconds
 
-                // Already there?
+            // Load the script
+            script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            document.body.appendChild(script);
+
+            // Start looking for the symbol to appear, yielding as
+            // briefly as the browser will let us.
+            setTimeout(lookForSymbol, 0);
+
+            // Our symbol-checking function
+            function lookForSymbol() {
                 if (window[symbol]) {
-                    setTimeout(function () {
-                        callback('already loaded');
-                    }, 0);
+                    // There's the symbol, we're done
+                    callback('success');
                 }
-
-                // Determine when to give up
-                expire = new Date().getTime() + 2000; // 2 seconds
-
-                // Load the script
-                script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = url;
-                document.body.appendChild(script);
-
-                // Start looking for the symbol to appear, yielding as
-                // briefly as the browser will let us.
-                setTimeout(lookForSymbol, 0);
-
-                // Our symbol-checking function
-                function lookForSymbol() {
-                    if (window[symbol]) {
-                        // There's the symbol, we're done
-                        callback('success');
-                    }
-                    else if (new Date().getTime() > expire) {
-                        // Timed out, tell the callback
-                        callback('timeout');
-                    }
-                    else {
-                        // Schedule the next check
-                        setTimeout(lookForSymbol, 100);
-                    }
+                else if (new Date().getTime() > expire) {
+                    // Timed out, tell the callback
+                    callback('timeout');
+                }
+                else {
+                    // Schedule the next check
+                    setTimeout(lookForSymbol, 100);
                 }
             }
         }

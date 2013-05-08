@@ -76,6 +76,28 @@
     margin: 1em 0;
 }
 
+.tdcss-fragment .tdcss-diff-stats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    padding: 3px;
+    z-index: 100;
+}
+
+.tdcss-fragment.tdcss-has-diff {
+    outline: 1px dotted red;
+}
+
+.tdcss-diff-image {
+    position: absolute;
+    top: 0;
+    left: 1em;
+    opacity: 0.5;
+}
+
 .tdcss-description {
     font-family: verdana, sans-serif;
     font-size: 14px;
