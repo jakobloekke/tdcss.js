@@ -1,6 +1,5 @@
 body {
-  font-family: helvetica, arial, sans-serif;
-}
+  font-family: helvetica, arial, sans-serif; }
 
 .box {
   padding: 0.25em 1em;
@@ -8,8 +7,7 @@ body {
   background-color: #dddddd;
   border: 1px solid #c3c3c3;
   border-radius: 3px;
-  box-shadow: 0 3px 10px -5px black, inset 0 -2em 2em rgba(119, 119, 119, 0.1);
-}
+  box-shadow: 0 3px 10px -5px black, inset 0 -2em 2em rgba(119, 119, 119, 0.1); }
 
 .box-notice {
   padding: 0.25em 1em;
@@ -17,8 +15,7 @@ body {
   background-color: #4dff4d;
   border: 1px solid #1aff1a;
   border-radius: 3px;
-  box-shadow: 0 3px 10px -5px black, inset 0 -2em 2em rgba(0, 128, 0, 0.1);
-}
+  box-shadow: 0 3px 10px -5px black, inset 0 -2em 2em rgba(0, 128, 0, 0.1); }
 
 .box-warning {
   padding: 0.25em 1em;
@@ -26,8 +23,7 @@ body {
   background-color: #ffffcc;
   border: 1px solid #ffff99;
   border-radius: 3px;
-  box-shadow: 0 3px 10px -5px black, inset 0 -2em 2em rgba(255, 255, 0, 0.1);
-}
+  box-shadow: 0 3px 10px -5px black, inset 0 -2em 2em rgba(255, 255, 0, 0.1); }
 
 .box-alert {
   padding: 0.25em 1em;
@@ -35,5 +31,4 @@ body {
   background-color: #ffcccc;
   border: 1px solid #ff9999;
   border-radius: 3px;
-  box-shadow: 0 3px 10px -5px black, inset 0 -2em 2em rgba(255, 0, 0, 0.1);
-}
+  box-shadow: 0 3px 10px -5px black, inset 0 -2em 2em rgba(255, 0, 0, 0.1); }
