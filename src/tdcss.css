@@ -76,6 +76,45 @@
     margin: 1em 0;
 }
 
+.tdcss-diff-warning,
+.tdcss-fragment .tdcss-diff-stats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    padding: 3px;
+    z-index: 100;
+}
+
+.tdcss-diff-warning {
+    position: fixed;
+    font-size: 12px;
+    z-index: 200;
+}
+
+.tdcss-diff-warning > a {
+    color: white;
+    padding-left: 0.25em;
+}
+
+.tdcss-diff-warning > a:hover {
+    text-decoration: none;
+}
+
+.tdcss-fragment.tdcss-has-diff {
+    outline: 1px dotted red;
+}
+
+.tdcss-diff-image {
+    position: absolute;
+    top: 0;
+    left: 1em;
+    opacity: 0.5;
+    z-index: 100;
+}
+
 .tdcss-description {
     font-family: verdana, sans-serif;
     font-size: 14px;
