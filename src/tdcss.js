@@ -11,6 +11,7 @@
     $.fn.tdcss = function (options) {
 
         var settings = $.extend({
+                diff: false,
                 fragment_types: {
                     section: {identifier: "#"},
                     snippet: {identifier: ":"},
@@ -42,7 +43,9 @@
             restoreCollapsedStateFromUrl();
             highlightSyntax();
 
-            compare();
+            if (settings.diff) {
+                diff();
+            }
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
@@ -318,7 +321,7 @@
             }
         }
 
-        function compare() {
+        function diff() {
             try {
                 loadScriptSynchronously("src/vendors/html2canvas.js", "html2canvas", function () {
                     loadScriptSynchronously("src/vendors/resemble-modified.js", "resemble", function () {
