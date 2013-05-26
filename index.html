@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Tdcss.js by jakobloekke</title>
@@ -11,70 +11,116 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-3365089-7']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+<body>
+<div class="wrapper">
+    <header>
         <h1>Tdcss.js</h1>
+
         <p>A light-weight framework for structured HTML/CSS development</p>
 
-        <p class="view"><a href="https://github.com/jakobloekke/tdcss.js">View the Project on GitHub <small>jakobloekke/tdcss.js</small></a></p>
+        <p class="view"><a href="https://github.com/jakobloekke/tdcss.js">View the Project on GitHub
+            <small>jakobloekke/tdcss.js</small>
+        </a></p>
 
 
         <ul>
-          <li><a href="https://github.com/jakobloekke/tdcss.js/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jakobloekke/tdcss.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jakobloekke/tdcss.js">View On <strong>GitHub</strong></a></li>
+            <li><a href="https://github.com/jakobloekke/tdcss.js/zipball/master">Download <strong>ZIP File</strong></a>
+            </li>
+            <li><a href="https://github.com/jakobloekke/tdcss.js/tarball/master">Download <strong>TAR Ball</strong></a>
+            </li>
+            <li><a href="https://github.com/jakobloekke/tdcss.js">View On <strong>GitHub</strong></a></li>
         </ul>
-      </header>
-      <section>
+    </header>
+    <section>
         <h1>Super simple styleguide tool</h1>
 
-<p>TDCSS helps you write solid, maintainable and modular CSS.</p>
+        <p>TDCSS helps you write solid, maintainable and modular CSS.</p>
 
-<p>It's especially well suited to adopt a test-driven approach to CSS styling - but of course you may just as well use it to build a regular online styleguide.</p>
+        <p>It's especially well suited to adopt a test-driven approach to CSS styling - but of course you may just as
+            well use it to build a regular online styleguide.</p>
 
-<p><img src="demo/preview.png" alt="tdcss.js in action"></p>
+        <p><img src="demo/preview.png" alt="tdcss.js in action"></p>
 
-<h2>What's the benefit over other styleguide tools?</h2>
+        <h2>What's the benefit over other styleguide tools?</h2>
 
-<ul>
-<li>
-<strong>No server tech dependencies</strong> (no need for node.js, Ruby, PHP, etc.) - TDCSS is just a jQuery plugin that works on flat HTML files.</li>
-<li>
-<strong>No markup bloat</strong> - TDCSS uses HTML comments for structuring.</li>
-<li>
-<strong>Hassle-free setup</strong> - Flat files make it super-easy to use TDCSS together with Livereload or similar browser refresh tools for an efficient workflow.</li>
-</ul><h2>What's "test-driven CSS"?</h2>
+        <ul>
+            <li>
+                <strong>No server tech dependencies</strong> (no need for node.js, Ruby, PHP, etc.) - TDCSS is just a
+                jQuery plugin that works on flat HTML files.
+            </li>
+            <li>
+                <strong>No markup bloat</strong> - TDCSS uses HTML comments for structuring.
+            </li>
+            <li>
+                <strong>Hassle-free setup</strong> - Flat files make it super-easy to use TDCSS together with Livereload
+                or similar browser refresh tools for an efficient workflow.
+            </li>
+        </ul>
+        <h2>What's "test-driven CSS"?</h2>
 
-<p><iframe src="http://prezi.com/embed/piifihs2ohet/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;features=undefined&amp;disabled_features=undefined" width="550" height="400" frameBorder="0"></iframe></p>
+        <p>
+            <iframe src="http://prezi.com/embed/piifihs2ohet/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;features=undefined&amp;disabled_features=undefined"
+                    width="550" height="400" frameBorder="0"></iframe>
+        </p>
 
-<p><a href="demo/index.html" title="TDCSS.js demo">See it in action ...</a></p>
+        <p><a href="demo/index.html" title="TDCSS.js demo">See it in action ...</a></p>
 
-<p>In the head:</p>
+        <p>In the head:</p>
 
-<div class="highlight"><pre><span class="c">&lt;!-- Your own CSS --&gt;</span>
-<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"demo/style.css"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">media=</span><span class="s">"screen"</span><span class="nt">&gt;</span>
+        <div class="highlight"><pre><span class="c">&lt;!-- Your own CSS --&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span
+                    class="na">href=</span><span class="s">"demo/style.css"</span> <span class="na">type=</span><span
+                    class="s">"text/css"</span> <span class="na">media=</span><span class="s">"screen"</span><span
+                    class="nt">&gt;</span>
 
 <span class="c">&lt;!-- TDCSS --&gt;</span>
-<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"src/tdcss.css"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">media=</span><span class="s">"screen"</span><span class="nt">&gt;</span>
-<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"src/tdcss.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span
+                    class="na">href=</span><span class="s">"src/tdcss.css"</span> <span class="na">type=</span><span
+                    class="s">"text/css"</span> <span class="na">media=</span><span class="s">"screen"</span><span
+                    class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span
+                    class="na">src=</span><span class="s">"https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"</span><span
+                    class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span
+                    class="na">src=</span><span class="s">"src/tdcss.js"</span><span
+                    class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span
+                    class="nt">&gt;</span>
      <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-         <span class="nx">$</span><span class="p">(</span><span class="s2">"#tdcss"</span><span class="p">).</span><span class="nx">tdcss</span><span class="p">();</span>
+         <span class="nx">$</span><span class="p">(</span><span class="s2">"#tdcss"</span><span class="p">).</span><span
+                    class="nx">tdcss</span><span class="p">();</span>
      <span class="p">})</span>
 <span class="nt">&lt;/script&gt;</span>
-</pre></div>
+</pre>
+        </div>
 
-<p>The markup:</p>
+        <p>The markup:</p>
 
-<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"tdcss"</span><span class="nt">&gt;</span>
+        <div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span
+                class="s">"tdcss"</span><span class="nt">&gt;</span>
 
     <span class="c">&lt;!-- # Box styles --&gt;</span>
     <span class="c">&lt;!-- &amp; Box styles is a collection of generic boxes. --&gt;</span>
     <span class="c">&lt;!-- : Basic box --&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box"</span><span
+                    class="nt">&gt;</span>
         <span class="nt">&lt;p&gt;</span>This is a basic box.<span class="nt">&lt;/p&gt;</span>
     <span class="nt">&lt;/div&gt;</span>
     <span class="c">&lt;!-- : Notice box --&gt;</span>
@@ -103,42 +149,52 @@
     <span class="nt">&lt;h3&gt;</span>This is a test.<span class="nt">&lt;/h3&gt;</span>
 
 <span class="nt">&lt;/div&gt;</span>
-</pre></div>
+</pre>
+        </div>
 
-<h2>Usage</h2>
+        <h2>Usage</h2>
 
-<p>An html comment with prefix ":" means the start of a fragment:</p>
+        <p>An html comment with prefix ":" means the start of a fragment:</p>
 
-<div class="highlight"><pre><span class="c">&lt;!-- : --&gt;</span>
-</pre></div>
+        <div class="highlight"><pre><span class="c">&lt;!-- : --&gt;</span>
+</pre>
+        </div>
 
-<p>The (optional) first text after the prefix becomes the title of the fragment:</p>
+        <p>The (optional) first text after the prefix becomes the title of the fragment:</p>
 
-<div class="highlight"><pre><span class="c">&lt;!-- : Element title --&gt;</span>
-</pre></div>
+        <div class="highlight"><pre><span class="c">&lt;!-- : Element title --&gt;</span>
+</pre>
+        </div>
 
-<p>Fix the height of the fragment container by appending a CSS height value after a semicolon.
-This is useful for position:absolute type layouts that don't by themselfes expand their container:</p>
+        <p>Fix the height of the fragment container by appending a CSS height value after a semicolon.
+            This is useful for position:absolute type layouts that don't by themselfes expand their container:</p>
 
-<div class="highlight"><pre><span class="c">&lt;!-- : Element title; 400px --&gt;</span>
-</pre></div>
+        <div class="highlight"><pre><span class="c">&lt;!-- : Element title; 400px --&gt;</span>
+</pre>
+        </div>
 
-<p>You can make section dividers by inserting a section comment:</p>
+        <p>You can make section dividers by inserting a section comment:</p>
 
-<div class="highlight"><pre><span class="c">&lt;!-- # Section name --&gt;</span>
-</pre></div>
+        <div class="highlight"><pre><span class="c">&lt;!-- # Section name --&gt;</span>
+</pre>
+        </div>
 
-<p>You may also place description blocks anywhere in your markup:</p>
+        <p>You may also place description blocks anywhere in your markup:</p>
 
-<div class="highlight"><pre><span class="c">&lt;!-- &amp; Descriptive text --&gt;</span>
-</pre></div>
-      </section>
-      <footer>
+        <div class="highlight"><pre><span class="c">&lt;!-- &amp; Descriptive text --&gt;</span>
+</pre>
+        </div>
+    </section>
+    <footer>
         <p>This project is maintained by <a href="https://github.com/jakobloekke">jakobloekke</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
 
-  </body>
+        <p>
+            <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a>
+            </small>
+        </p>
+    </footer>
+</div>
+<script src="javascripts/scale.fix.js"></script>
+
+</body>
 </html>
