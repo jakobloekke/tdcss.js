@@ -289,85 +289,81 @@
             };
 
             try {
-                loadScriptSynchronously("src/vendors/prism/prism.js", "Prism", function () {
 
-                    Prism.highlightAll(false, function () {
-                        var that = this;
+                window.Prism.highlightAll(false, function () {
+                    var that = this;
 
-                        if (settings.hideTextContent) {
-                            replaceNodes($(this));
-                        }
-
-                        $(settings.hideTheseAttributesContent).each(function () {
-                            replaceNodes($(".token.attr-name:contains('" + this + "')", that).next(".attr-value"));
-                        })
-                    });
-
-                    function replaceNodes(selector, threshold, replaceWithText) {
-                        threshold = (typeof threshold === "undefined") ? 0 : threshold;
-                        replaceWithText = (typeof replaceWithText === "undefined") ? settings.replacementContent : replaceWithText;
-
-                        selector.getTextNodes().each(function () {
-                            var text = $.trim($(this).text());
-
-                            if (text.length > threshold) {
-                                $(this).replaceWith(replaceWithText);
-                            }
-                        })
+                    if (settings.hideTextContent) {
+                        replaceNodes($(this));
                     }
+
+                    $(settings.hideTheseAttributesContent).each(function () {
+                        replaceNodes($(".token.attr-name:contains('" + this + "')", that).next(".attr-value"));
+                    });
                 });
+
+
             } catch (err) {
                 console.log(err);
             }
+        }
+
+        function replaceNodes(selector, threshold, replaceWithText) {
+            threshold = (typeof threshold === "undefined") ? 0 : threshold;
+            replaceWithText = (typeof replaceWithText === "undefined") ? settings.replacementContent : replaceWithText;
+
+            selector.getTextNodes().each(function () {
+                var text = $.trim($(this).text());
+
+                if (text.length > threshold) {
+                    $(this).replaceWith(replaceWithText);
+                }
+            });
         }
 
         function diff() {
             try {
-                loadScriptSynchronously("src/vendors/html2canvas.js", "html2canvas", function () {
-                    loadScriptSynchronously("src/vendors/resemble-modified.js", "resemble", function () {
-                        $(".tdcss-dom-example").each(function(){
+                $(".tdcss-dom-example").each(function () {
 
-                            var fragment = this,
-                                row = $(this).parent(".tdcss-fragment"),
-                                id = row.attr("id"),
-                                current_image_data,
-                                stored_image_data;
+                    var fragment = this,
+                        row = $(this).parent(".tdcss-fragment"),
+                        id = row.attr("id"),
+                        current_image_data,
+                        stored_image_data;
 
 
-                            html2canvas([fragment], {
-                                onrendered: function(canvas) {
-                                    current_image_data = canvas.toDataURL('png');
+                    window.html2canvas([fragment], {
+                        onrendered: function (canvas) {
+                            current_image_data = canvas.toDataURL('png');
 
-                                    if (!localStorage.getItem(id)) {
-                                        localStorage.setItem(id, current_image_data);
-                                    } else {
-                                        stored_image_data = localStorage.getItem(id);
-                                    }
+                            if (!localStorage.getItem(id)) {
+                                localStorage.setItem(id, current_image_data);
+                            } else {
+                                stored_image_data = localStorage.getItem(id);
+                            }
 
-                                    resemble(current_image_data).compareTo(stored_image_data).onComplete(function(data){
-                                        if (data.misMatchPercentage > 0) {
-                                            var diff_image = $("<img />").addClass("tdcss-diff-image").attr("src", data.getImageDataUrl()),
-                                                diff_stats = $("<div />").addClass("tdcss-diff-stats").text(data.misMatchPercentage + "% mismatch"),
-                                                diff_warning = $("<div />").addClass("tdcss-diff-warning").text("Mismatch detected!"),
-                                                diff_clear_btn = $("<a />").attr("href", "#").text("Clear").click(function(){
-                                                    localStorage.clear();
-                                                    location.reload();
-                                                    return false;
-                                                });
+                            window.resemble(current_image_data).compareTo(stored_image_data).onComplete(function (data) {
+                                if (data.misMatchPercentage > 0) {
+                                    var diff_image = $("<img />").addClass("tdcss-diff-image").attr("src", data.getImageDataUrl()),
+                                        diff_stats = $("<div />").addClass("tdcss-diff-stats").text(data.misMatchPercentage + "% mismatch"),
+                                        diff_warning = $("<div />").addClass("tdcss-diff-warning").text("Mismatch detected!"),
+                                        diff_clear_btn = $("<a />").attr("href", "#").text("Clear").click(function () {
+                                            localStorage.clear();
+                                            location.reload();
+                                            return false;
+                                        });
 
-                                            row.prepend(diff_image);
-                                            row.addClass("tdcss-has-diff");
-                                            row.append(diff_stats);
+                                    row.prepend(diff_image);
+                                    row.addClass("tdcss-has-diff");
+                                    row.append(diff_stats);
 
-                                            diff_warning.append(diff_clear_btn);
+                                    diff_warning.append(diff_clear_btn);
 
-                                            $(".tdcss-elements").prepend(diff_warning);
-                                        }
-                                    });
-
+                                    $(".tdcss-elements").prepend(diff_warning);
                                 }
                             });
-                        })
+
+                        }
                     });
                 });
             } catch (err) {
@@ -375,52 +371,6 @@
             }
         }
 
-        /**
-         * Load script synchronously to circumvent ajax limitations when browsing local files.
-         * Based on T.J. Crowder's answer here: http://stackoverflow.com/questions/4539740/jquery-how-do-you-synchronously-load-a-script-from-another-directory-via-an-aja
-         * @param url
-         * @param symbol
-         * @param callback
-         */
-        function loadScriptSynchronously(url, symbol, callback) {
-            var script, expire;
-
-            // Already there?
-            if (window[symbol]) {
-                setTimeout(function () {
-                    callback('already loaded');
-                }, 0);
-            }
-
-            // Determine when to give up
-            expire = new Date().getTime() + 2000; // 2 seconds
-
-            // Load the script
-            script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = url;
-            document.body.appendChild(script);
-
-            // Start looking for the symbol to appear, yielding as
-            // briefly as the browser will let us.
-            setTimeout(lookForSymbol, 0);
-
-            // Our symbol-checking function
-            function lookForSymbol() {
-                if (window[symbol]) {
-                    // There's the symbol, we're done
-                    callback('success');
-                }
-                else if (new Date().getTime() > expire) {
-                    // Timed out, tell the callback
-                    callback('timeout');
-                }
-                else {
-                    // Schedule the next check
-                    setTimeout(lookForSymbol, 100);
-                }
-            }
-        }
 
     };
 })($);

@@ -1,12 +1,15 @@
-describe("TDCSS", function() {
 
-    beforeEach(function() {
+jasmine.getFixtures().fixturesPath = 'base/test/spec/javascripts/fixtures';
+
+describe("TDCSS", function () {
+
+    beforeEach(function () {
         this.addMatchers({
 
-            toBeWithin: function(expected, range) {
+            toBeWithin: function (expected, range) {
                 var actual = this.actual,
-                    low = actual - range/2,
-                    high = actual + range/2;
+                    low = actual - range / 2,
+                    high = actual + range / 2;
 
                 this.message = function () {
                     return "Expected " + actual + " to be within " + range + " from " + expected;
@@ -19,13 +22,13 @@ describe("TDCSS", function() {
         });
     });
 
-    afterEach(function() {
+    afterEach(function () {
         window.location.hash = "";
         window.tdcss = null;
     });
 
-    describe("Setup", function() {
-        it("should hide the initial HTML inside the .tdcss div", function() {
+    describe("Setup", function () {
+        it("should hide the initial HTML inside the .tdcss div", function () {
             loadFixtures('simple.html');
             expect($('#shouldbehidden')).toHaveHtml("This should be hidden");
             expect($('#shouldbehidden').is(":visible")).toBe(true);
@@ -35,22 +38,22 @@ describe("TDCSS", function() {
 
         });
 
-        it("should insert a basic div wrapper for viewing the tests", function(){
+        it("should insert a basic div wrapper for viewing the tests", function () {
             loadFixtures('simple.html');
             $("#tdcss").tdcss();
             expect($('body')).toContain('.tdcss-elements');
         });
     });
 
-    describe("Parsing", function() {
-        it("should expose the module 'fragments' array as window.tdcss.fragments", function(){
+    describe("Parsing", function () {
+        it("should expose the module 'fragments' array as window.tdcss.fragments", function () {
             loadFixtures('simple.html');
             $("#tdcss").tdcss();
 
             expect(typeof tdcss[0].fragments).toBe("object");
         });
 
-        it("should collect fragments into fragments array", function(){
+        it("should collect fragments into fragments array", function () {
             loadFixtures('simple.html');
             $("#tdcss").tdcss();
 
@@ -60,9 +63,9 @@ describe("TDCSS", function() {
         });
     });
 
-    describe("Rendering", function() {
+    describe("Rendering", function () {
 
-        it("should render a row per fragment", function() {
+        it("should render a row per fragment", function () {
             loadFixtures('simple.html');
             $("#tdcss").tdcss();
 
@@ -70,14 +73,14 @@ describe("TDCSS", function() {
 
         });
 
-        it("should render descriptions as description text blocks", function(){
+        it("should render descriptions as description text blocks", function () {
             loadFixtures('description.html');
             $("#tdcss").tdcss();
 
             expect($(".tdcss-description").length).toBe(1);
         });
 
-        it("should render fragments, even if outside sections", function() {
+        it("should render fragments, even if outside sections", function () {
             loadFixtures('simple-no-meta.html');
             $("#tdcss").tdcss();
 
@@ -85,29 +88,29 @@ describe("TDCSS", function() {
             expect($('.tdcss-elements:first .tdcss-fragment').length).toBe(1);
         });
 
-        describe("fragment layout", function() {
-            it("should render the DOM example dom example container", function() {
+        describe("fragment layout", function () {
+            it("should render the DOM example dom example container", function () {
                 loadFixtures('simple.html');
                 $("#tdcss").tdcss();
 
                 expect($('.tdcss-elements:first .tdcss-fragment .tdcss-dom-example')[0].innerHTML).toContain("Here's a basic fragment");
             });
 
-            it("should render the fragment HTML in a pre block", function() {
+            it("should render the fragment HTML in a pre block", function () {
                 loadFixtures('simple.html');
                 $("#tdcss").tdcss();
 
                 expect($('.tdcss-elements:first pre').html()).toContain('Here\'s a basic fragment');
             });
 
-            it("should render the fragment title in an h3 above the textarea", function() {
+            it("should render the fragment title in an h3 above the textarea", function () {
                 loadFixtures('simple.html');
                 $("#tdcss").tdcss();
 
                 expect($('.tdcss-elements:first .tdcss-fragment:first .tdcss-code-example h3').text()).toBe('Basic fragment');
             });
 
-            it("should render section dividers above each set of fragments that belong to a section", function() {
+            it("should render section dividers above each set of fragments that belong to a section", function () {
                 loadFixtures('multiple-sections.html');
                 $("#tdcss").tdcss();
 
@@ -128,14 +131,14 @@ describe("TDCSS", function() {
 
             });
 
-            it("should fix the height of the dom-example container, if a value is specified", function() {
+            it("should fix the height of the dom-example container, if a value is specified", function () {
                 loadFixtures('multiple-sections.html');
                 $("#tdcss").tdcss();
 
                 expect($(".tdcss-elements:first .tdcss-fragment:eq(4)").attr("style")).toContain("500px");
             });
 
-            it("should adapt the height of the code-example container to fit the height of the row", function() {
+            it("should adapt the height of the code-example container to fit the height of the row", function () {
                 loadFixtures('multiple-sections.html');
                 $("#tdcss").tdcss();
 
@@ -152,8 +155,8 @@ describe("TDCSS", function() {
 
     });
 
-    describe("Interaction", function() {
-        it("should collapse and expand sections, when section header is clicked", function() {
+    describe("Interaction", function () {
+        it("should collapse and expand sections, when section header is clicked", function () {
             loadFixtures('multiple-sections.html');
             $("#tdcss").tdcss();
 
@@ -188,7 +191,7 @@ describe("TDCSS", function() {
 
         });
 
-        it("should also hide any description blocks inside sections", function(){
+        it("should also hide any description blocks inside sections", function () {
             loadFixtures('section-with-description.html');
             $("#tdcss").tdcss();
 
@@ -202,7 +205,7 @@ describe("TDCSS", function() {
 
         });
 
-        it("should add a css class to section headers, when collapsed", function(){
+        it("should add a css class to section headers, when collapsed", function () {
             loadFixtures('multiple-sections.html');
             $("#tdcss").tdcss();
 
@@ -216,7 +219,7 @@ describe("TDCSS", function() {
 
         });
 
-        it("should store information on collapsed sections in url fragment", function() {
+        it("should store information on collapsed sections in url fragment", function () {
             loadFixtures('multiple-sections.html');
             $("#tdcss").tdcss();
 
@@ -224,15 +227,15 @@ describe("TDCSS", function() {
                 second_section_header = $('.tdcss-elements:first .tdcss-section:eq(1)');
 
             first_section_header.click();
-            expect(window.location.hash).toContain( first_section_header.attr("id") );
+            expect(window.location.hash).toContain(first_section_header.attr("id"));
 
             second_section_header.click();
-            expect(window.location.hash).toContain( first_section_header.attr("id") );
+            expect(window.location.hash).toContain(first_section_header.attr("id"));
 
 
         });
 
-        it("should remove information on collapsed sections from url fragment, when they are shown again", function() {
+        it("should remove information on collapsed sections from url fragment, when they are shown again", function () {
             loadFixtures('multiple-sections.html');
 
             $("#tdcss").tdcss();
@@ -251,7 +254,7 @@ describe("TDCSS", function() {
 
         });
 
-        it("should restore section collapsed states based on url when loading page", function() {
+        it("should restore section collapsed states based on url when loading page", function () {
             loadFixtures('multiple-sections.html');
             window.location.hash = "Basic%20section;";
 

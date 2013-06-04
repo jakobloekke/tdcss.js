@@ -1,0 +1,258 @@
+/**
+ * tdcss.js: Super-simple styleguide tool
+ * MIT License http://www.opensource.org/licenses/mit-license.php/
+ * @author Jakob Løkke Madsen
+ * @url http://www.jakobloekkemadsen.com
+ */
+
+.tdcss-fragments,
+.tdcss-elements,
+.tdcss-section,
+.tdcss-section .tdcss-h2,
+.tdcss-fragment,
+.tdcss-description,
+.tdcss-dom-example,
+.tdcss-code-example,
+.tdcss-dom-example,
+.tdcss-code-example,
+.tdcss-code-example .tdcss-h3,
+.tdcss-code-example .tdcss-textarea {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+       -o-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.tdcss-fragments {
+  display: none;
+}
+
+.tdcss-elements {
+  width: 100%;
+}
+
+.tdcss-section {
+  width: 100%;
+  padding: 1px 0 0 0;
+  vertical-align: bottom;
+  border: none;
+}
+
+.tdcss-section .tdcss-h2 {
+  display: block;
+  padding: 10px;
+  margin: 0;
+  font-family: verdana, sans-serif;
+  font-size: 20px;
+  color: white;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #add8e6), color-stop(100%, #96cddf));
+  background: -webkit-linear-gradient(top, #add8e6, #96cddf);
+  background: -moz-linear-gradient(top, #add8e6, #96cddf);
+  background: -o-linear-gradient(top, #add8e6, #96cddf);
+  background: linear-gradient(top, #add8e6, #96cddf);
+  background-color: #add8e6;
+}
+
+.tdcss-section .tdcss-h2:after {
+  float: right;
+  padding: 6px;
+  font-size: 12px;
+  content: "\25BC";
+}
+
+.tdcss-section.is-collapsed .tdcss-h2:after {
+  content: "\25B2";
+}
+
+.tdcss-section:hover .tdcss-h2 {
+  background-color: #44ea85;
+}
+
+.tdcss-fragment {
+  position: relative;
+  padding: 0 1em;
+  margin: 1em 0;
+  overflow: hidden;
+}
+
+.tdcss-diff-warning,
+.tdcss-fragment .tdcss-diff-stats {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 3px;
+  font-size: 10px;
+  color: white;
+  background-color: red;
+}
+
+.tdcss-diff-warning {
+  position: fixed;
+  z-index: 200;
+  font-size: 12px;
+}
+
+.tdcss-diff-warning > a {
+  padding-left: 0.25em;
+  color: white;
+}
+
+.tdcss-diff-warning > a:hover {
+  text-decoration: none;
+}
+
+.tdcss-fragment.tdcss-has-diff {
+  outline: 1px dotted red;
+}
+
+.tdcss-diff-image {
+  position: absolute;
+  top: 0;
+  left: 1em;
+  z-index: 100;
+  opacity: 0.5;
+}
+
+.tdcss-description {
+  padding: 1em 10px;
+  margin-bottom: 1em;
+  font-family: verdana, sans-serif;
+  font-size: 14px;
+  color: #898989;
+  background-color: #f0f0f0;
+  border: 1px solid #e7e7e7;
+}
+
+.tdcss-dom-example,
+.tdcss-code-example {
+  float: left;
+}
+
+.tdcss-dom-example {
+  position: relative;
+  width: 60%;
+  padding: 1em;
+}
+
+.tdcss-code-example {
+  position: relative;
+  z-index: 1000;
+  width: 40%;
+  padding: 1em;
+  background-color: white;
+  border-left: 1px solid #add8e6;
+}
+
+.tdcss-code-example .tdcss-h3 {
+  padding: 0.25em;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-family: verdana, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #add8e6;
+}
+
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  -webkit-hyphens: none;
+     -moz-hyphens: none;
+      -ms-hyphens: none;
+          hyphens: none;
+  word-spacing: normal;
+  color: black;
+  text-align: left;
+  text-shadow: 0 1px white;
+  white-space: pre;
+  direction: ltr;
+  -moz-tab-size: 4;
+    -o-tab-size: 4;
+       tab-size: 4;
+}
+
+/* Code blocks */
+
+pre[class*="language-"] {
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #f5f2f0;
+}
+
+/* Inline code */
+
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: slategray;
+}
+
+.token.punctuation {
+  color: #999;
+}
+
+.namespace {
+  opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number {
+  color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string {
+  color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #a67f59;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #07a;
+}
+
+.token.regex,
+.token.important {
+  color: #e90;
+}
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
