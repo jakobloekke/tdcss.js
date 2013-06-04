@@ -18,10 +18,10 @@ files = [
         served: true
     },
 
-    'src/vendors/**/*.js',
+    'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js',
     'test/lib/jasmine-jquery.js',
 
-    'src/tdcss.js',
+    'build/tdcss.js',
     'test/spec/spec.js'
 
 ];
