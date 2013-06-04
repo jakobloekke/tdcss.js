@@ -1,13 +1,16 @@
 {
-  "name": "tdcss",
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-contrib-qunit": "~0.2.1",
-    "grunt-contrib-watch": "~0.4.4",
-    "grunt-contrib-jasmine": "~0.4.2",
-    "grunt-karma": "~0.4.4"
-  }
+    "title": "tdcss",
+    "name": "tdcss.js",
+    "version": "0.1",
+    "author": "Jakob Løkke Madsen",
+    "homepage": "http://jakobloekke.github.io/tdcss.js/",
+
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-watch": "~0.4.4",
+        "grunt-karma": "~0.4.4"
+    }
 }

@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
             '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' +
             ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
         // Task configuration.
         concat: {
@@ -17,8 +17,8 @@ module.exports = function (grunt) {
                 stripBanners: true
             },
             dist: {
-                src: ['src/<%= pkg.name %>.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+                src: ['src/tdcss.js', 'src/vendors/**/*.js'],
+                dest: 'dist/tdcss.js'
             }
         },
         uglify: {

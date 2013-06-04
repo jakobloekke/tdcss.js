@@ -18,7 +18,7 @@ files = [
         served: true
     },
 
-    'src/vendors/jquery.js',
+    'src/vendors/**/*.js',
     'test/lib/jasmine-jquery.js',
 
     'src/tdcss.js',
