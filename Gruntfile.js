@@ -14,6 +14,9 @@ module.exports = function (grunt) {
     // Default task.
     grunt.registerTask('default', ['clean', 'jshint', 'concat', 'csslint', 'recess', 'karma']);
 
+    // Travis CI task.
+    grunt.registerTask('travis', 'concat', 'karma');
+
     // Project configuration.
     grunt.initConfig({
         // Metadata.
