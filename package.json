@@ -1,8 +1,8 @@
 {
   "version": "0.2",
-  "title": "tdcss",
   "name": "tdcss.js",
   "author": "Jakob Løkke Madsen",
+  "license": "MIT",
   "homepage": "http://jakobloekke.github.io/tdcss.js/",
   "devDependencies": {
     "grunt": "~0.4.1",

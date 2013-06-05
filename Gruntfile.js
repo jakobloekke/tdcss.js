@@ -19,11 +19,11 @@ module.exports = function (grunt) {
         // Metadata.
         pkg: grunt.file.readJSON('package.json'),
 
-        banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+        banner: '/* <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
             '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;' +
-            ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
+            '* License: <%= pkg.license %> */\n\n\n',
 
         src: {
             js: ['src/tdcss.js', 'src/vendors/prism/prism.js', 'src/vendors/html2canvas.js', 'src/vendors/resemble-modified.js'],
