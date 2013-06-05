@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jakobloekke/tdcss.js.png?branch=master)](https://travis-ci.org/jakobloekke/tdcss.js)
+
 tdcss.js - Super simple styleguide tool
 ================
 
