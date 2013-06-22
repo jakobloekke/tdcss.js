@@ -1,4 +1,4 @@
-/* tdcss.js - v0.2 - 2013-06-05
+/* tdcss.js - v0.2.0 - 2013-06-22
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2013 Jakob Løkke Madsen;
 * License: MIT */
@@ -44,6 +44,10 @@
 
             if (settings.diff) {
                 diff();
+            }
+
+            if (settings.neutralize_background) {
+                neutralizeBackground();
             }
 
             window.tdcss = window.tdcss || [];
@@ -370,6 +374,9 @@
             }
         }
 
+        function neutralizeBackground() {
+            $("body").css({"background": "none"});
+        }
 
     };
 })($);

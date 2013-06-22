@@ -47,6 +47,10 @@
                 diff();
             }
 
+            if (settings.neutralize_background) {
+                neutralizeBackground();
+            }
+
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
 
@@ -371,6 +375,9 @@
             }
         }
 
+        function neutralizeBackground() {
+            $("body").css({"background": "none"});
+        }
 
     };
 })($);

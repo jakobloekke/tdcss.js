@@ -35,6 +35,14 @@ module.exports = function (grunt) {
 
         // Task configuration.
 
+        watch: {
+            files: ['src/**/*', 'test/**/*'],
+            tasks: ['default'],
+            options: {
+                livereload: false
+            }
+        },
+
         clean: {build: ['build']},
 
         csslint: {

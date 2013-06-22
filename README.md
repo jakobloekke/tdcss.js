@@ -8,5 +8,15 @@ See http://jakobloekke.github.io/tdcss.js/ for an introduction.
 Release notes
 ---
 
+- 0.3 (June 22nd, 2013: Added 'neutralize_background' option to nuke annoying body backgrounds from your project stylesheet.
 - 0.2 (June 4th, 2013): Simplification. Grunt-based build. Included 3rd party js dependencies into core files in 'build/*'.
 - 0.1 (May 9th, 2013): Added experimental pixel rendering diff matching using canvas and localstorage. Only tested in Chrome.
+
+3rd party
+---
+
+tdcss.js makes use of these awesome projects:
+
+- https://github.com/LeaVerou/prism
+- https://github.com/niklasvh/html2canvas
+- https://github.com/Huddle/Resemble.js
