@@ -1,9 +1,8 @@
 {
     "globals": {
-        "jQuery": true,
-        "$": true,
         "jasmine": false,
         "loadFixtures": true,
+        "loadStyleFixtures": true,
         "spyOn": false,
         "it": false,
         "console": false,
@@ -33,7 +32,7 @@
 
     "node" : true,
     "browser" : true,
-
+    "jquery": true,
     "boss" : false,
     "curly": false,
     "debug": false,

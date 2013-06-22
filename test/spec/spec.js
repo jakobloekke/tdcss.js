@@ -1,5 +1,5 @@
-
-jasmine.getFixtures().fixturesPath = 'base/test/spec/javascripts/fixtures';
+jasmine.getFixtures().fixturesPath = 'base/test/spec/javascripts/fixtures/html';
+jasmine.getStyleFixtures().fixturesPath = 'base/test/spec/javascripts/fixtures/css';
 
 describe("TDCSS", function () {
 
@@ -269,6 +269,30 @@ describe("TDCSS", function () {
             expect(section_fragment_3.is(":visible")).toBe(false);
             expect(other_section_fragment.is(":visible")).toBe(true);
 
+        });
+    });
+
+    describe("Options", function () {
+
+        describe("diff", function () {
+            // Todo ...
+        });
+
+        describe("neutralize_background", function () {
+            it("should remove any background set on the body element by the project CSS", function () {
+
+                loadStyleFixtures('body-background.css');
+                loadFixtures('simple.html');
+
+                expect($("body").css("backgroundColor")).toBe("rgb(255, 0, 0)");
+                expect($("body").css("backgroundImage")).toBe("url(data:image/bmp;base64,Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAA/38AAAAA)");
+
+                $("#tdcss").tdcss({neutralize_background: true});
+
+                expect($("body").css("backgroundColor")).toBe("rgba(0, 0, 0, 0)");
+                expect($("body").css("backgroundImage")).toBe("none");
+
+            });
         });
     });
 
