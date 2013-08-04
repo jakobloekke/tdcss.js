@@ -42,6 +42,7 @@
             bindSectionCollapseHandlers();
             restoreCollapsedStateFromUrl();
             highlightSyntax();
+            makeControlBar();
 
             if (settings.diff) {
                 diff();
@@ -323,6 +324,13 @@
                     $(this).replaceWith(replaceWithText);
                 }
             });
+        }
+
+        function makeControlBar() {
+
+            var control_bar = $("<div id='tdcss-control-bar'></div>");
+
+            $("body").prepend(control_bar);
         }
 
         function diff() {

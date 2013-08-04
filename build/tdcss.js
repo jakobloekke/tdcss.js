@@ -1,4 +1,4 @@
-/* tdcss.js - v0.2.0 - 2013-06-22
+/* tdcss.js - v0.2.0 - 2013-08-04
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2013 Jakob Løkke Madsen;
 * License: MIT */
@@ -41,6 +41,7 @@
             bindSectionCollapseHandlers();
             restoreCollapsedStateFromUrl();
             highlightSyntax();
+            makeControlBar();
 
             if (settings.diff) {
                 diff();
@@ -322,6 +323,13 @@
                     $(this).replaceWith(replaceWithText);
                 }
             });
+        }
+
+        function makeControlBar() {
+
+            var control_bar = $("<div id='tdcss-control-bar'></div>");
+
+            $("body").prepend(control_bar);
         }
 
         function diff() {

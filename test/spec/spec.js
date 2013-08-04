@@ -296,4 +296,18 @@ describe("TDCSS", function () {
         });
     });
 
+    describe("Control Bar", function () {
+        it("should exist", function () {
+            loadFixtures('simple.html');
+
+            expect($("#tdcss-control-bar").length).toBe(1);
+        });
+
+        xit("should contain a link to show/hide html snippet", function () {
+            loadFixtures('simple.html');
+
+            expect($("#tdcss-controlbar #tdcss-html-snippet-toggle").length).toBe(1);
+        });
+    });
+
 });
