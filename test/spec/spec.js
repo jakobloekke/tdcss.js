@@ -314,16 +314,18 @@ describe("TDCSS", function () {
 
             // Button exists:
             expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toExist();
-            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Toggle HTML");
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
 
             //Html is visible:
             expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
 
             $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
             expect($(".tdcss-elements")).toHaveClass("tdcss-hide-html");
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Show HTML");
 
             $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
             expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
         });
     });
 
