@@ -313,16 +313,16 @@ describe("TDCSS", function () {
             $("#tdcss").tdcss();
 
             // Button exists:
-            expect($(".tdcss-control-bar #tdcss-html-snippet-toggle")).toExist();
-            expect($(".tdcss-control-bar #tdcss-html-snippet-toggle")).toHaveText("Toggle HTML");
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toExist();
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Toggle HTML");
 
             //Html is visible:
             expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
 
-            $(".tdcss-control-bar #tdcss-html-snippet-toggle").click();
+            $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
             expect($(".tdcss-elements")).toHaveClass("tdcss-hide-html");
 
-            $(".tdcss-control-bar #tdcss-html-snippet-toggle").click();
+            $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
             expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
         });
     });

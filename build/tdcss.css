@@ -5,6 +5,10 @@
  * @url http://www.jakobloekkemadsen.com
  */
 
+body {
+  margin: 0;
+}
+
 .tdcss-fragments,
 .tdcss-elements,
 .tdcss-section,
@@ -16,7 +20,9 @@
 .tdcss-dom-example,
 .tdcss-code-example,
 .tdcss-code-example .tdcss-h3,
-.tdcss-code-example .tdcss-textarea {
+.tdcss-code-example .tdcss-textarea,
+.tdcss-control-bar,
+.tdcss-control-bar a {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
       -ms-box-sizing: border-box;
@@ -29,7 +35,10 @@
 }
 
 .tdcss-elements {
+  position: relative;
+  top: 3em;
   width: 100%;
+  padding: 1em;
 }
 
 .tdcss-section {
@@ -166,7 +175,25 @@
 }
 
 .tdcss-control-bar {
-  background-color: black;
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  padding: 0 2em;
+  font-size: 14px;
+  text-align: right;
+  background-color: #2f2f2f;
+  box-shadow: 0 1px 5px gray;
+}
+
+.tdcss-html-snippet-toggle {
+  display: inline-block;
+  padding: 0.75em;
+  color: #cbcbcb;
+  text-decoration: none;
+}
+
+.tdcss-html-snippet-toggle:hover {
+  color: #ebebeb;
 }
 
 /**

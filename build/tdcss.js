@@ -329,7 +329,7 @@
         function makeControlBar() {
 
             var control_bar = $(".tdcss-control-bar"), // should be a selector within the "this" of the jquery plugin
-                html_snippet_toggle = $("<a href='#' id='tdcss-html-snippet-toggle'>Toggle HTML</a>");
+                html_snippet_toggle = $("<a href='#' class='tdcss-html-snippet-toggle'>Toggle HTML</a>");
 
             html_snippet_toggle.click(
                 function () {
