@@ -137,6 +137,10 @@
   padding: 1em;
 }
 
+.tdcss-hide-html .tdcss-dom-example {
+  width: 100%;
+}
+
 .tdcss-code-example {
   position: relative;
   z-index: 1000;
@@ -144,6 +148,10 @@
   padding: 1em;
   background-color: white;
   border-left: 1px solid #add8e6;
+}
+
+.tdcss-hide-html .tdcss-code-example {
+  display: none;
 }
 
 .tdcss-code-example .tdcss-h3 {
@@ -155,6 +163,10 @@
   font-weight: bold;
   color: white;
   background-color: #add8e6;
+}
+
+.tdcss-control-bar {
+  background-color: black;
 }
 
 /**

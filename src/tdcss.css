@@ -132,6 +132,9 @@
     padding: 1em;
     width: 60%;
 }
+.tdcss-hide-html .tdcss-dom-example {
+    width: 100%;
+}
 .tdcss-code-example {
     position: relative;
     border-left: 1px solid #add8e6;
@@ -139,6 +142,9 @@
     z-index: 1000;
     width: 40%;
     padding: 1em;
+}
+.tdcss-hide-html .tdcss-code-example {
+    display: none;
 }
 .tdcss-code-example .tdcss-h3 {
     font-family: verdana, sans-serif;
@@ -149,4 +155,7 @@
     background-color: #add8e6;
     margin-top: 0;
     margin-bottom: 0.5em;
+}
+.tdcss-control-bar {
+    background-color: black;
 }

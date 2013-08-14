@@ -1,4 +1,4 @@
-/* tdcss.js - v0.2.0 - 2013-08-04
+/* tdcss.js - v0.2.0 - 2013-08-14
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2013 Jakob Løkke Madsen;
 * License: MIT */
@@ -63,6 +63,7 @@
         function setup() {
             $(module.container)
                 .addClass("tdcss-fragments")
+                .after("<div class='tdcss-control-bar'></div>")
                 .after("<div class='tdcss-elements'></div>");
         }
 
@@ -327,9 +328,17 @@
 
         function makeControlBar() {
 
-            var control_bar = $("<div id='tdcss-control-bar'></div>");
+            var control_bar = $(".tdcss-control-bar"), // should be a selector within the "this" of the jquery plugin
+                html_snippet_toggle = $("<a href='#' id='tdcss-html-snippet-toggle'>Toggle HTML</a>");
 
-            $("body").prepend(control_bar);
+            html_snippet_toggle.click(
+                function () {
+                    $(".tdcss-elements").toggleClass("tdcss-hide-html");
+                }
+            );
+
+            control_bar.append(html_snippet_toggle);
+            $(module.container).after(control_bar);
         }
 
         function diff() {

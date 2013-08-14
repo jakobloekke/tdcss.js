@@ -300,13 +300,30 @@ describe("TDCSS", function () {
         it("should exist", function () {
             loadFixtures('simple.html');
 
-            expect($("#tdcss-control-bar").length).toBe(1);
+            expect($(".tdcss-control-bar")).not.toExist();
+
+            $("#tdcss").tdcss();
+
+            expect($(".tdcss-control-bar")).toExist();
         });
 
-        xit("should contain a link to show/hide html snippet", function () {
+        it("should contain a link to show/hide html snippet", function () {
             loadFixtures('simple.html');
 
-            expect($("#tdcss-controlbar #tdcss-html-snippet-toggle").length).toBe(1);
+            $("#tdcss").tdcss();
+
+            // Button exists:
+            expect($(".tdcss-control-bar #tdcss-html-snippet-toggle")).toExist();
+            expect($(".tdcss-control-bar #tdcss-html-snippet-toggle")).toHaveText("Toggle HTML");
+
+            //Html is visible:
+            expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
+
+            $(".tdcss-control-bar #tdcss-html-snippet-toggle").click();
+            expect($(".tdcss-elements")).toHaveClass("tdcss-hide-html");
+
+            $(".tdcss-control-bar #tdcss-html-snippet-toggle").click();
+            expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
         });
     });
 
