@@ -59,14 +59,14 @@ module.exports = function (grunt) {
                     stripBanners: true
                 },
                 files: {
-                    'build/tdcss.css': ['src/**/*.css']
+                    'tdcss.css': ['src/**/*.css']
                 }
             }
         },
         concat: {
             js: {
                 src: '<%= src.js %>',
-                dest: 'build/tdcss.js',
+                dest: 'tdcss.js',
                 options: {
                     banner: '<%= banner %>',
                     stripBanners: true
