@@ -29,7 +29,7 @@ module.exports = function (grunt) {
             '* License: <%= pkg.license %> */\n\n\n',
 
         src: {
-            js: ['src/tdcss.js', 'src/vendors/prism/prism.js', 'src/vendors/html2canvas.js', 'src/vendors/resemble-modified.js'],
+            js: ['src/tdcss.js', 'src/vendors/jquery-cookie.js', 'src/vendors/prism/prism.js', 'src/vendors/html2canvas.js', 'src/vendors/resemble-modified.js'],
             css: ['src/tdcss.css', 'src/vendors/prism/prism.css']
         },
 
@@ -59,14 +59,14 @@ module.exports = function (grunt) {
                     stripBanners: true
                 },
                 files: {
-                    'build/tdcss.css': ['src/**/*.css']
+                    'tdcss.css': ['src/**/*.css']
                 }
             }
         },
         concat: {
             js: {
                 src: '<%= src.js %>',
-                dest: 'build/tdcss.js',
+                dest: 'tdcss.js',
                 options: {
                     banner: '<%= banner %>',
                     stripBanners: true

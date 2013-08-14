@@ -23,7 +23,12 @@
                 hideTheseAttributesContent: [
                     'src',
                     'href'
-                ]
+                ],
+                hide_html: false,
+                control_bar_text: {
+                    show_html: "Show HTML",
+                    hide_html: "Hide HTML"
+                }
             }, options),
             module = {
                 container: null,
@@ -40,8 +45,9 @@
             parse();
             render();
             bindSectionCollapseHandlers();
-            restoreCollapsedStateFromUrl();
+            restoreCollapsedSectionsFromUrl();
             highlightSyntax();
+            makeTopBar();
 
             if (settings.diff) {
                 diff();
@@ -73,9 +79,16 @@
                 }
             );
 
-            comments.each(function () {
-                module.fragments.push(new Fragment(this));
-            });
+            if (comments.length === 0) {
+                $(".tdcss-elements").append("<div class='tdcss-no-fragments'>" +
+                    "<strong>Boom!</strong> You're ready to build a styleguide." +
+                    "<p>&#9786;</p>" +
+                    "</div>");
+            } else {
+                comments.each(function () {
+                    module.fragments.push(new Fragment(this));
+                });
+            }
 
             $(module.container).empty(); // Now we can empty the container to avoid having duplicate DOM nodes in the background
         }
@@ -240,7 +253,6 @@
                         window.location.hash = window.location.hash.replace(that.state_string, "");
                     };
 
-
                     $(that.header_element).on("click", function () {
                         that.toggle();
                     });
@@ -252,7 +264,7 @@
             $(".tdcss-section").makeCollapsible();
         }
 
-        function restoreCollapsedStateFromUrl() {
+        function restoreCollapsedSectionsFromUrl() {
             if (window.location.hash) {
                 var hash = window.location.hash.split("#")[1],
                     collapsedSections = hash.split(";");
@@ -323,6 +335,44 @@
                     $(this).replaceWith(replaceWithText);
                 }
             });
+        }
+
+        function makeTopBar() {
+            $(module.container).after("<div class='tdcss-control-bar'>" +
+                "<h1 class='tdcss-title'></h1>" +
+                "<div class='tdcss-controls'></div>" +
+                "</div>");
+
+            $(".tdcss-title").text($("title").text());
+            $(".tdcss-controls").append(makeHTMLToggle());
+        }
+
+        function makeHTMLToggle() {
+            var default_text,
+                alternate_text,
+                html_snippet_toggle;
+
+            if (settings.hide_html) {
+                default_text = settings.control_bar_text.show_html;
+                alternate_text = settings.control_bar_text.hide_html;
+                $(".tdcss-elements").addClass("tdcss-hide-html");
+            } else {
+                default_text = settings.control_bar_text.hide_html;
+                alternate_text = settings.control_bar_text.show_html;
+            }
+
+            html_snippet_toggle = $("<a href='#' class='tdcss-html-snippet-toggle'>" + default_text + "</a>");
+
+            html_snippet_toggle.click(
+                function () {
+                    var text = $(this).text() === alternate_text ? default_text : alternate_text;
+
+                    $(this).text(text);
+                    $(".tdcss-elements").toggleClass("tdcss-hide-html");
+                }
+            );
+
+            return html_snippet_toggle;
         }
 
         function diff() {

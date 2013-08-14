@@ -5,6 +5,10 @@
  * @url http://www.jakobloekkemadsen.com
  */
 
+body {
+    margin: 0;
+}
+
 .tdcss-fragments,
 .tdcss-elements,
 .tdcss-section,
@@ -16,7 +20,9 @@
 .tdcss-dom-example,
 .tdcss-code-example,
 .tdcss-code-example .tdcss-h3,
-.tdcss-code-example .tdcss-textarea
+.tdcss-code-example .tdcss-textarea,
+.tdcss-control-bar,
+.tdcss-control-bar a
 {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -30,7 +36,10 @@
 }
 
 .tdcss-elements {
+    position: relative;
     width: 100%;
+    top: 4em;
+    padding: 1em;
 }
 
 .tdcss-section {
@@ -58,7 +67,7 @@
     content: "\25BC";
     float: right;
     font-size: 12px;
-    padding: 6px;
+    padding: 4px;
 }
 .tdcss-section.is-collapsed .tdcss-h2:after {
     content: "\25B2";
@@ -132,6 +141,9 @@
     padding: 1em;
     width: 60%;
 }
+.tdcss-hide-html .tdcss-dom-example {
+    width: 100%;
+}
 .tdcss-code-example {
     position: relative;
     border-left: 1px solid #add8e6;
@@ -139,6 +151,9 @@
     z-index: 1000;
     width: 40%;
     padding: 1em;
+}
+.tdcss-hide-html .tdcss-code-example {
+    display: none;
 }
 .tdcss-code-example .tdcss-h3 {
     font-family: verdana, sans-serif;
@@ -149,4 +164,43 @@
     background-color: #add8e6;
     margin-top: 0;
     margin-bottom: 0.5em;
+}
+.tdcss-control-bar {
+    display: table;
+    position: fixed;
+    width: 100%;
+    font-size: 14px;
+    background-color: #2f2f2f;
+    z-index: 9999;
+    box-shadow: 0 1px 5px gray;
+    padding: 0 2em;
+    font-weight: 200;
+}
+.tdcss-title,
+.tdcss-controls {
+    display: table-cell;
+    vertical-align: middle;
+    height: 2em;
+}
+.tdcss-title {
+    font-size: 2em;
+    font-weight: 200;
+    color: #7A888D;
+}
+.tdcss-controls {
+    text-align: right;
+}
+.tdcss-html-snippet-toggle {
+    color: #afafaf;
+    text-decoration: none;
+    padding: 0.75em;
+    display: inline-block;
+}
+.tdcss-html-snippet-toggle:hover {
+    color: #ebebeb;
+}
+.tdcss-no-fragments {
+    color: gray;
+    font-weight: 200;
+    text-align: center;
 }
