@@ -296,4 +296,37 @@ describe("TDCSS", function () {
         });
     });
 
+    describe("Control Bar", function () {
+        it("should exist", function () {
+            loadFixtures('simple.html');
+
+            expect($(".tdcss-control-bar")).not.toExist();
+
+            $("#tdcss").tdcss();
+
+            expect($(".tdcss-control-bar")).toExist();
+        });
+
+        it("should contain a link to show/hide html snippet", function () {
+            loadFixtures('simple.html');
+
+            $("#tdcss").tdcss();
+
+            // Button exists:
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toExist();
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
+
+            //Html is visible:
+            expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
+
+            $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
+            expect($(".tdcss-elements")).toHaveClass("tdcss-hide-html");
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Show HTML");
+
+            $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
+            expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
+            expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
+        });
+    });
+
 });

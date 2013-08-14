@@ -8,12 +8,14 @@
     <!-- Project CSS -->
     <link rel="stylesheet" href="demo/style.css" type="text/css" media="screen">
 
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
     <script type="text/javascript" src="build/tdcss.js"></script>
     <script type="text/javascript">
-         $(function(){
-             $("#tdcss").tdcss({diff: false});
-         })
+        $(function () {
+            $("#tdcss").tdcss({
+                diff: false
+            });
+        })
     </script>
 
 </head>
@@ -22,46 +24,44 @@
 <div id="tdcss">
 
 
-<!-- # Box styles -->
-<!-- & Box styles is a collection of generic boxes. -->
+    <!-- # Box styles -->
+    <!-- & Box styles is a collection of generic boxes. -->
 
-<!-- : Basic box -->
-<div class="box">
-    <p>This is a basic box.</p>
-</div>
+    <!-- : Basic box -->
+    <div class="box">
+        <p>This is a basic box.</p>
+    </div>
 
-<!-- : Notice box -->
-<div class="box-notice">
-    <p>This is a notice box.</p>
-</div>
+    <!-- : Notice box -->
+    <div class="box-notice">
+        <p>This is a notice box.</p>
+    </div>
 
-<!-- : Warning box -->
-<div class="box-warning">
-    <p>This is a warning box.</p>
-</div>
+    <!-- : Warning box -->
+    <div class="box-warning">
+        <p>This is a warning box.</p>
+    </div>
 
-<!-- : Alert box -->
-<div class="box-alert">
-    <p>This is an alert box.</p>
-</div>
-
-
-<!-- # Typography -->
-
-<!-- : H1 -->
-<h1>This is an H3 header.</h1>
-<!-- : H2 -->
-<h2>This is an H2 header</h2>
-<!-- : H3 -->
-<h3>This is an H3 header</h3>
+    <!-- : Alert box -->
+    <div class="box-alert">
+        <p>This is an alert box.</p>
+    </div>
 
 
+    <!-- # Typography -->
 
-<!-- # Custom height -->
+    <!-- : H1 -->
+    <h1>This is an H3 header.</h1>
+    <!-- : H2 -->
+    <h2>This is an H2 header</h2>
+    <!-- : H3 -->
+    <h3>This is an H3 header</h3>
 
-<!-- : Some element that needs a lot of space; 700px -->
-<h3>This is a test.</h3>
 
+    <!-- # Custom height -->
+
+    <!-- : Some element that needs a lot of space; 700px -->
+    <h3>This is a test.</h3>
 
 
 </div>

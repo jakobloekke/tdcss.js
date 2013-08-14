@@ -23,7 +23,12 @@
                 hideTheseAttributesContent: [
                     'src',
                     'href'
-                ]
+                ],
+                hide_html: false,
+                control_bar_text: {
+                    show_html: "Show HTML",
+                    hide_html: "Hide HTML"
+                }
             }, options),
             module = {
                 container: null,
@@ -40,8 +45,9 @@
             parse();
             render();
             bindSectionCollapseHandlers();
-            restoreCollapsedStateFromUrl();
+            restoreCollapsedSectionsFromUrl();
             highlightSyntax();
+            makeControlBar();
 
             if (settings.diff) {
                 diff();
@@ -63,6 +69,7 @@
         function setup() {
             $(module.container)
                 .addClass("tdcss-fragments")
+                .after("<div class='tdcss-control-bar'></div>")
                 .after("<div class='tdcss-elements'></div>");
         }
 
@@ -240,7 +247,6 @@
                         window.location.hash = window.location.hash.replace(that.state_string, "");
                     };
 
-
                     $(that.header_element).on("click", function () {
                         that.toggle();
                     });
@@ -252,7 +258,7 @@
             $(".tdcss-section").makeCollapsible();
         }
 
-        function restoreCollapsedStateFromUrl() {
+        function restoreCollapsedSectionsFromUrl() {
             if (window.location.hash) {
                 var hash = window.location.hash.split("#")[1],
                     collapsedSections = hash.split(";");
@@ -323,6 +329,42 @@
                     $(this).replaceWith(replaceWithText);
                 }
             });
+        }
+
+        function makeControlBar() {
+            var control_bar = $(".tdcss-control-bar");
+
+            control_bar.append(makeHTMLToggle());
+            $(module.container).after(control_bar);
+        }
+
+        function makeHTMLToggle() {
+            var default_text,
+                alternate_text,
+                html_snippet_toggle;
+
+            if (settings.hide_html) {
+                default_text = settings.control_bar_text.show_html;
+                alternate_text = settings.control_bar_text.hide_html;
+                $(".tdcss-elements").addClass("tdcss-hide-html");
+            } else {
+                default_text = settings.control_bar_text.hide_html;
+                alternate_text = settings.control_bar_text.show_html;
+            }
+
+            html_snippet_toggle = $("<a href='#' class='tdcss-html-snippet-toggle'>" + default_text + "</a>");
+
+            html_snippet_toggle.click(
+                function () {
+                    var text = $(this).text() === alternate_text ? default_text : alternate_text;
+
+                    $(this).text(text);
+                    $(".tdcss-elements").toggleClass("tdcss-hide-html");
+                }
+            );
+
+
+            return html_snippet_toggle;
         }
 
         function diff() {
