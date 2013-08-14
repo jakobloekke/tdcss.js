@@ -56,7 +56,9 @@
         <p>It's especially well suited to adopt a test-driven approach to CSS styling - but of course you may just as
             well use it to build a regular online styleguide.</p>
 
-        <p><img src="demo/preview.png" alt="tdcss.js in action"></p>
+        <p>
+            <img src="http://content.screencast.com/users/jakobloekke/folders/Jing/media/e8e24986-d6c2-4579-9331-322388f42e2e/00000046.png"
+                 alt="tdcss.js in action"></p>
 
         <h2>What's the benefit over other styleguide tools?</h2>
 
@@ -69,7 +71,7 @@
                 <strong>No markup bloat</strong> - TDCSS uses HTML comments for structuring.
             </li>
             <li>
-                <strong>Hassle-free setup</strong> - Flat files make it super-easy to use TDCSS together with Livereload
+                <strong>Easy setup</strong> - Flat files make it super-easy to use TDCSS together with Livereload
                 or similar browser refresh tools for an efficient workflow.
             </li>
         </ul>
@@ -96,7 +98,7 @@
                     class="s">"text/css"</span> <span class="na">media=</span><span class="s">"screen"</span><span
                     class="nt">&gt;</span>
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span
-                    class="na">src=</span><span class="s">"//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"</span><span
+                    class="na">src=</span><span class="s">"http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"</span><span
                     class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span
                     class="na">src=</span><span class="s">"tdcss/tdcss.js"</span><span
@@ -157,8 +159,13 @@
         <p>An html comment with prefix ":" means the start of a fragment:</p>
 
         <div class="highlight"><pre><span class="c">&lt;!-- : --&gt;</span>
+<span class="nt">&lt;p&gt;</span>This is a <span class="nt">&lt;strong&gt;</span>fragment<span class="nt">&lt;/strong&gt;</span><span class="nt">&lt;/p&gt;</span>
 </pre>
         </div>
+
+        <p>
+            <img src="http://content.screencast.com/users/jakobloekke/folders/Jing/media/b3edbaa9-14f6-468f-aba1-4911aef74812/00000047.png"
+                 alt="A simple fragment"/></p>
 
         <p>The (optional) first text after the prefix becomes the title of the fragment:</p>
 
