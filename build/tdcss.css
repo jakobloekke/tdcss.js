@@ -36,7 +36,7 @@ body {
 
 .tdcss-elements {
   position: relative;
-  top: 3em;
+  top: 4em;
   width: 100%;
   padding: 1em;
 }
@@ -66,7 +66,7 @@ body {
 
 .tdcss-section .tdcss-h2:after {
   float: right;
-  padding: 6px;
+  padding: 4px;
   font-size: 12px;
   content: "\25BC";
 }
@@ -177,23 +177,47 @@ body {
 .tdcss-control-bar {
   position: fixed;
   z-index: 9999;
+  display: table;
   width: 100%;
   padding: 0 2em;
   font-size: 14px;
-  text-align: right;
+  font-weight: 200;
   background-color: #2f2f2f;
   box-shadow: 0 1px 5px gray;
+}
+
+.tdcss-title,
+.tdcss-controls {
+  display: table-cell;
+  height: 2em;
+  vertical-align: middle;
+}
+
+.tdcss-title {
+  font-size: 2em;
+  font-weight: 200;
+  color: #7A888D;
+}
+
+.tdcss-controls {
+  text-align: right;
 }
 
 .tdcss-html-snippet-toggle {
   display: inline-block;
   padding: 0.75em;
-  color: #cbcbcb;
+  color: #afafaf;
   text-decoration: none;
 }
 
 .tdcss-html-snippet-toggle:hover {
   color: #ebebeb;
+}
+
+.tdcss-no-fragments {
+  font-weight: 200;
+  color: gray;
+  text-align: center;
 }
 
 /**

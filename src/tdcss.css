@@ -38,7 +38,7 @@ body {
 .tdcss-elements {
     position: relative;
     width: 100%;
-    top: 3em;
+    top: 4em;
     padding: 1em;
 }
 
@@ -67,7 +67,7 @@ body {
     content: "\25BC";
     float: right;
     font-size: 12px;
-    padding: 6px;
+    padding: 4px;
 }
 .tdcss-section.is-collapsed .tdcss-h2:after {
     content: "\25B2";
@@ -166,21 +166,41 @@ body {
     margin-bottom: 0.5em;
 }
 .tdcss-control-bar {
+    display: table;
     position: fixed;
     width: 100%;
     font-size: 14px;
     background-color: #2f2f2f;
-    text-align: right;
     z-index: 9999;
     box-shadow: 0 1px 5px gray;
     padding: 0 2em;
+    font-weight: 200;
+}
+.tdcss-title,
+.tdcss-controls {
+    display: table-cell;
+    vertical-align: middle;
+    height: 2em;
+}
+.tdcss-title {
+    font-size: 2em;
+    font-weight: 200;
+    color: #7A888D;
+}
+.tdcss-controls {
+    text-align: right;
 }
 .tdcss-html-snippet-toggle {
-    color: #cbcbcb;
+    color: #afafaf;
     text-decoration: none;
     padding: 0.75em;
     display: inline-block;
 }
 .tdcss-html-snippet-toggle:hover {
     color: #ebebeb;
+}
+.tdcss-no-fragments {
+    color: gray;
+    font-weight: 200;
+    text-align: center;
 }

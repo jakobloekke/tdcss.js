@@ -47,7 +47,7 @@
             bindSectionCollapseHandlers();
             restoreCollapsedSectionsFromUrl();
             highlightSyntax();
-            makeControlBar();
+            makeTopBar();
 
             if (settings.diff) {
                 diff();
@@ -69,7 +69,6 @@
         function setup() {
             $(module.container)
                 .addClass("tdcss-fragments")
-                .after("<div class='tdcss-control-bar'></div>")
                 .after("<div class='tdcss-elements'></div>");
         }
 
@@ -80,9 +79,16 @@
                 }
             );
 
-            comments.each(function () {
-                module.fragments.push(new Fragment(this));
-            });
+            if (comments.length === 0) {
+                $(".tdcss-elements").append("<div class='tdcss-no-fragments'>" +
+                    "<strong>Boom!</strong> You're ready to build a styleguide." +
+                    "<p>&#9786;</p>" +
+                    "</div>");
+            } else {
+                comments.each(function () {
+                    module.fragments.push(new Fragment(this));
+                });
+            }
 
             $(module.container).empty(); // Now we can empty the container to avoid having duplicate DOM nodes in the background
         }
@@ -331,11 +337,14 @@
             });
         }
 
-        function makeControlBar() {
-            var control_bar = $(".tdcss-control-bar");
+        function makeTopBar() {
+            $(module.container).after("<div class='tdcss-control-bar'>" +
+                "<h1 class='tdcss-title'></h1>" +
+                "<div class='tdcss-controls'></div>" +
+                "</div>");
 
-            control_bar.append(makeHTMLToggle());
-            $(module.container).after(control_bar);
+            $(".tdcss-title").text($("title").text());
+            $(".tdcss-controls").append(makeHTMLToggle());
         }
 
         function makeHTMLToggle() {
@@ -362,7 +371,6 @@
                     $(".tdcss-elements").toggleClass("tdcss-hide-html");
                 }
             );
-
 
             return html_snippet_toggle;
         }
