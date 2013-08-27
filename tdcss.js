@@ -1,4 +1,4 @@
-/* tdcss.js - v0.4.0 - 2013-08-14
+/* tdcss.js - v0.4.0 - 2013-08-27
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2013 Jakob Løkke Madsen;
 * License: MIT */
@@ -24,6 +24,7 @@
                     'href'
                 ],
                 hide_html: false,
+                neutralize_background: false,
                 control_bar_text: {
                     show_html: "Show HTML",
                     hide_html: "Hide HTML"

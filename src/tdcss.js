@@ -25,6 +25,7 @@
                     'href'
                 ],
                 hide_html: false,
+                neutralize_background: false,
                 control_bar_text: {
                     show_html: "Show HTML",
                     hide_html: "Hide HTML"
