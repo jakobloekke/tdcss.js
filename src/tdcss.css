@@ -9,21 +9,7 @@ body {
     margin: 0;
 }
 
-.tdcss-fragments,
-.tdcss-elements,
-.tdcss-section,
-.tdcss-section .tdcss-h2,
-.tdcss-fragment,
-.tdcss-description,
-.tdcss-dom-example,
-.tdcss-code-example,
-.tdcss-dom-example,
-.tdcss-code-example,
-.tdcss-code-example .tdcss-h3,
-.tdcss-code-example .tdcss-textarea,
-.tdcss-control-bar,
-.tdcss-control-bar a
-{
+[class*='tdcss-'] {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -98,7 +84,7 @@ body {
 .tdcss-diff-warning {
     position: fixed;
     font-size: 12px;
-    z-index: 200;
+    z-index: 10000;
 }
 
 .tdcss-diff-warning > a {
