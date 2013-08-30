@@ -7,12 +7,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-recess');
 
     // Default task.
-    grunt.registerTask('default', ['clean', 'jshint', 'concat', 'csslint', 'recess', 'karma']);
+    grunt.registerTask('default', ['clean', 'jshint', 'concat', 'recess', 'karma']);
 
     // Travis CI task.
     grunt.registerTask('travis', 'concat', 'karma');
@@ -45,12 +44,6 @@ module.exports = function (grunt) {
 
         clean: {build: ['build']},
 
-        csslint: {
-            options: {
-                csslintrc: '.csslintrc'
-            },
-            src: 'src/tdcss.css'
-        },
         recess: {
             dist: {
                 options: {
