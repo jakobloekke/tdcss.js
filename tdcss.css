@@ -109,6 +109,7 @@ body {
   top: 0;
   left: 1em;
   z-index: 100;
+  pointer-events: none;
   opacity: 0.5;
 }
 

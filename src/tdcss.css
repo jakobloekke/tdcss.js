@@ -106,6 +106,7 @@ body {
     left: 1em;
     opacity: 0.5;
     z-index: 100;
+    pointer-events: none;
 }
 
 .tdcss-description {
