@@ -21,7 +21,7 @@ files = [
     'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js',
     'test/lib/jasmine-jquery.js',
 
-    'tdcss.js',
+    'download/tdcss.js',
     'test/spec/spec.js'
 
 ];
