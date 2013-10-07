@@ -6,7 +6,6 @@ system/engine
 system/logs
 system/library
 system/helper
-download/
 config.php
 admin/config.php
 .idea
