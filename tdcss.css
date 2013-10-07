@@ -1,7 +1,7 @@
 /**
  * tdcss.js: Super-simple styleguide tool
  * MIT License http://www.opensource.org/licenses/mit-license.php/
- * @author Jakob Løkke Madsen
+ * @author Jakob LÃ¸kke Madsen
  * @url http://www.jakobloekkemadsen.com
  */
 
@@ -23,9 +23,25 @@ body {
 
 .tdcss-elements {
   position: relative;
-  top: 4em;
+  top: 3em;
   width: 100%;
-  padding: 1em;
+  padding-top: 1em;
+}
+
+.tdcss-elements:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 40%;
+  height: 100%;
+  background-color: #f5f2f0;
+  border-left: 1px solid #e7e7e7;
+  content: '';
+}
+
+.tdcss-hide-html.tdcss-elements:after {
+  display: none;
 }
 
 .tdcss-section {
@@ -68,8 +84,8 @@ body {
 
 .tdcss-fragment {
   position: relative;
-  padding: 0 1em;
-  margin: 1em 0;
+  padding: 0;
+  margin: 0;
   overflow: hidden;
 }
 
@@ -143,8 +159,6 @@ body {
   z-index: 1000;
   width: 40%;
   padding: 1em;
-  background-color: white;
-  border-left: 1px solid #add8e6;
 }
 
 .tdcss-hide-html .tdcss-code-example {
@@ -164,6 +178,7 @@ body {
 
 .tdcss-control-bar {
   position: fixed;
+  top: 0;
   z-index: 9999;
   display: table;
   width: 100%;
@@ -171,7 +186,7 @@ body {
   font-size: 14px;
   font-weight: 200;
   background-color: #2f2f2f;
-  box-shadow: 0 1px 5px gray;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .tdcss-title,

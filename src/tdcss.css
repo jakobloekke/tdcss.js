@@ -1,7 +1,7 @@
 /**
  * tdcss.js: Super-simple styleguide tool
  * MIT License http://www.opensource.org/licenses/mit-license.php/
- * @author Jakob Løkke Madsen
+ * @author Jakob LÃ¸kke Madsen
  * @url http://www.jakobloekkemadsen.com
  */
 
@@ -23,50 +23,70 @@ body {
 
 .tdcss-elements {
     position: relative;
+    top: 3em;
     width: 100%;
-    top: 4em;
-    padding: 1em;
+    padding-top: 1em;
+}
+
+.tdcss-elements:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #f5f2f0;
+    width: 40%;
+    height: 100%;
+    border-left: 1px solid #e7e7e7;
+    z-index: -1;
+}
+
+.tdcss-hide-html.tdcss-elements:after {
+    display: none;
 }
 
 .tdcss-section {
-    padding: 1px 0 0 0;
-    border: none;
-    vertical-align: bottom;
     width: 100%;
+    padding: 1px 0 0 0;
+    vertical-align: bottom;
+    border: none;
 }
+
 .tdcss-section .tdcss-h2 {
     display: block;
-    color: white;
-    font-size: 20px;
-    font-family: verdana, sans-serif;
-    margin: 0;
     padding: 10px;
-    text-shadow: 0 -1px rgba(0,0,0,0.1);
-    background-color: #add8e6;
+    margin: 0;
+    font-family: verdana, sans-serif;
+    font-size: 20px;
+    color: white;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #add8e6), color-stop(100%, #96cddf));
     background: -webkit-linear-gradient(top, #add8e6, #96cddf);
     background: -moz-linear-gradient(top, #add8e6, #96cddf);
     background: -o-linear-gradient(top, #add8e6, #96cddf);
     background: linear-gradient(top, #add8e6, #96cddf);
+    background-color: #add8e6;
 }
+
 .tdcss-section .tdcss-h2:after {
-    content: "\25BC";
     float: right;
-    font-size: 12px;
     padding: 4px;
+    font-size: 12px;
+    content: "\25BC";
 }
+
 .tdcss-section.is-collapsed .tdcss-h2:after {
     content: "\25B2";
 }
+
 .tdcss-section:hover .tdcss-h2 {
     background-color: #44ea85;
 }
 
 .tdcss-fragment {
-    overflow: hidden;
     position: relative;
-    padding: 0 1em;
-    margin: 1em 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
 }
 
 .tdcss-diff-warning,
@@ -74,22 +94,22 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: red;
-    color: white;
-    font-size: 10px;
-    padding: 3px;
     z-index: 100;
+    padding: 3px;
+    font-size: 10px;
+    color: white;
+    background-color: red;
 }
 
 .tdcss-diff-warning {
     position: fixed;
-    font-size: 12px;
     z-index: 10000;
+    font-size: 12px;
 }
 
 .tdcss-diff-warning > a {
-    color: white;
     padding-left: 0.25em;
+    color: white;
 }
 
 .tdcss-diff-warning > a:hover {
@@ -104,90 +124,101 @@ body {
     position: absolute;
     top: 0;
     left: 1em;
-    opacity: 0.5;
     z-index: 100;
     pointer-events: none;
+    opacity: 0.5;
 }
 
 .tdcss-description {
+    padding: 1em 10px;
+    margin-bottom: 1em;
     font-family: verdana, sans-serif;
     font-size: 14px;
     color: #898989;
     background-color: #f0f0f0;
     border: 1px solid #e7e7e7;
-    padding: 1em 10px;
-    margin-bottom: 1em;
 }
 
 .tdcss-dom-example,
 .tdcss-code-example {
     float: left;
 }
+
 .tdcss-dom-example {
     position: relative;
-    padding: 1em;
     width: 60%;
+    padding: 1em;
 }
+
 .tdcss-hide-html .tdcss-dom-example {
     width: 100%;
 }
+
 .tdcss-code-example {
     position: relative;
-    border-left: 1px solid #add8e6;
-    background-color: white;
     z-index: 1000;
     width: 40%;
     padding: 1em;
 }
+
 .tdcss-hide-html .tdcss-code-example {
     display: none;
 }
+
 .tdcss-code-example .tdcss-h3 {
-    font-family: verdana, sans-serif;
-    font-weight: bold;
-    font-size: 14px;
     padding: 0.25em;
-    color: white;
-    background-color: #add8e6;
     margin-top: 0;
     margin-bottom: 0.5em;
-}
-.tdcss-control-bar {
-    display: table;
-    position: fixed;
-    width: 100%;
+    font-family: verdana, sans-serif;
     font-size: 14px;
-    background-color: #2f2f2f;
-    z-index: 9999;
-    box-shadow: 0 1px 5px gray;
-    padding: 0 2em;
-    font-weight: 200;
+    font-weight: bold;
+    color: white;
+    background-color: #add8e6;
 }
+
+.tdcss-control-bar {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    display: table;
+    width: 100%;
+    padding: 0 2em;
+    font-size: 14px;
+    font-weight: 200;
+    background-color: #2f2f2f;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.50);
+}
+
 .tdcss-title,
 .tdcss-controls {
     display: table-cell;
-    vertical-align: middle;
     height: 2em;
+    vertical-align: middle;
 }
+
 .tdcss-title {
     font-size: 2em;
     font-weight: 200;
     color: #7A888D;
 }
+
 .tdcss-controls {
     text-align: right;
 }
+
 .tdcss-html-snippet-toggle {
+    display: inline-block;
+    padding: 0.75em;
     color: #afafaf;
     text-decoration: none;
-    padding: 0.75em;
-    display: inline-block;
 }
+
 .tdcss-html-snippet-toggle:hover {
     color: #ebebeb;
 }
+
 .tdcss-no-fragments {
-    color: gray;
     font-weight: 200;
+    color: gray;
     text-align: center;
 }
