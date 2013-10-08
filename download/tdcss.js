@@ -1,4 +1,4 @@
-/* tdcss.js - v0.5.1 - 2013-10-07
+/* tdcss.js - v0.5.1 - 2013-10-08
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2013 Jakob Løkke Madsen;
 * License: MIT */
