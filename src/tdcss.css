@@ -49,6 +49,7 @@ body {
     padding: 1px 0 0 0;
     vertical-align: bottom;
     border: none;
+    cursor: pointer;
 }
 
 .tdcss-section .tdcss-h2 {
