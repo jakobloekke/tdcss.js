@@ -48,6 +48,7 @@ body {
   width: 100%;
   padding: 1px 0 0 0;
   vertical-align: bottom;
+  cursor: pointer;
   border: none;
 }
 
@@ -137,6 +138,14 @@ body {
   color: #898989;
   background-color: #f0f0f0;
   border: 1px solid #e7e7e7;
+}
+
+.tdcss-description strong {
+  font-weight: bold;
+}
+
+.tdcss-description em {
+  font-style: italic;
 }
 
 .tdcss-dom-example,

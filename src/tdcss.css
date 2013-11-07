@@ -140,6 +140,14 @@ body {
     border: 1px solid #e7e7e7;
 }
 
+.tdcss-description strong {
+    font-weight: bold;
+}
+
+.tdcss-description em {
+    font-style: italic;
+}
+
 .tdcss-dom-example,
 .tdcss-code-example {
     float: left;
