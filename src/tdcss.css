@@ -49,6 +49,7 @@ body {
     padding: 1px 0 0 0;
     vertical-align: bottom;
     border: none;
+    cursor: pointer;
 }
 
 .tdcss-section .tdcss-h2 {
@@ -137,6 +138,14 @@ body {
     color: #898989;
     background-color: #f0f0f0;
     border: 1px solid #e7e7e7;
+}
+
+.tdcss-description strong {
+    font-weight: bold;
+}
+
+.tdcss-description em {
+    font-style: italic;
 }
 
 .tdcss-dom-example,

@@ -8,6 +8,7 @@ See http://jakobloekke.github.io/tdcss.js/ for an introduction.
 Release notes
 ---
 
+- 0.5.2 (November 7th, 2013): Added pull request from @johanvauhkonen + some css rules for description blocks
 - 0.5.1 (October 7th, 2013): Slightly improved layout + download folder
 - 0.4 (August 14th, 2013): Added toolbar and improved layout, added setup message, added html toggle button to toolbar.
 - 0.3 (June 22nd, 2013): Added 'neutralize_background' option to remove annoying body backgrounds from your project stylesheet.
