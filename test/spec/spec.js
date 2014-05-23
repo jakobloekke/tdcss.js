@@ -117,18 +117,28 @@ describe("TDCSS", function () {
                 var elements = $('.tdcss-elements:first');
 
                 expect($('> div:eq(0) h2', elements).text()).toBe("Basic section");
-
                 expect($('> div:eq(0)', elements).attr("class")).toBe("tdcss-section");
                 expect($('> div:eq(1)', elements).attr("class")).toBe("tdcss-fragment");
                 expect($('> div:eq(2)', elements).attr("class")).toBe("tdcss-fragment");
                 expect($('> div:eq(3)', elements).attr("class")).toBe("tdcss-fragment");
-
-                expect($('> div:eq(4) h2', elements).text()).toBe("New section");
-
-                expect($('> div:eq(4)', elements).attr("class")).toBe("tdcss-section");
-                expect($('> div:eq(5)', elements).attr("class")).toBe("tdcss-fragment");
+                //(4) is the back to top link
+                expect($('> div:eq(5) h2', elements).text()).toBe("New section");
+                expect($('> div:eq(5)', elements).attr("class")).toBe("tdcss-section");
                 expect($('> div:eq(6)', elements).attr("class")).toBe("tdcss-fragment");
+                expect($('> div:eq(7)', elements).attr("class")).toBe("tdcss-fragment");
+            });
 
+            it("should render back to top jumps above section dividers", function () {
+                loadFixtures('multiple-sections.html');
+                $("#tdcss").tdcss();
+
+                var elements = $('.tdcss-elements:first');
+
+                //Confirm not inserting back to top link above first section
+                expect($('> div:eq(0)', elements).attr("class")).not.toBe("tdcss-top");
+
+                //Back to top link
+                expect($('> div:eq(4)', elements).attr("class")).toBe("tdcss-top");
             });
 
             it("should fix the height of the dom-example container, if a value is specified", function () {

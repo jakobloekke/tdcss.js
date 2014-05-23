@@ -151,12 +151,18 @@
         }
 
         function render() {
+            var sectionCount = 0, insertBackToTop;
+
             for (var i = 0; i < module.fragments.length; i++) {
                 var fragment = module.fragments[i];
 
                 if (fragment.type === "section") {
-                    addNewSection(fragment.section_name);
+                    //Don't insert the "Back to Top" for very first section
+                    insertBackToTop = sectionCount > 0 ? true : false;
+
+                    addNewSection(fragment.section_name, insertBackToTop);
                     jump_to_menu_options += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(fragment.section_name.replace(' ', '-').toLowerCase()) + '">' + fragment.section_name + '</option>';
+                    sectionCount++;
                 }
 
                 if (fragment.type === "snippet") {
@@ -170,8 +176,18 @@
             }
         }
 
-        function addNewSection(section_name) {
-            $(module.container).next(".tdcss-elements").append('<div class="tdcss-section" id="' + encodeURIComponent(section_name.replace(' ', '-').toLowerCase()) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>');
+        function addNewSection(section_name, insertBackToTop) {
+            var markup, backToTop;
+
+            //Section boiler-plate markup
+            markup = '<div class="tdcss-section" id="' + encodeURIComponent(section_name.replace(' ', '-').toLowerCase()) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
+
+            if (insertBackToTop) {
+                //prepend the back to top link to section markup
+                backToTop = '<div class="tdcss-top"><a class="tddcss-top-link" href="#">Back to Top</a></div>';
+                markup = backToTop + markup;
+            }
+            $(module.container).next(".tdcss-elements").append(markup);
         }
 
         function addNewSnippet(fragment) {
