@@ -1,5 +1,6 @@
 {
   "version": "0.5.2",
+  "repository": "http://jakobloekke.github.io/tdcss.js/",
   "name": "tdcss.js",
   "author": "Jakob Løkke Madsen",
   "license": "MIT",
