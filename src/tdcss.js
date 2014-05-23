@@ -35,7 +35,8 @@
                 container: null,
                 fragments: [],
                 snippet_count: 0
-            };
+            },
+            jump_to_menu_options = '<option>Jump To Section:</option>';
 
         return this.each(function (i) {
 
@@ -155,6 +156,7 @@
 
                 if (fragment.type === "section") {
                     addNewSection(fragment.section_name);
+                    jump_to_menu_options += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(fragment.section_name.replace(' ', '-').toLowerCase()) + '">' + fragment.section_name + '</option>';
                 }
 
                 if (fragment.type === "snippet") {
@@ -169,7 +171,7 @@
         }
 
         function addNewSection(section_name) {
-            $(module.container).next(".tdcss-elements").append('<div class="tdcss-section" id="' + encodeURIComponent(section_name) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>');
+            $(module.container).next(".tdcss-elements").append('<div class="tdcss-section" id="' + encodeURIComponent(section_name.replace(' ', '-').toLowerCase()) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>');
         }
 
         function addNewSnippet(fragment) {
@@ -345,7 +347,29 @@
                 "</div>");
 
             $(".tdcss-title").text($("title").text());
-            $(".tdcss-controls").append(makeHTMLToggle());
+            $(".tdcss-controls")
+                .append(makeJumpTo())
+                .append(makeHTMLToggle());
+        }
+
+        function makeJumpTo() {
+            var dropdown = $("<select class='tdcss-jump-to'>" + jump_to_menu_options + "</select>");
+
+            $(dropdown).change(function () {
+                var href = $("option:selected", this).attr('href');
+                var target = $(href);
+
+                //Ignore the top option "Jump to Selection:"
+                if (this.selectedIndex > 0) {
+
+                    $('html, body').stop().animate({
+                        'scrollTop': target.offset().top - 50 //accounts for top control bar
+                    }, 600, 'swing', function () {
+                        //window.location.hash = href;
+                    });
+                }
+            });
+            return dropdown;
         }
 
         function makeHTMLToggle() {

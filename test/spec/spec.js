@@ -256,7 +256,7 @@ describe("TDCSS", function () {
 
         it("should restore section collapsed states based on url when loading page", function () {
             loadFixtures('multiple-sections.html');
-            window.location.hash = "Basic%20section;";
+            window.location.hash = "basic-section;";
 
             $("#tdcss").tdcss();
             var section_fragment_1 = $('.tdcss-elements:first .tdcss-section:first').next(".tdcss-fragment"),
@@ -296,7 +296,11 @@ describe("TDCSS", function () {
         });
     });
 
+
+
+
     describe("Control Bar", function () {
+
         it("should exist", function () {
             loadFixtures('simple.html');
 
@@ -326,6 +330,15 @@ describe("TDCSS", function () {
             $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
             expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
             expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
+        });
+
+        it("should contain a 'jump-to' dropdown html snippet", function () {
+            loadFixtures('simple.html');
+
+            $("#tdcss").tdcss();
+
+            // Jump-to dropdown exists:
+            expect($(".tdcss-control-bar .tdcss-jump-to")).toExist();
         });
     });
 
