@@ -17,6 +17,6 @@
     "grunt-contrib-clean": "~0.4.1"
   },
   "scripts": {
-      "test": "grunt travis --verbose"
+    "test": "grunt travis --verbose"
   }
 }
