@@ -36,7 +36,7 @@
                 fragments: [],
                 snippet_count: 0
             },
-            jumpToOptions = '<option>Jump To Section:</option>';
+            jump_to_menu_options = '<option>Jump To Section:</option>';
 
         return this.each(function (i) {
 
@@ -156,7 +156,7 @@
 
                 if (fragment.type === "section") {
                     addNewSection(fragment.section_name);
-                    jumpToOptions += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(fragment.section_name.replace(' ', '-').toLowerCase()) + '">' + fragment.section_name + '</option>';
+                    jump_to_menu_options += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(fragment.section_name.replace(' ', '-').toLowerCase()) + '">' + fragment.section_name + '</option>';
                 }
 
                 if (fragment.type === "snippet") {
@@ -347,12 +347,13 @@
                 "</div>");
 
             $(".tdcss-title").text($("title").text());
-            $(".tdcss-controls").append(makeJumpTo());
-            $(".tdcss-controls").append(makeHTMLToggle());
+            $(".tdcss-controls")
+                .append(makeJumpTo())
+                .append(makeHTMLToggle());
         }
 
         function makeJumpTo() {
-            var dropdown = $("<select class='tdcss-jump-to'>" + jumpToOptions + "</select>");
+            var dropdown = $("<select class='tdcss-jump-to'>" + jump_to_menu_options + "</select>");
 
             $(dropdown).change(function () {
                 var href = $("option:selected", this).attr('href');
@@ -364,7 +365,7 @@
                     $('html, body').stop().animate({
                         'scrollTop': target.offset().top - 50 //accounts for top control bar
                     }, 600, 'swing', function () {
-                        window.location.hash = href;
+                        //window.location.hash = href;
                     });
                 }
             });
