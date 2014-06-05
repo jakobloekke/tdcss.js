@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 
         src: {
             js: ['src/tdcss.js', 'src/vendors/jquery-cookie.js', 'src/vendors/prism/prism.js', 'src/vendors/html2canvas.js', 'src/vendors/resemble-modified.js'],
-            css: ['src/tdcss.css', 'src/vendors/prism/prism.css']
+            css: ['src/themes/**/*.css', 'src/vendors/prism/prism.css']
         },
 
         // Task configuration.
@@ -51,9 +51,13 @@ module.exports = function (grunt) {
                     banner: '<%= banner %>',
                     stripBanners: true
                 },
-                files: {
-                    'download/tdcss.css': ['src/**/*.css']
-                }
+                files:[{
+                    expand:true,
+                    dest: 'download/',
+                    cwd: 'src',      // Src matches are relative to this path.
+                    src: ['themes/**/*.css'],
+                    ext:'.css'
+                }]
             }
         },
         concat: {

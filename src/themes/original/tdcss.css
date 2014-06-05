@@ -1,0 +1,233 @@
+/**
+ * tdcss.js: Super-simple styleguide tool
+ * MIT License http://www.opensource.org/licenses/mit-license.php/
+ * @author Jakob Løkke Madsen
+ * @url http://www.jakobloekkemadsen.com
+ */
+
+body {
+    margin: 0;
+}
+
+[class*='tdcss-'] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.tdcss-fragments {
+    display: none;
+}
+
+.tdcss-elements {
+    position: relative;
+    top: 3em;
+    width: 100%;
+    padding-top: 1em;
+}
+
+.tdcss-elements:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #f5f2f0;
+    width: 40%;
+    height: 100%;
+    border-left: 1px solid #e7e7e7;
+    z-index: -1;
+}
+
+.tdcss-hide-html.tdcss-elements:after {
+    display: none;
+}
+
+.tdcss-section {
+    width: 100%;
+    padding: 1px 0 0 0;
+    vertical-align: bottom;
+    border: none;
+    cursor: pointer;
+}
+
+.tdcss-section .tdcss-h2 {
+    display: block;
+    padding: 10px;
+    margin: 0;
+    font-family: verdana, sans-serif;
+    font-size: 20px;
+    color: white;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.1);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #add8e6), color-stop(100%, #96cddf));
+    background: -webkit-linear-gradient(top, #add8e6, #96cddf);
+    background: -moz-linear-gradient(top, #add8e6, #96cddf);
+    background: -o-linear-gradient(top, #add8e6, #96cddf);
+    background: linear-gradient(top, #add8e6, #96cddf);
+    background-color: #add8e6;
+}
+
+.tdcss-section .tdcss-h2:after {
+    float: right;
+    padding: 4px;
+    font-size: 12px;
+    content: "\25BC";
+}
+
+.tdcss-section.is-collapsed .tdcss-h2:after {
+    content: "\25B2";
+}
+
+.tdcss-section:hover .tdcss-h2 {
+    background-color: #44ea85;
+}
+
+.tdcss-fragment {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.tdcss-diff-warning,
+.tdcss-fragment .tdcss-diff-stats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 3px;
+    font-size: 10px;
+    color: white;
+    background-color: red;
+}
+
+.tdcss-diff-warning {
+    position: fixed;
+    z-index: 10000;
+    font-size: 12px;
+}
+
+.tdcss-diff-warning > a {
+    padding-left: 0.25em;
+    color: white;
+}
+
+.tdcss-diff-warning > a:hover {
+    text-decoration: none;
+}
+
+.tdcss-fragment.tdcss-has-diff {
+    outline: 1px dotted red;
+}
+
+.tdcss-diff-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.tdcss-description {
+    padding: 1em 10px;
+    margin-bottom: 1em;
+    font-family: verdana, sans-serif;
+    font-size: 14px;
+    color: #898989;
+    background-color: #f0f0f0;
+    border: 1px solid #e7e7e7;
+}
+
+.tdcss-description strong {
+    font-weight: bold;
+}
+
+.tdcss-description em {
+    font-style: italic;
+}
+
+.tdcss-dom-example,
+.tdcss-code-example {
+    float: left;
+}
+
+.tdcss-dom-example {
+    position: relative;
+    width: 60%;
+    padding: 1em;
+}
+
+.tdcss-hide-html .tdcss-dom-example {
+    width: 100%;
+}
+
+.tdcss-code-example {
+    position: relative;
+    z-index: 1000;
+    width: 40%;
+    padding: 1em;
+}
+
+.tdcss-hide-html .tdcss-code-example {
+    display: none;
+}
+
+.tdcss-code-example .tdcss-h3 {
+    padding: 0.25em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-family: verdana, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #add8e6;
+}
+
+.tdcss-control-bar {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    display: table;
+    width: 100%;
+    padding: 0 2em;
+    font-size: 14px;
+    font-weight: 200;
+    background-color: #2f2f2f;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.50);
+}
+
+.tdcss-title,
+.tdcss-controls {
+    display: table-cell;
+    height: 2em;
+    vertical-align: middle;
+}
+
+.tdcss-title {
+    font-size: 2em;
+    font-weight: 200;
+    color: #7A888D;
+}
+
+.tdcss-controls {
+    text-align: right;
+}
+
+.tdcss-html-snippet-toggle {
+    display: inline-block;
+    padding: 0.75em;
+    color: #afafaf;
+    text-decoration: none;
+}
+
+.tdcss-html-snippet-toggle:hover {
+    color: #ebebeb;
+}
+
+.tdcss-no-fragments {
+    font-weight: 200;
+    color: gray;
+    text-align: center;
+}
