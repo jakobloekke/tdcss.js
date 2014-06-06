@@ -3,10 +3,12 @@
 <head>
     <title>tdcss.js demo</title>
 
-    <link rel="stylesheet" href="themes/original/tdcss.css" type="text/css" media="screen">
+    <!-- <link rel="stylesheet" href="themes/original/tdcss.css" type="text/css" media="screen"> -->
+    <link rel="stylesheet" href="themes/sidebar/tdcss.css" type="text/css" media="screen">
 
     <!-- Project CSS -->
-    <link rel="stylesheet" href="../demo/style.css" type="text/css" media="screen">
+    <!-- <link rel="stylesheet" href="../demo/style.css" type="text/css" media="screen"> -->
+    <link rel="stylesheet" href="themes/sidebar/demo.css" type="text/css" media="screen">
 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
 
@@ -15,12 +17,24 @@
     <script type="text/javascript" src="tdcss.js"></script>
     <script type="text/javascript">
         $(function () {
-            $("#tdcss").tdcss();
+            $("#tdcss").tdcss({theme: 'sidebar', neutralize_background: true});
         })
     </script>
 
 </head>
 <body>
+
+<!-- Hidden unless tdcss initialized with theme: sidebar -->
+<header class='tdcss-header'></header>
+<nav class='tdcss-subheader-nav'>
+    <div class="tdcss-container">
+        <ul>
+           <li><a href="#">Link One</a></li> 
+           <li><a href="#">Link Two</a></li> 
+           <li><a href="#">Link Three</a></li> 
+        </ul>
+    </div>
+</nav>
 
 <div id="tdcss">
 
@@ -86,7 +100,6 @@
 
 <!-- : Some element that needs a lot of space; 700px -->
 <h3>This is a test.</h3>
-
 
 </div>
 

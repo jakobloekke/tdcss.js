@@ -38,13 +38,17 @@
             module = {
                 container: null,
                 fragments: [],
-                snippet_count: 0
+                snippet_count: 0,
+                theme: 'original'
             },
             jump_to_menu_options = '<option>Jump To Section:</option>';
 
         return this.each(function (i) {
 
             module.container = this;
+            if (settings.theme) {
+                module.theme = settings.theme;
+            }
 
             reset();
             setup();
@@ -63,6 +67,54 @@
                 neutralizeBackground();
             }
 
+            if (settings.theme === 'sidebar') {
+                //Wrap the .tdcss-elements and .tdd-navigation (which are adjacent) in container
+                $(".tdcss-elements").each(function (index) {
+                    $(this).next(".tdcss-navigation").andSelf().wrapAll("<div class='tdcss-container' />");
+                });
+
+                //Sticky Sidebar
+                $(document).ready(function () {
+                    var sidebarMarginTop = 64;
+                    var headerTop = 120;
+                    var subheaderHeight = 40;
+
+                    var top = $('.tdcss-navigation').offset().top;
+
+                    $(window).scroll(function (event) {
+                        var y = $(this).scrollTop();
+
+                        //Subheader becomes fixed when header scroll off top of screen
+                        if (y >= headerTop) {
+                            $('.tdcss-subheader-nav').addClass('fixed');
+                            $('.tdcss-section').first().css('margin-top', sidebarMarginTop + subheaderHeight);
+                            $('.tdcss-navigation').addClass('fixed').css('margin-top', sidebarMarginTop + subheaderHeight);
+                        }
+                        else {
+                            $('.tdcss-subheader-nav').removeClass('fixed');
+                            $('.tdcss-section').first().css('margin-top', sidebarMarginTop);
+                            $('.tdcss-navigation').removeClass('fixed').css('margin-top', sidebarMarginTop);
+                        }
+
+                        // $('.tdcss-navigation').width($('.tdcss-navigation').parent().width());
+                    });
+
+                    $('.tdcss-section-title a').on('click', function (ev) {
+                        ev.preventDefault();
+
+                        var href = $(this).attr('href');
+                        var   target = $(href);
+                        $('html, body').stop().animate({
+                            'scrollTop': target.offset().top - 50
+                        }, 600, 'swing', function () {
+                            //NOP
+                        });
+                    });
+
+
+
+                });
+            }
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
 
@@ -75,7 +127,7 @@
         function setup() {
             $(module.container)
                 .addClass("tdcss-fragments")
-                .after("<div class='tdcss-elements'></div>");
+                .after("<div class='tdcss-elements'></div><div class='tdcss-navigation'></div>");
         }
 
         function parse() {
@@ -222,6 +274,16 @@
             return str;
         }
 
+        function addNewSection(section_name) {
+            var sectionHyphenated = encodeURIComponent(section_name.replace(' ', '-').toLowerCase());
+
+            if (module.theme === 'sidebar') {
+                //Add ULs with section-names in class so they can easily be custom styled
+                $('.tdcss-navigation').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="tdcss-section-title"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
+            }
+            $(module.container).next(".tdcss-elements").append('<div class="tdcss-section" id="' + sectionHyphenated + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>');
+        }
+
         function addNewSection(section_name, insertBackToTop) {
             var markup, backToTop;
 
@@ -353,7 +415,8 @@
                         window.location.hash = window.location.hash.replace(that.state_string, "");
                     };
 
-                    $(that.header_element).on("click", function () {
+                    $(that.header_element).on("click", function (ev) {
+                        ev.preventDefault();
                         that.toggle();
                     });
 
@@ -438,15 +501,22 @@
         }
 
         function makeTopBar() {
-            $(module.container).after("<div class='tdcss-control-bar'>" +
-                "<h1 class='tdcss-title'></h1>" +
-                "<div class='tdcss-controls'></div>" +
-                "</div>");
+            switch (module.theme) {
+            case 'sidebar':
+                $('.tdcss-header').show();
+                $('.tdcss-subheader-nav').show();
+                break;
+            default:
+                $(module.container).after("<div class='tdcss-control-bar'>" +
+                    "<h1 class='tdcss-title'></h1>" +
+                    "<div class='tdcss-controls'></div>" +
+                    "</div>");
 
-            $(".tdcss-title").text($("title").text());
-            $(".tdcss-controls")
-                .append(makeJumpTo())
-                .append(makeHTMLToggle());
+                $(".tdcss-title").text($("title").text());
+                $(".tdcss-controls")
+                    .append(makeJumpTo())
+                    .append(makeHTMLToggle());
+            }
         }
 
         function makeJumpTo() {

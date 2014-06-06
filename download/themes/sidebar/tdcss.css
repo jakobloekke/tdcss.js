@@ -1,0 +1,357 @@
+/**
+ * tdcss.js: Super-simple styleguide tool
+ * MIT License http://www.opensource.org/licenses/mit-license.php/
+ * @author Jakob Løkke Madsen
+ * @url http://www.jakobloekkemadsen.com
+ */
+
+body {
+  margin: 0;
+}
+
+[class*='tdcss-'] {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+       -o-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.clear:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+/************************************
+ * HEADER 
+ *
+ * Hidden unless sidebar theme used
+ ************************************/
+
+.tdcss-header,
+.tdcss-subheader-nav {
+  display: none;
+}
+
+.tdcss-header {
+  height: 120px;
+  background-color: #333;
+}
+
+/*******************************
+ * SUBHEADER
+ *******************************/
+
+.tdcss-subheader-nav {
+  width: 100%;
+  height: 40px;
+  background-color: #eee;
+  opacity: .85;
+}
+
+.tdcss-subheader-nav ul {
+  padding: 0;
+  margin: 0;
+  margin-left: 20%;
+  text-align: center;
+  list-style: none;
+}
+
+.tdcss-subheader-nav ul li {
+  float: right;
+  margin-left: 1em;
+  line-height: 40px;
+}
+
+.tdcss-subheader-nav a {
+  color: #333;
+  text-decoration: none;
+}
+
+.tdcss-subheader-nav a:hover {
+  color: #999;
+}
+
+#tdcss {
+  overflow: auto;
+}
+
+.tdcss-fragments {
+  display: none;
+}
+
+.tdcss-elements {
+  position: relative;
+  float: right;
+  width: 80%;
+}
+
+.tdcss-navigation {
+  float: left;
+  width: 20%;
+  margin-top: 64px;
+}
+
+.tdcss-navigation ul {
+  list-style-type: none;
+}
+
+.tdcss-navigation a {
+  color: #333;
+  text-decoration: none;
+}
+
+.tdcss-navigation a:hover {
+  color: #999;
+}
+
+/* Container only created for sidebar theme */
+
+.tdcss-container {
+  width: 1080px;
+  margin: 0 auto;
+}
+
+.tdcss-hide-html.tdcss-elements:after {
+  display: none;
+}
+
+.tdcss-section {
+  width: 100%;
+  padding: 1px 0 0 0;
+  margin-top: 64px;
+  vertical-align: bottom;
+  cursor: pointer;
+  border: none;
+}
+
+.tdcss-section .tdcss-h2 {
+  display: block;
+  padding: 7px 7px 7px 10px;
+  margin: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 1.125em;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: #eee;
+  background-color: #333;
+}
+
+.tdcss-section .tdcss-h2:after {
+  float: right;
+  padding: 4px;
+  font-size: 12px;
+  content: "\25BC";
+}
+
+.tdcss-section.is-collapsed .tdcss-h2:after {
+  content: "\25B2";
+}
+
+.tdcss-section:hover .tdcss-h2 {
+  background-color: #666;
+}
+
+.tdcss-fragment {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.tdcss-diff-warning,
+.tdcss-fragment .tdcss-diff-stats {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 3px;
+  font-size: 10px;
+  color: white;
+  background-color: red;
+}
+
+.tdcss-diff-warning {
+  position: fixed;
+  z-index: 10000;
+  font-size: 12px;
+}
+
+.tdcss-diff-warning > a {
+  padding-left: 0.25em;
+  color: white;
+}
+
+.tdcss-diff-warning > a:hover {
+  text-decoration: none;
+}
+
+.tdcss-fragment.tdcss-has-diff {
+  outline: 1px dotted red;
+}
+
+.tdcss-diff-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.tdcss-description {
+  padding: 1em 10px;
+  margin-bottom: 1em;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 14px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  color: #444;
+  /*background-color: #f0f0f0;*/
+
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.tdcss-description strong {
+  font-weight: bold;
+}
+
+.tdcss-description em {
+  font-style: italic;
+}
+
+.tdcss-dom-example,
+.tdcss-code-example {
+  float: left;
+}
+
+.tdcss-dom-example {
+  position: relative;
+  float: right;
+  width: 100%;
+  padding: 1em 0;
+}
+
+.tdcss-hide-html .tdcss-dom-example {
+  width: 100%;
+}
+
+.tdcss-control-bar {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  display: table;
+  width: 100%;
+  padding: 0 2em;
+  font-size: 14px;
+  font-weight: 200;
+  background-color: #2f2f2f;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.tdcss-title,
+.tdcss-controls {
+  display: table-cell;
+  height: 2em;
+  vertical-align: middle;
+}
+
+.tdcss-title {
+  font-size: 2em;
+  font-weight: 200;
+  color: #7A888D;
+}
+
+.tdcss-controls {
+  text-align: right;
+}
+
+.tdcss-html-snippet-toggle {
+  display: inline-block;
+  padding: 0.75em;
+  color: #afafaf;
+  text-decoration: none;
+}
+
+.tdcss-html-snippet-toggle:hover {
+  color: #ebebeb;
+}
+
+.tdcss-no-fragments {
+  font-weight: 200;
+  color: gray;
+  text-align: center;
+}
+
+/*******************************
+ * CODE SNIPPETS
+ *******************************/
+
+.tdcss-code-example {
+  position: relative;
+  z-index: 1000;
+  float: right;
+  width: 100%;
+  padding: 1em 0;
+}
+
+.tdcss-hide-html .tdcss-code-example {
+  display: none;
+}
+
+.tdcss-code-example .tdcss-h3 {
+  padding: 0.25em;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 14px;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #888;
+  background-color: #f0f0f0;
+  border-left: 4px solid #e7e7e7;
+}
+
+pre.language-markup {
+  padding: 2em;
+  margin: 0;
+  font-family: 'Inconsolata', monospace;
+  font-size: 14px;
+  line-height: 18px;
+  color: #999;
+  background-color: white;
+  border-right: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  border-left: 1px solid #efefef;
+}
+
+.tag,
+.punctuation {
+  color: #6A808E;
+}
+
+.attr-name {
+  color: #2285C2;
+}
+
+.attr-value {
+  color: #CF5C60;
+  opacity: 0.8;
+}
+
+/* Hack: Overrides the inline custom height so the the element clears (the inner element already has this height) */
+
+.tdcss-fragment {
+  height: 100% !important;
+}
+
+/*******************************
+ * STICKY SIDEBAR
+ *******************************/
+
+.fixed {
+  position: fixed;
+  top: 0;
+  z-index: 99999;
+}

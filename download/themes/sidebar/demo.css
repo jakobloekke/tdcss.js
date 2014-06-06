@@ -1,0 +1,52 @@
+body {
+  margin-bottom: 2em;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 14px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #666;
+}
+
+.box {
+  padding: 0.25em 1em;
+  margin-left: .725em;
+  color: #fff;
+  background-color: #34495E;
+  opacity: 0.85;
+  box-shadow: #253545 -10px 0px 0px 0px;
+}
+
+.box-notice {
+  padding: 0.25em 1em;
+  margin-left: .725em;
+  color: #fff;
+  background-color: #3498DB;
+  opacity: 0.85;
+  box-shadow: #155e8f -10px 0px 0px 0px;
+}
+
+.box-warning {
+  padding: 0.25em 1em;
+  margin-left: .725em;
+  color: #fff;
+  background-color: #F2CF5B;
+  opacity: 1;
+  box-shadow: #c4a849 -10px 0px 0px 0px;
+}
+
+.box-alert {
+  padding: 0.25em 1em;
+  margin-left: .725em;
+  color: #fff;
+  background-color: #CF5C60;
+  opacity: 1;
+  box-shadow: #943d40 -10px 0px 0px 0px;
+}
