@@ -369,8 +369,6 @@ describe("TDCSS", function () {
             // Todo ...
         });
 
-
-
         describe("theme", function () {
             beforeEach(function() {
                 loadFixtures('simple.html');
@@ -384,39 +382,11 @@ describe("TDCSS", function () {
                 expect(tdcss[0].theme).toEqual("sidebar");
             });
 
-
-
-        // function setup() {
-        //     var afterMarkup = "<div class='tdcss-elements'></div>";
-        //     if (module.theme === 'sidebar') {
-        //         afterMarkup = "<div class='tdcss-navigation'></div>" + afterMarkup;
-        //     }
-        //     $(module.container)
-        //         .addClass("tdcss-fragments")
-        //         .after(afterMarkup);
-
             it("should have an extra navigation div for sections", function () {
                 $("#tdcss").tdcss({theme: 'sidebar'});//mimic not setting theme
-            // expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
-            // expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
-            // $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
-            // expect($(".tdcss-elements")).toHaveClass("tdcss-hide-html");
-            // expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Show HTML");
-            // $(".tdcss-control-bar .tdcss-html-snippet-toggle").click();
-            // expect($(".tdcss-elements")).not.toHaveClass("tdcss-hide-html");
-            // expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
                 expect($(".tdcss-navigation")).toExist();
                 expect($(".tdcss-navigation .tdcss-nav")).toExist();
-                // expect($(".tdcss-navigation .nav .tdcss-section-title")).toExist();
-                // expect($(".tdcss-navigation .nav a")).toExist();
-
             });
-
-            xit("should have sub-section nav elements when more than one fragment", function () {
-            });
-            xit("should have code examples on bottom", function () {
-            });
-
         });
 
 

@@ -3,12 +3,12 @@
 <head>
     <title>tdcss.js demo</title>
 
-    <!-- <link rel="stylesheet" href="themes/original/tdcss.css" type="text/css" media="screen"> -->
-    <link rel="stylesheet" href="themes/sidebar/tdcss.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="themes/original/tdcss.css" type="text/css" media="screen">
+    <!-- <link rel="stylesheet" href="themes/sidebar/tdcss.css" type="text/css" media="screen"> -->
 
     <!-- Project CSS -->
-    <!-- <link rel="stylesheet" href="../demo/style.css" type="text/css" media="screen"> -->
-    <link rel="stylesheet" href="themes/sidebar/demo.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../demo/style.css" type="text/css" media="screen">
+    <!-- <link rel="stylesheet" href="themes/sidebar/demo.css" type="text/css" media="screen"> -->
 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
 
@@ -17,7 +17,8 @@
     <script type="text/javascript" src="tdcss.js"></script>
     <script type="text/javascript">
         $(function () {
-            $("#tdcss").tdcss({theme: 'sidebar', neutralize_background: true});
+            // $("#tdcss").tdcss({theme: 'sidebar'});
+            $("#tdcss").tdcss({});
         })
     </script>
 
@@ -25,7 +26,13 @@
 <body>
 
 <!-- Hidden unless tdcss initialized with theme: sidebar -->
-<header class='tdcss-header'></header>
+<header class="tdcss-header">
+    <div class="tdcss-container">
+      <div id="logo">
+        <a href="#">tdcss.js</a>
+      </div>
+    </div>
+</header>
 <nav class='tdcss-subheader-nav'>
     <div class="tdcss-container">
         <ul>

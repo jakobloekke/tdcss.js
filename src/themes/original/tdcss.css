@@ -17,6 +17,14 @@ body {
     box-sizing: border-box;
 }
 
+/************************************
+ * Hidden unless sidebar theme used
+ ************************************/
+.tdcss-header,
+.tdcss-subheader-nav {
+  display: none;
+}
+
 .tdcss-fragments {
     display: none;
 }

@@ -39,6 +39,25 @@ body {
   background-color: #333;
 }
 
+#logo {
+  float: left;
+  width: 20%;
+  margin-left: 40px;
+  line-height: 120px;
+}
+
+#logo a {
+  font-size: 3em;
+  color: white;
+  text-decoration: none;
+  opacity: .7;
+  transition: opacity 1s;
+}
+
+#logo a:hover {
+  opacity: 1;
+}
+
 /*******************************
  * SUBHEADER
  *******************************/
@@ -67,6 +86,7 @@ body {
 .tdcss-subheader-nav a {
   color: #333;
   text-decoration: none;
+  transition: color 600ms;
 }
 
 .tdcss-subheader-nav a:hover {
@@ -84,12 +104,12 @@ body {
 .tdcss-elements {
   position: relative;
   float: right;
-  width: 80%;
+  width: 85%;
 }
 
 .tdcss-navigation {
   float: left;
-  width: 20%;
+  width: 15%;
   margin-top: 64px;
 }
 
@@ -100,6 +120,7 @@ body {
 .tdcss-navigation a {
   color: #333;
   text-decoration: none;
+  transition: color 600ms;
 }
 
 .tdcss-navigation a:hover {
@@ -136,6 +157,7 @@ body {
   letter-spacing: 0.1em;
   color: #eee;
   background-color: #333;
+  transition: background-color 600ms;
 }
 
 .tdcss-section .tdcss-h2:after {
