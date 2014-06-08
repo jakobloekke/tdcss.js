@@ -241,6 +241,9 @@ body {
   width: 100%;
   float: right;
   padding: 1em 0; 
+  /* Make z-index higher than code-example. Use case example: I have a Dropdown
+    that, when expanded, should display "over" the code snippet */
+  z-index: 1001;
 }
 
 .tdcss-hide-html .tdcss-dom-example {
