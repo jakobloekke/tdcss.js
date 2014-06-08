@@ -77,6 +77,7 @@
                     var sidebarMarginTop = 64;
                     var headerTop = 120;
                     var subheaderHeight = 40;
+                    var scrollingAdjustment = 12;//hack: readjusts margin-top to "catch up" w/user's scrolling
 
                     var top = $('.tdcss-navigation').offset().top;
 
@@ -85,17 +86,27 @@
 
                         //Subheader becomes fixed when header scroll off top of screen
                         if (y >= headerTop) {
+                            // Subheader fixed when top header scrolled off
                             $('.tdcss-subheader-nav').addClass('fixed');
-                            $('.tdcss-section').first().css('margin-top', sidebarMarginTop + subheaderHeight);
-                            $('.tdcss-navigation').addClass('fixed').css('margin-top', sidebarMarginTop + subheaderHeight);
+
+                            //Add margin top on first section so it roughly lines up with sidebar
+                            $('.tdcss-section').first().css('margin-top', sidebarMarginTop + subheaderHeight - scrollingAdjustment);
+
+                            //Fix position the docked menu and add margin top there. Now that we've fixed positioned
+                            //the tdcss-subheader-nav, tdcss-navigation's margin top is useless.
+                            $('.docked-menu').addClass('fixed').css('margin-top', sidebarMarginTop + subheaderHeight);
                         }
                         else {
                             $('.tdcss-subheader-nav').removeClass('fixed');
                             $('.tdcss-section').first().css('margin-top', sidebarMarginTop);
-                            $('.tdcss-navigation').removeClass('fixed').css('margin-top', sidebarMarginTop);
+                            //Switches back to using the tdcss-navigation for margin-top
+                            $('.docked-menu').removeClass('fixed').css('margin-top', 0);
+                            $('.tdcss-navigation').css('margin-top', sidebarMarginTop);
                         }
 
-                        // $('.tdcss-navigation').width($('.tdcss-navigation').parent().width());
+                        //The docked-menu will always need to calculate against its parent esp. when it
+                        //becomes fixed positioned thus taken out of flow of document
+                        $('.docked-menu').width($('.docked-menu').parent().width());
                     });
 
                     $('.tdcss-section-title a').on('click', function (ev) {
@@ -126,7 +137,7 @@
         function setup() {
             $(module.container)
                 .addClass("tdcss-fragments")
-                .after("<div class='tdcss-elements'></div><div class='tdcss-navigation'></div>");
+                .after("<div class='tdcss-elements'></div><div class='tdcss-navigation'><div class='docked-menu'></div></div>");
         }
 
         function parse() {
@@ -278,7 +289,7 @@
 
             if (module.theme === 'sidebar') {
                 //Add ULs with section-names in class so they can easily be custom styled
-                $('.tdcss-navigation').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="tdcss-section-title"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
+                $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="tdcss-section-title"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
             }
             $(module.container).next(".tdcss-elements").append('<div class="tdcss-section" id="' + sectionHyphenated + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>');
         }
