@@ -3,12 +3,12 @@
 <head>
     <title>tdcss.js demo</title>
 
-    <link rel="stylesheet" href="themes/original/tdcss.css" type="text/css" media="screen">
-    <!-- <link rel="stylesheet" href="themes/sidebar/tdcss.css" type="text/css" media="screen"> -->
+    <!-- <link rel="stylesheet" href="themes/original/tdcss.css" type="text/css" media="screen"> -->
+    <link rel="stylesheet" href="themes/sidebar/tdcss.css" type="text/css" media="screen">
 
     <!-- Project CSS -->
-    <link rel="stylesheet" href="../demo/style.css" type="text/css" media="screen">
-    <!-- <link rel="stylesheet" href="themes/sidebar/demo.css" type="text/css" media="screen"> -->
+    <!-- <link rel="stylesheet" href="../demo/style.css" type="text/css" media="screen"> -->
+    <link rel="stylesheet" href="themes/sidebar/demo.css" type="text/css" media="screen">
 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
 
@@ -17,8 +17,8 @@
     <script type="text/javascript" src="tdcss.js"></script>
     <script type="text/javascript">
         $(function () {
-            // $("#tdcss").tdcss({theme: 'sidebar'});
-            $("#tdcss").tdcss({});
+            $("#tdcss").tdcss({theme: 'sidebar'});
+            // $("#tdcss").tdcss({});
         })
     </script>
 
@@ -45,6 +45,8 @@
 
 <div id="tdcss">
 
+    <!-- # Box styles -->
+    <!-- & Box styles is a collection of generic boxes. -->
 
 <!-- # JavaScript Test-->
 <!-- & This is a test of a js component. -->
@@ -104,11 +106,38 @@
 
 
 <!-- # Custom height -->
-
+<!-- # Custom height -->
+<!-- & This is a custom section's description. It shows off that you can now inline usage examples. Just follow the markup structure below: 
+<div class="tdcss-usage-examples">
+<h3>Usages</h3>
+<ul>
+    <li>Module I</li>
+    <li>
+        <ul><li>Base TabBar</li><li>TabBar</li></ul>
+    </li>
+</ul>
+<ul>
+    <li>TodoManager / Shared Components</li>
+    <li>
+        <ul><li>TodoAssignments</li></ul>
+    </li>
+</ul>
+<h3>Children</h3>
+<ul>
+    <li>TodoInlineEdit</li>
+    <li>
+        <ul><li>InlineEditor</li><li>InlineIconManager</li></ul>
+    </li>
+</ul>
+</div>
+-->
 <!-- : Some element that needs a lot of space; 700px -->
 <h3>This is a test.</h3>
 
+
+
 </div>
+<!-- ENDS TDCSS -->
 
 </body>
 </html>

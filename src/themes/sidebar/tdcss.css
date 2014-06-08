@@ -355,6 +355,30 @@ pre.language-markup {
   height: 100% !important;
 }
 
+
+.tdcss-usage-examples {
+  padding: 1em;
+  margin-top: 1.5em;
+  border: 1px solid #E5EBED;
+  background-color: #F7FAFB;
+  color: #888;
+}
+.tdcss-usage-examples h1,
+.tdcss-usage-examples h2,
+.tdcss-usage-examples h3,
+.tdcss-usage-examples h4,
+.tdcss-usage-examples h5,
+.tdcss-usage-examples h6,
+.tdcss-usage-examples li {
+  color: #68797E;
+}
+.tdcss-usage-examples li {
+  font-weight: 700;
+}
+.tdcss-usage-examples li li {
+  font-weight: 300;
+}
+
 /*******************************
  * STICKY SIDEBAR
  *******************************/

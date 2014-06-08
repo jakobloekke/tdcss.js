@@ -250,6 +250,7 @@ body {
 
 .tdcss-dom-example {
   position: relative;
+  z-index: 1001;
   float: right;
   width: 100%;
   padding: 1em 0;
@@ -366,6 +367,32 @@ pre.language-markup {
 
 .tdcss-fragment {
   height: 100% !important;
+}
+
+.tdcss-usage-examples {
+  padding: 1em;
+  margin-top: 1.5em;
+  color: #888;
+  background-color: #F7FAFB;
+  border: 1px solid #E5EBED;
+}
+
+.tdcss-usage-examples h1,
+.tdcss-usage-examples h2,
+.tdcss-usage-examples h3,
+.tdcss-usage-examples h4,
+.tdcss-usage-examples h5,
+.tdcss-usage-examples h6,
+.tdcss-usage-examples li {
+  color: #68797E;
+}
+
+.tdcss-usage-examples li {
+  font-weight: 700;
+}
+
+.tdcss-usage-examples li li {
+  font-weight: 300;
 }
 
 /*******************************
