@@ -347,7 +347,6 @@ describe("TDCSS", function () {
             //We want it to become "my-super-long-section" instead
             loadFixtures('simple-long-section.html');
             $("#tdcss").tdcss();
-            console.log($('.tdcss-section').first().attr('id'));
 
             var sectionKlass = $('.tdcss-section').last().attr('id');
             expect(sectionKlass).toEqual('my-super-long-section');
