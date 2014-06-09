@@ -342,6 +342,16 @@ describe("TDCSS", function () {
             expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
         });
 
+        it("should handle section names with more than one space in them", function() {
+            //Fix for: 'My Super Long Section' results in: "my-super%20long%20section"
+            //We want it to become "my-super-long-section" instead
+            loadFixtures('simple-long-section.html');
+            $("#tdcss").tdcss();
+            console.log($('.tdcss-section').first().attr('id'));
+
+            var sectionKlass = $('.tdcss-section').last().attr('id');
+            expect(sectionKlass).toEqual('my-super-long-section');
+        })
         it("should contain a 'jump-to' dropdown html snippet", function () {
             loadFixtures('simple.html');
 
