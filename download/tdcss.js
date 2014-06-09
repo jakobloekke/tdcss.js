@@ -14,6 +14,7 @@
                 fragment_types: {
                     section: {identifier: "#"},
                     snippet: {identifier: ":"},
+                    jssnippet: {identifier: "_"},
                     description: {identifier: "&"}
                 },
                 fragment_info_splitter: ";",
@@ -117,6 +118,13 @@
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
+            if (that.type === "jssnippet") {
+                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types.snippet.identifier)[1]);
+                that.raw_script = getFragmentScriptHTML(that.raw_comment_node);
+                that.html = getFragmentHTML(that.raw_comment_node);
+            }
+
             return that;
 
             function getFragmentType() {
@@ -135,6 +143,26 @@
 
         function getCommentMeta(elem) {
             return elem.nodeValue.split(settings.fragment_info_splitter);
+        }
+
+        function getFragmentScriptHTML(elem) {
+            var fragment = elem.nextSibling.nextSibling;
+            var notFound = true, levels = 10;
+
+            //walk nextSibling's until we find the next <script> tag, but only try "levels" times
+            while (notFound && levels > 0) {
+                try {
+                    if (fragment.toString() === '[object HTMLScriptElement]') {
+                        return  fragment.outerHTML;
+                    } else {
+                        fragment = fragment['nextSibling'];
+                    }
+                } catch (e) {
+                    return null;
+                }
+                levels--;
+            }
+            return null;
         }
 
         function getFragmentHTML(elem) {
@@ -164,7 +192,7 @@
                     sectionCount++;
                 }
 
-                if (fragment.type === "snippet") {
+                if (fragment.type === "snippet" || fragment.type === 'jssnippet') {
                     module.snippet_count++;
                     addNewSnippet(fragment);
                 }
@@ -199,7 +227,7 @@
         function addNewSnippet(fragment) {
             var title = fragment.snippet_title || '',
                 html = fragment.html,
-                escaped_html = htmlEscape(html),
+                escaped_html = fragment.type === 'jssnippet' ? htmlEscape(fragment.raw_script) : htmlEscape(html),
                 height = getFragmentHeightCSSProperty(fragment),
                 $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
@@ -207,7 +235,7 @@
 
             $row.append($dom_example, $code_example);
             $(module.container).next(".tdcss-elements").append($row);
-            adjustCodeExampleHeight($row);
+            adjustCodeExampleHeight($row, fragment.type);
 
             function getFragmentHeightCSSProperty(fragment) {
                 if (fragment.custom_height) {
@@ -217,12 +245,14 @@
                 }
             }
 
-            function adjustCodeExampleHeight($row) {
+            function adjustCodeExampleHeight($row, type) {
                 var h3 = $(".tdcss-h3", $row),
                     textarea = $("pre", $row),
                     new_textarea_height = $(".tdcss-dom-example", $row).height();
 
-                if (fragment.custom_height === "") {
+                if (type === 'jssnippet') {
+                    textarea.height('auto');
+                } else if (fragment.custom_height === "") {
                     textarea.height(new_textarea_height);
                 } else {
                     textarea.height(fragment.custom_height);
