@@ -1,4 +1,4 @@
-/* tdcss.js - v0.5.2 - 2014-07-01
+/* tdcss.js - v0.6.0 - 2014-06-14
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2014 Jakob Løkke Madsen;
 * License: MIT */
@@ -20,6 +20,7 @@
                 fragment_info_splitter: ";",
                 replacementContent: "...",
                 hideTextContent: false,
+                setCollapsedStateInUrl: true,
                 hideTheseAttributesContent: [
                     'src',
                     'href'
@@ -289,11 +290,15 @@
                         if (that.collapsed) {
                             $(that.header_element).addClass("is-collapsed");
                             $(that.fragments_in_section).hide();
-                            that.setCollapsedStateInUrl();
+                            if (settings.setCollapsedStateInUrl) {
+                                that.setCollapsedStateInUrl();
+                            }
                         } else {
                             $(that.header_element).removeClass("is-collapsed");
                             $(that.fragments_in_section).show();
-                            that.removeCollapsedStateFromUrl();
+                            if (settings.setCollapsedStateInUrl) {
+                                that.removeCollapsedStateFromUrl();
+                            }
                         }
                     };
 

@@ -274,6 +274,7 @@ describe("TDCSS", function () {
 
         });
 
+
         it("should remove information on collapsed sections from url fragment, when they are shown again", function () {
             loadFixtures('multiple-sections.html');
 
@@ -309,6 +310,21 @@ describe("TDCSS", function () {
             expect(other_section_fragment.is(":visible")).toBe(true);
 
         });
+
+        it("should provide a way to opt out of using url fragments since they cause jumps", function () {
+            loadFixtures('multiple-sections.html');
+            $("#tdcss").tdcss({setCollapsedStateInUrl: false});
+
+            var first_section_header = $('.tdcss-elements:first .tdcss-section:first'),
+                second_section_header = $('.tdcss-elements:first .tdcss-section:eq(1)');
+
+            first_section_header.click();
+            expect(window.location.hash).not.toContain(first_section_header.attr("id"));
+
+            second_section_header.click();
+            expect(window.location.hash).not.toContain(first_section_header.attr("id"));
+        });
+
     });
 
     describe("Options", function () {
