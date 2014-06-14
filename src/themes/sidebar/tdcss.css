@@ -115,6 +115,19 @@ body {
   color: #999;
 }
 
+.tdcss-navigation .tdcss-html-snippet-toggle {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  transition: color 600ms;
+  color: #2285C2;
+  font-weight: 700;
+  text-shadow: 0px 1px 0px rgba(0,0,0,.1);
+}
+.tdcss-navigation .tdcss-html-snippet-toggle:hover {
+  color: #156394;
+}
+
 /* Container only created for sidebar theme */
 .tdcss-container {
   margin: 0 auto;
@@ -387,3 +400,4 @@ pre.language-markup {
   top:0;
   z-index:99999;
 }
+

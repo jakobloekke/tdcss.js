@@ -127,6 +127,20 @@ body {
   color: #999;
 }
 
+.tdcss-navigation .tdcss-html-snippet-toggle {
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+  color: #2285C2;
+  text-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  transition: color 600ms;
+}
+
+.tdcss-navigation .tdcss-html-snippet-toggle:hover {
+  color: #156394;
+}
+
 /* Container only created for sidebar theme */
 
 .tdcss-container {
