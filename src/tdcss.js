@@ -442,7 +442,9 @@
             html_snippet_toggle = $("<a href='#' class='tdcss-html-snippet-toggle'>" + default_text + "</a>");
 
             html_snippet_toggle.click(
-                function () {
+                function (e) {
+                    //prevent scroll top behavior
+                    e.preventDefault();
                     var text = $(this).text() === alternate_text ? default_text : alternate_text;
 
                     $(this).text(text);
