@@ -64,9 +64,13 @@ body {
 
 .tdcss-subheader-nav {
   width: 100%;
-  height: 40px;
+  height: 44px;
   background-color: #eee;
   opacity: .85;
+}
+
+.tdcss-subheader-nav .active {
+  border-bottom: 4px solid #333;
 }
 
 .tdcss-subheader-nav ul {
@@ -139,6 +143,18 @@ body {
 
 .tdcss-navigation .tdcss-html-snippet-toggle:hover {
   color: #156394;
+}
+
+.tdcss-nav > li {
+  width: 90%;
+}
+
+.tdcss-nav .active {
+  border-right: 2px solid #2285C2;
+}
+
+.tdcss-nav .active a {
+  color: #2285C2;
 }
 
 /* Container only created for sidebar theme */
