@@ -192,6 +192,18 @@ describe("TDCSS", function () {
 
         });
 
+        describe("No Snippet fragments", function () {
+
+            beforeEach(function() {
+                loadFixtures('simple-no-snippet.html');
+                $("#tdcss").tdcss();
+            });
+
+            it("should render the fragment but not the code example", function () {
+                expect($('.tdcss-elements:first .tdcss-fragment .tdcss-dom-example')[0].innerHTML).toContain("We use CadetBlue on text");
+                expect($('.tdcss-elements:first .tdcss-fragment:first .tdcss-code-example')).not.toExist();
+            });
+        });
     });
 
     describe("Interaction", function () {
@@ -405,5 +417,6 @@ describe("TDCSS", function () {
             expect($(".tdcss-control-bar .tdcss-jump-to")).toExist();
         });
     });
+
 
 });
