@@ -135,7 +135,7 @@
                             
                             //Add the subnav height and scrolling adujstment to current Y so the left nav
                             //active links are updated when the section bar is a few pixels below subnav
-                            var extraPadding = scrollingAdjustment + 2;
+                            var extraPadding = scrollingAdjustment + 4;
                             if (y + subheaderHeight + extraPadding >= loc - scrollingAdjustment) {
                                 $('.tdcss-nav li').removeClass('active').eq(i).addClass('active');
                             }
