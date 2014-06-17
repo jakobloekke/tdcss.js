@@ -109,6 +109,7 @@ body {
   position: relative;
   float: right;
   width: 85%;
+  padding-left: 15px;
 }
 
 .tdcss-navigation {
