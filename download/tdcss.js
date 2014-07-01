@@ -1,4 +1,4 @@
-/* tdcss.js - v0.6.0 - 2014-07-01
+/* tdcss.js - v0.5.2 - 2014-07-01
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2014 Jakob Løkke Madsen;
 * License: MIT */
@@ -441,7 +441,9 @@
             html_snippet_toggle = $("<a href='#' class='tdcss-html-snippet-toggle'>" + default_text + "</a>");
 
             html_snippet_toggle.click(
-                function () {
+                function (e) {
+                    //prevent scroll top behavior
+                    e.preventDefault();
                     var text = $(this).text() === alternate_text ? default_text : alternate_text;
 
                     $(this).text(text);
