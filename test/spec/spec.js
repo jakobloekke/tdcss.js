@@ -161,6 +161,35 @@ describe("TDCSS", function () {
 
                 expect(textarea.outerHeight(true)).toBeWithin(expected_new_textarea_height, 5);
             });
+
+
+            describe("JavaScript fragments", function () {
+
+                beforeEach(function() {
+                    loadFixtures('simple-js-snippet.html');
+                    $("#tdcss").tdcss();
+                });
+                it("should render JavaScript injected DOM content", function () {
+                    var expected = "Test is fini!";
+                    var actual = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-dom-example').text();
+                    expect(actual).toEqual(expected);
+                });
+
+                it("should render JavaScript code snippet example", function () {
+                    var actual = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example').text();
+
+                    expect(/script/.test(actual)).toBeTruthy();
+                    expect(/\$.document.*ready.function/.test(actual)).toBeTruthy();
+                    expect(actual.substr(-9)).toEqual("</script>");
+                });
+
+                it("should use auto for js snippet height", function () {
+                    var heightStyle = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example .language-markup').attr('style');
+                    expect(/auto/.test(heightStyle)).toBeTruthy();
+                });
+
+            });
+
         });
 
     });
