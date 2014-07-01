@@ -161,7 +161,7 @@
                     insertBackToTop = sectionCount > 0 ? true : false;
 
                     addNewSection(fragment.section_name, insertBackToTop);
-                    jump_to_menu_options += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(fragment.section_name.replace(' ', '-').toLowerCase()) + '">' + fragment.section_name + '</option>';
+                    jump_to_menu_options += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(_spacesToLowerCasedHyphenated(fragment.section_name)) + '">' + fragment.section_name + '</option>';
                     sectionCount++;
                 }
 
@@ -176,17 +176,24 @@
             }
         }
 
+        function _spacesToLowerCasedHyphenated(str) {
+            str = str.replace(/\s+/g, '-').toLowerCase();
+            return str;
+        }
+
         function addNewSection(section_name, insertBackToTop) {
             var markup, backToTop;
 
             //Section boiler-plate markup
-            markup = '<div class="tdcss-section" id="' + encodeURIComponent(section_name.replace(' ', '-').toLowerCase()) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
+            var sectionHyphenated = encodeURIComponent(_spacesToLowerCasedHyphenated(section_name));
+            markup = '<div class="tdcss-section" id="' + encodeURIComponent(sectionHyphenated) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
 
             if (insertBackToTop) {
                 //prepend the back to top link to section markup
                 backToTop = '<div class="tdcss-top"><a class="tddcss-top-link" href="#">Back to Top</a></div>';
                 markup = backToTop + markup;
             }
+
             $(module.container).next(".tdcss-elements").append(markup);
         }
 
