@@ -1,4 +1,4 @@
-/* tdcss.js - v0.6.0 - 2014-06-14
+/* tdcss.js - v0.6.0 - 2014-07-01
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2014 Jakob Løkke Madsen;
 * License: MIT */
@@ -15,6 +15,7 @@
                     section: {identifier: "#"},
                     snippet: {identifier: ":"},
                     jssnippet: {identifier: "_"},
+                    no_snippet: {identifier: "="},
                     description: {identifier: "&"}
                 },
                 fragment_info_splitter: ";",
@@ -125,6 +126,13 @@
                 that.raw_script = getFragmentScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
+            
+            if (that.type === "no_snippet") {
+                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types.no_snippet.identifier)[1]);
+                that.custom_height = $.trim(getCommentMeta(that.raw_comment_node)[1]);
+                that.html = getFragmentHTML(that.raw_comment_node);
+            }
 
             return that;
 
@@ -198,6 +206,11 @@
                     addNewSnippet(fragment);
                 }
 
+                if (fragment.type === "no_snippet") {
+                    module.snippet_count++;
+                    addNewNoSnippet(fragment);
+                }
+
                 if (fragment.type === "description") {
                     addNewDescription(fragment);
                 }
@@ -225,7 +238,7 @@
             $(module.container).next(".tdcss-elements").append(markup);
         }
 
-        function addNewSnippet(fragment) {
+        function _addFragment(fragment, renderSnippet) {
             var title = fragment.snippet_title || '',
                 html = fragment.html,
                 escaped_html = fragment.type === 'jssnippet' ? htmlEscape(fragment.raw_script) : htmlEscape(html),
@@ -234,7 +247,12 @@
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
                 $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
 
-            $row.append($dom_example, $code_example);
+            if (renderSnippet) {
+                $row.append($dom_example, $code_example);
+            } else {
+                $row.append($dom_example);
+            }
+
             $(module.container).next(".tdcss-elements").append($row);
             adjustCodeExampleHeight($row, fragment.type);
 
@@ -267,6 +285,14 @@
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;');
             }
+        }
+
+        function addNewNoSnippet(fragment) {
+            _addFragment(fragment, false);
+        }
+
+        function addNewSnippet(fragment) {
+            _addFragment(fragment, true);
         }
 
         function addNewDescription(fragment) {
