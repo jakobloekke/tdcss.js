@@ -177,10 +177,8 @@ describe("TDCSS", function () {
 
                 it("should render JavaScript code snippet example", function () {
                     var actual = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example').text();
-
-                    expect(/script/.test(actual)).toBeTruthy();
-                    expect(/\$.document.*ready.function/.test(actual)).toBeTruthy();
-                    expect(actual.substr(-9)).toEqual("</script>");
+                    expect(/\.append/.test(actual)).toBeTruthy();
+                    expect(actual.substr(-47)).toEqual("$('#js-test').append('<h1>Test is fini!</h1>');");
                 });
 
                 it("should use auto for js snippet height", function () {
@@ -191,6 +189,31 @@ describe("TDCSS", function () {
             });
 
         });
+
+        describe("CoffeeScript Support", function () {
+
+            beforeEach(function() {
+                loadFixtures('simple-coffeescript-snippet.html');
+                $("#tdcss").tdcss();
+            });
+
+            afterEach(function () {
+                window.tdcss = null;
+            });
+
+            it("should render CoffeeScript injected DOM content", function () {
+                var expected = "Test from coffeescript";
+                var actual = $('#coffeescript-test').nextAll('.tdcss-fragment').find('.tdcss-dom-example').text();
+                expect(actual).toEqual(expected);
+            });
+
+            it("should render CoffeeScript code snippet example", function () {
+                var actual = $('#coffeescript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example').text();
+                expect(/#coffee.*append.*from.coffeescript/.test(actual)).toBeTruthy();
+            });
+
+        });
+
 
         describe("No Snippet fragments", function () {
 
@@ -204,6 +227,7 @@ describe("TDCSS", function () {
                 expect($('.tdcss-elements:first .tdcss-fragment:first .tdcss-code-example')).not.toExist();
             });
         });
+
     });
 
     describe("Interaction", function () {

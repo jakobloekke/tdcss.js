@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../demo/style.css" type="text/css" media="screen">
 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+
+    <script type="text/javascript" src="../src/vendors/coffee-script.js"></script>
+
     <script type="text/javascript" src="tdcss.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -20,6 +23,23 @@
 <body>
 
 <div id="tdcss">
+
+
+<!-- # JavaScript Test-->
+<!-- & This is a test of a js component. -->
+<!-- _  js fragment example -->
+<div id="js-test"></div>
+<script type="text/javascript">
+    $('#js-test').append('<h1>Test is fini!</h1>');
+</script>
+
+<!-- # CoffeeScript Test-->
+<!-- & This is a test of a coffeescript component. -->
+<!-- ->  coffeescript -->
+<div id="coffee"></div>
+<script type="text/coffeescript">
+    $('#coffee').append '<h1>Test from coffeescript</h1>'
+</script>
 
 
 <!-- # Box styles -->
@@ -67,15 +87,6 @@
 <!-- : Some element that needs a lot of space; 700px -->
 <h3>This is a test.</h3>
 
-<!-- # JavaScript Test-->
-<!-- & This is a test of a js component. -->
-<!-- _  js fragment example -->
-<p id="js-test"></p>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#js-test').append('<h1>Test is fini!</h1>');
-    });
-</script>
 
 </div>
 

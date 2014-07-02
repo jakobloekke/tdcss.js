@@ -1,4 +1,4 @@
-/* tdcss.js - v0.6.0 - 2014-07-01
+/* tdcss.js - v0.6.0 - 2014-07-02
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2014 Jakob Løkke Madsen;
 * License: MIT */
@@ -15,6 +15,7 @@
                     section: {identifier: "#"},
                     snippet: {identifier: ":"},
                     jssnippet: {identifier: "_"},
+                    coffeesnippet: {identifier: "->"},
                     no_snippet: {identifier: "="},
                     description: {identifier: "&"}
                 },
@@ -122,8 +123,18 @@
 
             if (that.type === "jssnippet") {
                 that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.snippet.identifier)[1]);
+                    .split(settings.fragment_types[that.type].identifier)[1]);
                 that.raw_script = getFragmentScriptHTML(that.raw_comment_node);
+                that.html = getFragmentHTML(that.raw_comment_node);
+            }
+
+            if (that.type === "coffeesnippet") {
+                if (!window.CoffeeScript) throw new Error("Include CoffeeScript Compiler to evaluate CoffeeScript with tdcss.");
+
+                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types[that.type].identifier)[1]);
+
+                that.raw_script = getFragmentCoffeeScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
             
@@ -155,23 +166,11 @@
         }
 
         function getFragmentScriptHTML(elem) {
-            var fragment = elem.nextSibling.nextSibling;
-            var notFound = true, levels = 10;
+            return $(elem).siblings('script[type="text/javascript"]').first().html().trim();
+        }
 
-            //walk nextSibling's until we find the next <script> tag, but only try "levels" times
-            while (notFound && levels > 0) {
-                try {
-                    if (fragment.toString() === '[object HTMLScriptElement]') {
-                        return  fragment.outerHTML;
-                    } else {
-                        fragment = fragment['nextSibling'];
-                    }
-                } catch (e) {
-                    return null;
-                }
-                levels--;
-            }
-            return null;
+        function getFragmentCoffeeScriptHTML(elem) {
+            return $(elem).siblings('script[type="text/coffeescript"]').first().html().trim();
         }
 
         function getFragmentHTML(elem) {
@@ -201,7 +200,7 @@
                     sectionCount++;
                 }
 
-                if (fragment.type === "snippet" || fragment.type === 'jssnippet') {
+                if (fragment.type === "snippet" || fragment.type === 'jssnippet' || fragment.type === 'coffeesnippet') {
                     module.snippet_count++;
                     addNewSnippet(fragment);
                 }
@@ -239,10 +238,17 @@
         }
 
         function _addFragment(fragment, renderSnippet) {
-            var title = fragment.snippet_title || '',
-                html = fragment.html,
-                escaped_html = fragment.type === 'jssnippet' ? htmlEscape(fragment.raw_script) : htmlEscape(html),
-                height = getFragmentHeightCSSProperty(fragment),
+            var title = fragment.snippet_title || '', html = fragment.html;
+
+            //If type coffeescript or jssnippet we want to escape the raw script 
+            var escaped_html = '';
+            if (fragment.type === 'coffeesnippet' || fragment.type === 'jssnippet') {
+                escaped_html = htmlEscape(fragment.raw_script);
+            } else {
+                escaped_html = htmlEscape(html);
+            }
+
+            var height = getFragmentHeightCSSProperty(fragment),
                 $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
                 $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
@@ -254,6 +260,13 @@
             }
 
             $(module.container).next(".tdcss-elements").append($row);
+
+            //We wait until here since we've now appended the $row to our module container
+            if (fragment.type === 'coffeesnippet' && window.CoffeeScript) {
+                window.CoffeeScript.eval(fragment.raw_script);
+            }
+
+
             adjustCodeExampleHeight($row, fragment.type);
 
             function getFragmentHeightCSSProperty(fragment) {
@@ -269,7 +282,7 @@
                     textarea = $("pre", $row),
                     new_textarea_height = $(".tdcss-dom-example", $row).height();
 
-                if (type === 'jssnippet') {
+                if (type === 'jssnippet' || type === 'coffeesnippet') {
                     textarea.height('auto');
                 } else if (fragment.custom_height === "") {
                     textarea.height(new_textarea_height);
