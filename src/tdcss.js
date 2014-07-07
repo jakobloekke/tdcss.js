@@ -263,11 +263,11 @@
         }
 
         function getFragmentScriptHTML(elem) {
-            return $(elem).siblings('script[type="text/javascript"]').first().html().trim();
+            return $(elem).nextAll('script[type="text/javascript"]').html().trim();
         }
 
         function getFragmentCoffeeScriptHTML(elem) {
-            return $(elem).siblings('script[type="text/coffeescript"]').first().html().trim();
+            return $(elem).nextAll('script[type="text/coffeescript"]').html().trim();
         }
 
         function getFragmentHTML(elem) {
@@ -318,22 +318,17 @@
             return str;
         }
 
-        function addNewSection(section_name) {
-            var sectionHyphenated = encodeURIComponent(section_name.replace(' ', '-').toLowerCase());
-
-            if (module.theme === 'sidebar') {
-                //Add ULs with section-names in class so they can easily be custom styled
-                $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="tdcss-section-title"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
-            }
-            $(module.container).next(".tdcss-elements").append('<div class="tdcss-section" id="' + sectionHyphenated + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>');
-        }
-
         function addNewSection(section_name, insertBackToTop) {
             var markup, backToTop;
 
             //Section boiler-plate markup
             var sectionHyphenated = encodeURIComponent(_spacesToLowerCasedHyphenated(section_name));
             markup = '<div class="tdcss-section" id="' + encodeURIComponent(sectionHyphenated) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
+
+            if (module.theme === 'sidebar') {
+                //Add ULs with section-names in class so they can easily be custom styled
+                $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="tdcss-section-title"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
+            }
 
             if (insertBackToTop) {
                 //prepend the back to top link to section markup
