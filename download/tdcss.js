@@ -1,4 +1,4 @@
-/* tdcss.js - v0.6.0 - 2014-07-02
+/* tdcss.js - v0.6.0 - 2014-07-07
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2014 Jakob Løkke Madsen;
 * License: MIT */
@@ -166,11 +166,11 @@
         }
 
         function getFragmentScriptHTML(elem) {
-            return $(elem).siblings('script[type="text/javascript"]').first().html().trim();
+            return $(elem).nextAll('script[type="text/javascript"]').html().trim();
         }
 
         function getFragmentCoffeeScriptHTML(elem) {
-            return $(elem).siblings('script[type="text/coffeescript"]').first().html().trim();
+            return $(elem).nextAll('script[type="text/coffeescript"]').html().trim();
         }
 
         function getFragmentHTML(elem) {
