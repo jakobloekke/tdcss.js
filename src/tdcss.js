@@ -167,11 +167,11 @@
         }
 
         function getFragmentScriptHTML(elem) {
-            return $(elem).siblings('script[type="text/javascript"]').first().html().trim();
+            return $(elem).nextAll('script[type="text/javascript"]').html().trim();
         }
 
         function getFragmentCoffeeScriptHTML(elem) {
-            return $(elem).siblings('script[type="text/coffeescript"]').first().html().trim();
+            return $(elem).nextAll('script[type="text/coffeescript"]').html().trim();
         }
 
         function getFragmentHTML(elem) {
