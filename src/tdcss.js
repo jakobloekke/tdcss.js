@@ -195,7 +195,6 @@
                 if (fragment.type === "section") {
                     //Don't insert the "Back to Top" for very first section
                     insertBackToTop = sectionCount > 0 ? true : false;
-
                     addNewSection(fragment.section_name, insertBackToTop);
                     jump_to_menu_options += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(_spacesToLowerCasedHyphenated(fragment.section_name)) + '">' + fragment.section_name + '</option>';
                     sectionCount++;
@@ -225,9 +224,18 @@
         function addNewSection(section_name, insertBackToTop) {
             var markup, backToTop;
 
+            //Check if our trimmed section name contains case-insensitive 'wip'
+            var isWorkInProgress = /^wip/i.test($.trim(section_name));
+
+            //Remove WIP from name as we only want to add class for styling
+            section_name = isWorkInProgress ? $.trim(section_name).replace(/^wip/i, '') : section_name;
+
             //Section boiler-plate markup
             var sectionHyphenated = encodeURIComponent(_spacesToLowerCasedHyphenated(section_name));
-            markup = '<div class="tdcss-section" id="' + encodeURIComponent(sectionHyphenated) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
+
+            //If work in progress we add the 'wip' class so strikethrough or similar can be applied
+            var sectionKlass = isWorkInProgress ? 'tdcss-section wip' : 'tdcss-section';
+            markup = '<div class="' + sectionKlass + '" id="' + encodeURIComponent(sectionHyphenated) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
 
             if (insertBackToTop) {
                 //prepend the back to top link to section markup
