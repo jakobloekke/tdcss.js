@@ -432,6 +432,14 @@ describe("TDCSS", function () {
             var sectionKlass = $('.tdcss-section').last().attr('id');
             expect(sectionKlass).toEqual('my-super-long-section');
         })
+
+        it("should allow WIP at beginning of section name and add wip class but remove wip from section title", function() {
+            loadFixtures('simple-wip.html');
+            $("#tdcss").tdcss();
+            expect($('.tdcss-section')).toHaveClass('wip');
+            expect($('.tdcss-section .tdcss-h2').text().toLowerCase()).not.toContain('wip');
+        })
+
         it("should contain a 'jump-to' dropdown html snippet", function () {
             loadFixtures('simple.html');
 
