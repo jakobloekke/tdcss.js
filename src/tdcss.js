@@ -15,11 +15,15 @@
                 fragment_types: {
                     section: {identifier: "#"},
                     snippet: {identifier: ":"},
+                    jssnippet: {identifier: "_"},
+                    coffeesnippet: {identifier: "->"},
+                    no_snippet: {identifier: "="},
                     description: {identifier: "&"}
                 },
                 fragment_info_splitter: ";",
                 replacementContent: "...",
                 hideTextContent: false,
+                setCollapsedStateInUrl: true,
                 hideTheseAttributesContent: [
                     'src',
                     'href'
@@ -118,6 +122,30 @@
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
+            if (that.type === "jssnippet") {
+                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types[that.type].identifier)[1]);
+                that.raw_script = getFragmentScriptHTML(that.raw_comment_node);
+                that.html = getFragmentHTML(that.raw_comment_node);
+            }
+
+            if (that.type === "coffeesnippet") {
+                if (!window.CoffeeScript) throw new Error("Include CoffeeScript Compiler to evaluate CoffeeScript with tdcss.");
+
+                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types[that.type].identifier)[1]);
+
+                that.raw_script = getFragmentCoffeeScriptHTML(that.raw_comment_node);
+                that.html = getFragmentHTML(that.raw_comment_node);
+            }
+            
+            if (that.type === "no_snippet") {
+                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types.no_snippet.identifier)[1]);
+                that.custom_height = $.trim(getCommentMeta(that.raw_comment_node)[1]);
+                that.html = getFragmentHTML(that.raw_comment_node);
+            }
+
             return that;
 
             function getFragmentType() {
@@ -138,6 +166,14 @@
             return elem.nodeValue.split(settings.fragment_info_splitter);
         }
 
+        function getFragmentScriptHTML(elem) {
+            return $(elem).nextAll('script[type="text/javascript"]').html().trim();
+        }
+
+        function getFragmentCoffeeScriptHTML(elem) {
+            return $(elem).nextAll('script[type="text/coffeescript"]').html().trim();
+        }
+
         function getFragmentHTML(elem) {
             // The actual HTML fragment is the comment's nextSibling (a carriage return)'s nextSibling:
             var fragment = elem.nextSibling.nextSibling;
@@ -151,17 +187,27 @@
         }
 
         function render() {
+            var sectionCount = 0, insertBackToTop;
+
             for (var i = 0; i < module.fragments.length; i++) {
                 var fragment = module.fragments[i];
 
                 if (fragment.type === "section") {
-                    addNewSection(fragment.section_name);
-                    jump_to_menu_options += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(fragment.section_name.replace(' ', '-').toLowerCase()) + '">' + fragment.section_name + '</option>';
+                    //Don't insert the "Back to Top" for very first section
+                    insertBackToTop = sectionCount > 0 ? true : false;
+                    addNewSection(fragment.section_name, insertBackToTop);
+                    jump_to_menu_options += '<option class="tdcss-jumpto-section" href="#' + encodeURIComponent(_spacesToLowerCasedHyphenated(fragment.section_name)) + '">' + fragment.section_name + '</option>';
+                    sectionCount++;
                 }
 
-                if (fragment.type === "snippet") {
+                if (fragment.type === "snippet" || fragment.type === 'jssnippet' || fragment.type === 'coffeesnippet') {
                     module.snippet_count++;
                     addNewSnippet(fragment);
+                }
+
+                if (fragment.type === "no_snippet") {
+                    module.snippet_count++;
+                    addNewNoSnippet(fragment);
                 }
 
                 if (fragment.type === "description") {
@@ -170,22 +216,67 @@
             }
         }
 
-        function addNewSection(section_name) {
-            $(module.container).next(".tdcss-elements").append('<div class="tdcss-section" id="' + encodeURIComponent(section_name.replace(' ', '-').toLowerCase()) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>');
+        function _spacesToLowerCasedHyphenated(str) {
+            str = str.replace(/\s+/g, '-').toLowerCase();
+            return str;
         }
 
-        function addNewSnippet(fragment) {
-            var title = fragment.snippet_title || '',
-                html = fragment.html,
-                escaped_html = htmlEscape(html),
-                height = getFragmentHeightCSSProperty(fragment),
+        function addNewSection(section_name, insertBackToTop) {
+            var markup, backToTop;
+
+            //Check if our trimmed section name contains case-insensitive 'wip'
+            var isWorkInProgress = /^wip/i.test($.trim(section_name));
+
+            //Remove WIP from name as we only want to add class for styling
+            section_name = isWorkInProgress ? $.trim(section_name).replace(/^wip/i, '') : section_name;
+
+            //Section boiler-plate markup
+            var sectionHyphenated = encodeURIComponent(_spacesToLowerCasedHyphenated(section_name));
+
+            //If work in progress we add the 'wip' class so strikethrough or similar can be applied
+            var sectionKlass = isWorkInProgress ? 'tdcss-section wip' : 'tdcss-section';
+            markup = '<div class="' + sectionKlass + '" id="' + encodeURIComponent(sectionHyphenated) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
+
+            if (insertBackToTop) {
+                //prepend the back to top link to section markup
+                backToTop = '<div class="tdcss-top"><a class="tddcss-top-link" href="#">Back to Top</a></div>';
+                markup = backToTop + markup;
+            }
+
+            $(module.container).next(".tdcss-elements").append(markup);
+        }
+
+        function _addFragment(fragment, renderSnippet) {
+            var title = fragment.snippet_title || '', html = fragment.html;
+
+            //If type coffeescript or jssnippet we want to escape the raw script 
+            var escaped_html = '';
+            if (fragment.type === 'coffeesnippet' || fragment.type === 'jssnippet') {
+                escaped_html = htmlEscape(fragment.raw_script);
+            } else {
+                escaped_html = htmlEscape(html);
+            }
+
+            var height = getFragmentHeightCSSProperty(fragment),
                 $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
                 $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
 
-            $row.append($dom_example, $code_example);
+            if (renderSnippet) {
+                $row.append($dom_example, $code_example);
+            } else {
+                $row.append($dom_example);
+            }
+
             $(module.container).next(".tdcss-elements").append($row);
-            adjustCodeExampleHeight($row);
+
+            //We wait until here since we've now appended the $row to our module container
+            if (fragment.type === 'coffeesnippet' && window.CoffeeScript) {
+                window.CoffeeScript.eval(fragment.raw_script);
+            }
+
+
+            adjustCodeExampleHeight($row, fragment.type);
 
             function getFragmentHeightCSSProperty(fragment) {
                 if (fragment.custom_height) {
@@ -195,12 +286,14 @@
                 }
             }
 
-            function adjustCodeExampleHeight($row) {
+            function adjustCodeExampleHeight($row, type) {
                 var h3 = $(".tdcss-h3", $row),
                     textarea = $("pre", $row),
                     new_textarea_height = $(".tdcss-dom-example", $row).height();
 
-                if (fragment.custom_height === "") {
+                if (type === 'jssnippet' || type === 'coffeesnippet') {
+                    textarea.height('auto');
+                } else if (fragment.custom_height === "") {
                     textarea.height(new_textarea_height);
                 } else {
                     textarea.height(fragment.custom_height);
@@ -214,6 +307,14 @@
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;');
             }
+        }
+
+        function addNewNoSnippet(fragment) {
+            _addFragment(fragment, false);
+        }
+
+        function addNewSnippet(fragment) {
+            _addFragment(fragment, true);
         }
 
         function addNewDescription(fragment) {
@@ -237,11 +338,15 @@
                         if (that.collapsed) {
                             $(that.header_element).addClass("is-collapsed");
                             $(that.fragments_in_section).hide();
-                            that.setCollapsedStateInUrl();
+                            if (settings.setCollapsedStateInUrl) {
+                                that.setCollapsedStateInUrl();
+                            }
                         } else {
                             $(that.header_element).removeClass("is-collapsed");
                             $(that.fragments_in_section).show();
-                            that.removeCollapsedStateFromUrl();
+                            if (settings.setCollapsedStateInUrl) {
+                                that.removeCollapsedStateFromUrl();
+                            }
                         }
                     };
 
@@ -389,7 +494,9 @@
             html_snippet_toggle = $("<a href='#' class='tdcss-html-snippet-toggle'>" + default_text + "</a>");
 
             html_snippet_toggle.click(
-                function () {
+                function (e) {
+                    //prevent scroll top behavior
+                    e.preventDefault();
                     var text = $(this).text() === alternate_text ? default_text : alternate_text;
 
                     $(this).text(text);

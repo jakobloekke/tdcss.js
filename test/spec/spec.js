@@ -117,18 +117,28 @@ describe("TDCSS", function () {
                 var elements = $('.tdcss-elements:first');
 
                 expect($('> div:eq(0) h2', elements).text()).toBe("Basic section");
-
                 expect($('> div:eq(0)', elements).attr("class")).toBe("tdcss-section");
                 expect($('> div:eq(1)', elements).attr("class")).toBe("tdcss-fragment");
                 expect($('> div:eq(2)', elements).attr("class")).toBe("tdcss-fragment");
                 expect($('> div:eq(3)', elements).attr("class")).toBe("tdcss-fragment");
-
-                expect($('> div:eq(4) h2', elements).text()).toBe("New section");
-
-                expect($('> div:eq(4)', elements).attr("class")).toBe("tdcss-section");
-                expect($('> div:eq(5)', elements).attr("class")).toBe("tdcss-fragment");
+                //(4) is the back to top link
+                expect($('> div:eq(5) h2', elements).text()).toBe("New section");
+                expect($('> div:eq(5)', elements).attr("class")).toBe("tdcss-section");
                 expect($('> div:eq(6)', elements).attr("class")).toBe("tdcss-fragment");
+                expect($('> div:eq(7)', elements).attr("class")).toBe("tdcss-fragment");
+            });
 
+            it("should render back to top jumps above section dividers", function () {
+                loadFixtures('multiple-sections.html');
+                $("#tdcss").tdcss();
+
+                var elements = $('.tdcss-elements:first');
+
+                //Confirm not inserting back to top link above first section
+                expect($('> div:eq(0)', elements).attr("class")).not.toBe("tdcss-top");
+
+                //Back to top link
+                expect($('> div:eq(4)', elements).attr("class")).toBe("tdcss-top");
             });
 
             it("should fix the height of the dom-example container, if a value is specified", function () {
@@ -150,6 +160,71 @@ describe("TDCSS", function () {
                     expected_new_textarea_height = (code_example.height() - h3.outerHeight(true));
 
                 expect(textarea.outerHeight(true)).toBeWithin(expected_new_textarea_height, 5);
+            });
+
+
+            describe("JavaScript fragments", function () {
+
+                beforeEach(function () {
+                    loadFixtures('simple-js-snippet.html');
+                    $("#tdcss").tdcss();
+                });
+                it("should render JavaScript injected DOM content", function () {
+                    var expected = "Test is fini!";
+                    var actual = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-dom-example').text();
+                    expect(actual).toEqual(expected);
+                });
+
+                it("should render JavaScript code snippet example", function () {
+                    var actual = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example').text();
+                    expect(/\.append/.test(actual)).toBeTruthy();
+                    expect(actual.substr(-47)).toEqual("$('#js-test').append('<h1>Test is fini!</h1>');");
+                });
+
+                it("should use auto for js snippet height", function () {
+                    var heightStyle = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example .language-markup').attr('style');
+                    expect(/auto/.test(heightStyle)).toBeTruthy();
+                });
+
+            });
+
+        });
+
+        describe("CoffeeScript Support", function () {
+
+            beforeEach(function () {
+                loadFixtures('simple-coffeescript-snippet.html');
+                $("#tdcss").tdcss();
+            });
+
+            afterEach(function () {
+                window.tdcss = null;
+            });
+
+            it("should render CoffeeScript injected DOM content", function () {
+                var expected = "Test from coffeescript";
+                var actual = $('#coffeescript-test').nextAll('.tdcss-fragment').find('.tdcss-dom-example').text();
+                expect(actual).toEqual(expected);
+            });
+
+            it("should render CoffeeScript code snippet example", function () {
+                var actual = $('#coffeescript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example').text();
+                expect(/#coffee.*append.*from.coffeescript/.test(actual)).toBeTruthy();
+            });
+
+        });
+
+
+        describe("No Snippet fragments", function () {
+
+            beforeEach(function () {
+                loadFixtures('simple-no-snippet.html');
+                $("#tdcss").tdcss();
+            });
+
+            it("should render the fragment but not the code example", function () {
+                expect($('.tdcss-elements:first .tdcss-fragment .tdcss-dom-example')[0].innerHTML).toContain("We use CadetBlue on text");
+                expect($('.tdcss-elements:first .tdcss-fragment:first .tdcss-code-example')).not.toExist();
             });
         });
 
@@ -270,6 +345,21 @@ describe("TDCSS", function () {
             expect(other_section_fragment.is(":visible")).toBe(true);
 
         });
+
+        it("should provide a way to opt out of using url fragments since they cause jumps", function () {
+            loadFixtures('multiple-sections.html');
+            $("#tdcss").tdcss({setCollapsedStateInUrl: false});
+
+            var first_section_header = $('.tdcss-elements:first .tdcss-section:first'),
+                second_section_header = $('.tdcss-elements:first .tdcss-section:eq(1)');
+
+            first_section_header.click();
+            expect(window.location.hash).not.toContain(first_section_header.attr("id"));
+
+            second_section_header.click();
+            expect(window.location.hash).not.toContain(first_section_header.attr("id"));
+        });
+
     });
 
     describe("Options", function () {
@@ -295,8 +385,6 @@ describe("TDCSS", function () {
             });
         });
     });
-
-
 
 
     describe("Control Bar", function () {
@@ -332,6 +420,23 @@ describe("TDCSS", function () {
             expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
         });
 
+        it("should handle section names with more than one space in them", function () {
+            //Fix for: 'My Super Long Section' results in: "my-super%20long%20section"
+            //We want it to become "my-super-long-section" instead
+            loadFixtures('simple-long-section.html');
+            $("#tdcss").tdcss();
+
+            var sectionKlass = $('.tdcss-section').last().attr('id');
+            expect(sectionKlass).toEqual('my-super-long-section');
+        });
+
+        it("should allow WIP at beginning of section name and add wip class but remove wip from section title", function () {
+            loadFixtures('simple-wip.html');
+            $("#tdcss").tdcss();
+            expect($('.tdcss-section')).toHaveClass('wip');
+            expect($('.tdcss-section .tdcss-h2').text().toLowerCase()).not.toContain('wip');
+        });
+
         it("should contain a 'jump-to' dropdown html snippet", function () {
             loadFixtures('simple.html');
 
@@ -341,5 +446,6 @@ describe("TDCSS", function () {
             expect($(".tdcss-control-bar .tdcss-jump-to")).toExist();
         });
     });
+
 
 });
