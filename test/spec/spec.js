@@ -165,7 +165,7 @@ describe("TDCSS", function () {
 
             describe("JavaScript fragments", function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     loadFixtures('simple-js-snippet.html');
                     $("#tdcss").tdcss();
                 });
@@ -192,7 +192,7 @@ describe("TDCSS", function () {
 
         describe("CoffeeScript Support", function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
                 loadFixtures('simple-coffeescript-snippet.html');
                 $("#tdcss").tdcss();
             });
@@ -217,7 +217,7 @@ describe("TDCSS", function () {
 
         describe("No Snippet fragments", function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
                 loadFixtures('simple-no-snippet.html');
                 $("#tdcss").tdcss();
             });
@@ -310,7 +310,6 @@ describe("TDCSS", function () {
 
         });
 
-
         it("should remove information on collapsed sections from url fragment, when they are shown again", function () {
             loadFixtures('multiple-sections.html');
 
@@ -388,8 +387,6 @@ describe("TDCSS", function () {
     });
 
 
-
-
     describe("Control Bar", function () {
 
         it("should exist", function () {
@@ -423,7 +420,7 @@ describe("TDCSS", function () {
             expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
         });
 
-        it("should handle section names with more than one space in them", function() {
+        it("should handle section names with more than one space in them", function () {
             //Fix for: 'My Super Long Section' results in: "my-super%20long%20section"
             //We want it to become "my-super-long-section" instead
             loadFixtures('simple-long-section.html');
@@ -431,14 +428,14 @@ describe("TDCSS", function () {
 
             var sectionKlass = $('.tdcss-section').last().attr('id');
             expect(sectionKlass).toEqual('my-super-long-section');
-        })
+        });
 
-        it("should allow WIP at beginning of section name and add wip class but remove wip from section title", function() {
+        it("should allow WIP at beginning of section name and add wip class but remove wip from section title", function () {
             loadFixtures('simple-wip.html');
             $("#tdcss").tdcss();
             expect($('.tdcss-section')).toHaveClass('wip');
             expect($('.tdcss-section .tdcss-h2').text().toLowerCase()).not.toContain('wip');
-        })
+        });
 
         it("should contain a 'jump-to' dropdown html snippet", function () {
             loadFixtures('simple.html');
