@@ -43,7 +43,6 @@
             jump_to_menu_options = '<option>Jump To Section:</option>';
 
         return this.each(function (i) {
-
             module.container = this;
 
             reset();
@@ -70,8 +69,8 @@
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
-
         });
+
 
         function reset() {
             module.fragments.length = 0;
@@ -143,7 +142,7 @@
                 that.raw_script = getFragmentCoffeeScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
-            
+
             if (that.type === "no_snippet") {
                 that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
                     .split(settings.fragment_types.no_snippet.identifier)[1]);
@@ -254,7 +253,7 @@
         function _addFragment(fragment, renderSnippet) {
             var title = fragment.snippet_title || '', html = fragment.html;
 
-            //If type coffeescript or jssnippet we want to escape the raw script 
+            //If type coffeescript or jssnippet we want to escape the raw script
             var escaped_html = '';
             if (fragment.type === 'coffeesnippet' || fragment.type === 'jssnippet') {
                 escaped_html = htmlEscape(fragment.raw_script);

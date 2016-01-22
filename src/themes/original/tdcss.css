@@ -155,7 +155,7 @@ body {
 
 .tdcss-dom-example {
     position: relative;
-    width: 60%;
+    width: 59.9%; /* don't cover border on the right side */
     padding: 1em;
 }
 
@@ -233,5 +233,15 @@ body {
 }
 
 .tdcss-top {
-    padding: 1em;
+    padding: 1em 1em 2em;
+}
+
+.tddcss-top-link {
+    float: right;
+    margin-right: 1.25em;
+    color: #558696;
+}
+
+.tddcss-top-link:hover {
+    color: #96cddf;
 }

@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-recess');
 
     // Default task.
-    grunt.registerTask('default', ['clean', 'jshint', 'concat', 'recess', 'karma']);
+    grunt.registerTask('default', ['clean', 'jshint', 'concat'/*, 'recess'*/, 'karma']);
 
     // Travis CI task.
     grunt.registerTask('travis', 'concat', 'karma');
@@ -61,6 +61,14 @@ module.exports = function (grunt) {
             }
         },
         concat: {
+            css: {
+                src: '<%= src.css %>',
+                dest: 'build/themes/original/tdcss.css',
+                options: {
+                    banner: '<%= banner %>',
+                    stripBanners: true
+                }
+            },
             js: {
                 src: '<%= src.js %>',
                 dest: 'build/tdcss.js',
