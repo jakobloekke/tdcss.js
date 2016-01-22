@@ -22,10 +22,10 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         banner: '/* <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-            '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-            '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
-            '* License: <%= pkg.license %> */\n\n\n',
+        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+        '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
+        '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
+        '* License: <%= pkg.license %> */\n\n\n',
 
         src: {
             js: ['src/tdcss.js', 'src/vendors/jquery-cookie.js', 'src/vendors/prism/prism.js', 'src/vendors/html2canvas.js', 'src/vendors/resemble-modified.js'],
@@ -51,19 +51,19 @@ module.exports = function (grunt) {
                     banner: '<%= banner %>',
                     stripBanners: true
                 },
-                files:[{
-                    expand:true,
-                    dest: 'download/',
+                files: [{
+                    expand: true,
+                    dest: 'build/',
                     cwd: 'src',      // Src matches are relative to this path.
                     src: ['themes/**/*.css'],
-                    ext:'.css'
+                    ext: '.css'
                 }]
             }
         },
         concat: {
             js: {
                 src: '<%= src.js %>',
-                dest: 'download/tdcss.js',
+                dest: 'build/tdcss.js',
                 options: {
                     banner: '<%= banner %>',
                     stripBanners: true
