@@ -1,5 +1,5 @@
 {
-  "version": "0.8.0",
+  "version": "0.8.1",
   "repository": "http://jakobloekke.github.io/tdcss.js/",
   "bugs": {
     "url": "https://github.com/jakobloekke/tdcss.js/issues",
@@ -25,8 +25,7 @@
   },
   "scripts": {
     "test": "grunt travis --verbose",
-    "start": "serve -p 4000",
-    "postinstall": "grunt"
+    "start": "serve -p 4000"
   },
   "dependencies": {
     "html2canvas": "^0.5.0-beta3",
