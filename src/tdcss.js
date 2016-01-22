@@ -30,6 +30,7 @@
                 ],
                 hide_html: false,
                 neutralize_background: false,
+                internalize_background_color: true,
                 control_bar_text: {
                     show_html: "Show HTML",
                     hide_html: "Hide HTML"
@@ -43,7 +44,6 @@
             jump_to_menu_options = '<option>Jump To Section:</option>';
 
         return this.each(function (i) {
-
             module.container = this;
 
             reset();
@@ -59,14 +59,19 @@
                 diff();
             }
 
+            if (settings.internalize_background_color) {
+                internalizeBackgroundColor();
+            }
+
             if (settings.neutralize_background) {
                 neutralizeBackground();
             }
 
+
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
-
         });
+
 
         function reset() {
             module.fragments.length = 0;
@@ -138,7 +143,7 @@
                 that.raw_script = getFragmentCoffeeScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
-            
+
             if (that.type === "no_snippet") {
                 that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
                     .split(settings.fragment_types.no_snippet.identifier)[1]);
@@ -249,7 +254,7 @@
         function _addFragment(fragment, renderSnippet) {
             var title = fragment.snippet_title || '', html = fragment.html;
 
-            //If type coffeescript or jssnippet we want to escape the raw script 
+            //If type coffeescript or jssnippet we want to escape the raw script
             var escaped_html = '';
             if (fragment.type === 'coffeesnippet' || fragment.type === 'jssnippet') {
                 escaped_html = htmlEscape(fragment.raw_script);
@@ -258,9 +263,9 @@
             }
 
             var height = getFragmentHeightCSSProperty(fragment),
-                $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'></div>"),
+                $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'><h3 class='tdcss-fragment-title'>" + title + "</h3></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
-                $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
+                $code_example = $("<div class='tdcss-code-example'><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
 
             if (renderSnippet) {
                 $row.append($dom_example, $code_example);
@@ -559,6 +564,14 @@
 
         function neutralizeBackground() {
             $("body").css({"background": "none"});
+        }
+
+        /**
+         * Set the background color of DOM examples to the project background color.
+         */
+        function internalizeBackgroundColor() {
+            var background_color = $('body').css('backgroundColor');
+            $(".tdcss-dom-example").css('backgroundColor', background_color);
         }
 
     };

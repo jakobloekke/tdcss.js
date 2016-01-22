@@ -103,11 +103,11 @@ describe("TDCSS", function () {
                 expect($('.tdcss-elements:first pre').html()).toContain('Here\'s a basic fragment');
             });
 
-            it("should render the fragment title in an h3 above the textarea", function () {
+            it("should render the fragment title in an h3 above the fragment", function () {
                 loadFixtures('simple.html');
                 $("#tdcss").tdcss();
 
-                expect($('.tdcss-elements:first .tdcss-fragment:first .tdcss-code-example h3').text()).toBe('Basic fragment');
+                expect($('.tdcss-elements:first .tdcss-fragment:first .tdcss-fragment-title').text()).toBe('Basic fragment');
             });
 
             it("should render section dividers above each set of fragments that belong to a section", function () {
@@ -368,11 +368,30 @@ describe("TDCSS", function () {
             // Todo ...
         });
 
+        describe("internalize_background", function () {
+            it("should set the background color of fragments to the background color of the project CSS", function () {
+
+                loadFixtures('simple.html');
+                $("#tdcss").tdcss({internalize_background: true});
+
+                expect($(".tdcss-dom-example:first").css("backgroundColor")).toBe("rgba(0, 0, 0, 0)");
+
+
+                // Contains body background color:
+                loadStyleFixtures('body-background.css');
+                $("#tdcss").tdcss({internalize_background: true});
+
+                expect($(".tdcss-dom-example:first").css("backgroundColor")).toBe("rgb(255, 0, 0)");
+            });
+        });
+
         describe("neutralize_background", function () {
             it("should remove any background set on the body element by the project CSS", function () {
 
                 loadStyleFixtures('body-background.css');
                 loadFixtures('simple.html');
+
+                $("#tdcss").tdcss({neutralize_background: false});
 
                 expect($("body").css("backgroundColor")).toBe("rgb(255, 0, 0)");
                 expect($("body").css("backgroundImage")).toBe("url(data:image/bmp;base64,Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAA/38AAAAA)");

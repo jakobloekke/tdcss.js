@@ -8,6 +8,7 @@ See http://jakobloekke.github.io/tdcss.js/ for an introduction.
 Release notes
 ---
 
+- 0.8.0 (January 22nd, 2016): Rename 'download' folder to 'build', since that's more conventional. New 'internalize_background' setting.
 - 0.7.0 (February 8th, 2015): Added advanced snippet annotations and js/cs support by @roblevintennis.
 - 0.6.0 (May 23nd, 2014): Added pull requests from @greystate and @roblevintennis.
 - 0.5.2 (November 7th, 2013): Added pull request from @johanvauhkonen + some css rules for description blocks
