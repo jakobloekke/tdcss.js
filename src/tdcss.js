@@ -30,6 +30,7 @@
                 ],
                 hide_html: false,
                 neutralize_background: false,
+                internalize_background_color: true,
                 control_bar_text: {
                     show_html: "Show HTML",
                     hide_html: "Hide HTML"
@@ -59,9 +60,14 @@
                 diff();
             }
 
+            if (settings.internalize_background_color) {
+                internalizeBackgroundColor();
+            }
+
             if (settings.neutralize_background) {
                 neutralizeBackground();
             }
+
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
@@ -258,9 +264,9 @@
             }
 
             var height = getFragmentHeightCSSProperty(fragment),
-                $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'></div>"),
+                $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'><h3 class='tdcss-fragment-title'>" + title + "</h3></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
-                $code_example = $("<div class='tdcss-code-example'><h3 class='tdcss-h3'>" + title + "</h3><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
+                $code_example = $("<div class='tdcss-code-example'><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
 
             if (renderSnippet) {
                 $row.append($dom_example, $code_example);
@@ -559,6 +565,14 @@
 
         function neutralizeBackground() {
             $("body").css({"background": "none"});
+        }
+
+        /**
+         * Set the background color of DOM examples to the project background color.
+         */
+        function internalizeBackgroundColor() {
+            var background_color = $('body').css('backgroundColor');
+            $(".tdcss-dom-example").css('backgroundColor', background_color);
         }
 
     };

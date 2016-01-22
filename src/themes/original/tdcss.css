@@ -174,7 +174,7 @@ body {
     display: none;
 }
 
-.tdcss-code-example .tdcss-h3 {
+.tdcss-fragment-title {
     padding: 0.25em;
     margin-top: 0;
     margin-bottom: 0.5em;
@@ -230,4 +230,8 @@ body {
     font-weight: 200;
     color: gray;
     text-align: center;
+}
+
+.tdcss-top {
+    padding: 1em;
 }
