@@ -28,8 +28,8 @@ module.exports = function (grunt) {
         '* License: <%= pkg.license %> */\n\n\n',
 
         src: {
-            js: ['src/tdcss.js', 'src/vendors/jquery-cookie.js', 'src/vendors/prism/prism.js', 'src/vendors/html2canvas.js', 'src/vendors/resemble-modified.js'],
-            css: ['src/themes/**/*.css', 'src/vendors/prism/prism.css']
+            js: ['src/tdcss.js', 'node_modules/prismjs/prism.js', 'node_modules/html2canvas/dist/html2canvas.js', 'src/vendors/resemble-modified.js'],
+            css: ['src/themes/**/*.css', 'node_modules/prismjs/themes/prism.css']
         },
 
         // Task configuration.
