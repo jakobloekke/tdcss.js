@@ -5,6 +5,11 @@
 
     <link rel="stylesheet" href="../build/themes/original/tdcss.css" type="text/css" media="screen">
 
+    <!-- TDCSS uses css themes. The default, "original" set up
+    to load by default. If you'd like to try sidebar, uncomment below
+    sections below, and comment out the corresponding "original" -->
+    <!-- <link rel="stylesheet" href="../build/themes/sidebar/tdcss.css" type="text/css" media="screen"> -->
+
     <!-- Project CSS -->
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
 
@@ -15,8 +20,9 @@
     <script type="text/javascript" src="../build/tdcss.js"></script>
     <script type="text/javascript">
         $(function () {
-            $("#tdcss").tdcss({theme: 'sidebar'});
-            // $("#tdcss").tdcss({});
+            // TDCSS defaults to loading "original" theme
+            // $("#tdcss").tdcss({theme: 'sidebar'});
+            $("#tdcss").tdcss({});
         })
     </script>
 
@@ -41,7 +47,6 @@
     </div>
 </nav>
 
-<<<<<<< HEAD:download/index.html
 <div id="tdcss">
 
 <!-- # WIP JavaScript Test-->
@@ -61,8 +66,6 @@
 </script>
 
 
-=======
->>>>>>> master:demo/index.html
 <!-- # Box styles -->
 <!-- & Box styles is a collection of generic boxes. -->
 
