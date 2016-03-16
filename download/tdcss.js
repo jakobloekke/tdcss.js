@@ -1,6 +1,6 @@
-/* tdcss.js - v0.6.0 - 2014-07-23
+/* tdcss.js - v0.6.0 - 2016-03-16
 * http://jakobloekke.github.io/tdcss.js/
-* Copyright (c) 2014 Jakob Løkke Madsen;
+* Copyright (c) 2016 Jakob Løkke Madsen;
 * License: MIT */
 
 
@@ -69,7 +69,7 @@
             if (settings.theme === 'sidebar') {
                 //Wrap the .tdcss-elements and .tdd-navigation (which are adjacent) in container
                 $(".tdcss-elements").each(function (index) {
-                    $(this).next(".tdcss-navigation").andSelf().wrapAll("<div class='tdcss-container' />");
+                    $(this).next(".tdcss-navigation").addBack().wrapAll("<div class='tdcss-container' />");
                 });
 
                 //Sticky Sidebar
@@ -123,14 +123,8 @@
                         //by comparing our position against that of each of the sidebar link
                         $.each(locationsInPage, function (i, loc) {
                             var y = $(that).scrollTop();
-                            console.log('y: ', y);
-                            console.log('i: ', i);
-                            console.log('loc: ', loc);
-                            console.log("TEST");
-
 
                             var isLast = locationsInPage - 1 === i;
-                            console.log('isLast: ', isLast);
                             
                             //Add the subnav height and scrolling adujstment to current Y so the left nav
                             //active links are updated when the section bar is a few pixels below subnav
@@ -149,9 +143,7 @@
                         var   target = $(href);
                         $('html, body').stop().animate({
                             'scrollTop': target.offset().top - 50
-                        }, 600, 'swing', function () {
-                            console.log("COMPLETE Called...");
-                        });
+                        }, 600, 'swing', function () {});
                     });
 
 
