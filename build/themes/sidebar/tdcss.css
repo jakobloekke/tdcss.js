@@ -1,0 +1,551 @@
+/* tdcss.js - v0.8.1 - 2016-03-16
+* http://jakobloekke.github.io/tdcss.js/
+* Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
+* License: MIT */
+
+
+body {
+  margin: 0;
+}
+
+[class*='tdcss-'] {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+       -o-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.clear:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/************************************
+ * HEADER 
+ *
+ * Hidden unless sidebar theme used
+ ************************************/
+.tdcss-header,
+.tdcss-subheader-nav {
+  display: none;
+}
+.tdcss-header {
+  background-color: #333;
+  height: 120px;
+}
+#logo {
+  width: 20%;
+  float: left;
+  margin-left: 40px;
+  line-height: 120px;
+}
+#logo a {
+  text-decoration: none;
+  color: white;
+  opacity: .7;
+  font-size: 3em;
+  transition: opacity 1s;
+}
+#logo a:hover {
+  opacity: 1
+}
+/*******************************
+ * SUBHEADER
+ *******************************/
+.tdcss-subheader-nav {
+  background-color: #eee;
+  height: 44px;
+  width: 100%;
+  opacity: .85;
+}
+
+.tdcss-subheader-nav .active {
+  border-bottom: 4px solid #333;
+}
+
+.tdcss-subheader-nav ul {
+  margin: 0;
+  padding: 0;
+  margin-left: 20%;
+  text-align: center;
+  list-style: none;
+}
+.tdcss-subheader-nav ul li {
+  float: right;
+  line-height: 40px;
+  margin-left: 1em;
+}
+
+.tdcss-subheader-nav a {
+  transition: color 600ms;
+  color: #333;
+  text-decoration: none;
+}
+.tdcss-subheader-nav a:hover {
+  color: #999;
+}
+
+
+#tdcss {
+  overflow: auto;
+}
+
+.tdcss-fragments {
+  display: none;
+}
+
+.tdcss-elements {
+  position: relative;
+  width: 85%;
+  float: right;
+  padding-left: 15px;
+}
+
+.tdcss-navigation {
+  width: 15%;
+  float: left;
+  margin-top: 64px;
+}
+
+.tdcss-navigation ul {
+  list-style-type: none;
+}
+.tdcss-navigation a {
+  text-decoration: none;
+  transition: color 600ms;
+  color: #333;
+}
+.tdcss-navigation a:hover {
+  color: #999;
+}
+
+.tdcss-navigation .tdcss-html-snippet-toggle {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  transition: color 600ms;
+  color: #2285C2;
+  font-weight: 700;
+  text-shadow: 0px 1px 0px rgba(0,0,0,.1);
+}
+.tdcss-navigation .tdcss-html-snippet-toggle:hover {
+  color: #156394;
+}
+
+.tdcss-nav > li {
+  width: 90%;
+}
+.tdcss-nav .active {
+  border-right: 2px solid #2285C2;
+}
+.tdcss-nav .active a {
+  color: #2285C2;
+}
+
+/* Container only created for sidebar theme */
+.tdcss-container {
+  margin: 0 auto;
+  width: 1080px;
+}
+
+.tdcss-hide-html.tdcss-elements:after {
+  display: none;
+}
+
+.tdcss-section {
+  margin-top: 64px;
+  width: 100%;
+  padding: 1px 0 0 0;
+  vertical-align: bottom;
+  cursor: pointer;
+  border: none;
+}
+
+.tdcss-section .tdcss-h2 {
+  display: block;
+  padding: 7px 7px 7px 10px;
+  margin: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-weight: 300;
+  font-size: 1.125em; /* 18/16 */
+  letter-spacing: 0.1em;
+  transition: background-color 600ms;
+  background-color: #333;
+  color: #eee;
+}
+
+.tdcss-section .tdcss-h2:after {
+  float: right;
+  padding: 4px;
+  font-size: 12px;
+  content: "\25BC";
+}
+
+.tdcss-section.is-collapsed .tdcss-h2:after {
+  content: "\25B2";
+}
+
+.tdcss-section:hover .tdcss-h2 {
+  background-color: #666;
+}
+
+.tdcss-fragment {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.tdcss-diff-warning,
+.tdcss-fragment .tdcss-diff-stats {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 3px;
+  font-size: 10px;
+  color: white;
+  background-color: red;
+}
+
+.tdcss-diff-warning {
+  position: fixed;
+  z-index: 10000;
+  font-size: 12px;
+}
+
+.tdcss-diff-warning > a {
+  padding-left: 0.25em;
+  color: white;
+}
+
+.tdcss-diff-warning > a:hover {
+  text-decoration: none;
+}
+
+.tdcss-fragment.tdcss-has-diff {
+  outline: 1px dotted red;
+}
+
+.tdcss-diff-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.tdcss-description {
+  padding: 1em 10px;
+  margin-bottom: 1em;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-size: 14px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  color: #444;
+  /*background-color: #f0f0f0;*/
+  border-bottom: 1px solid #e7e7e7;
+}
+
+
+
+.tdcss-description strong {
+  font-weight: bold;
+}
+
+.tdcss-description em {
+  font-style: italic;
+}
+
+.tdcss-dom-example,
+.tdcss-code-example {
+  float: left;
+}
+
+.tdcss-dom-example {
+  position: relative;
+  width: 100%;
+  float: right;
+  padding: 1em 0; 
+  /* Make z-index higher than code-example. Use case example: I have a Dropdown
+    that, when expanded, should display "over" the code snippet */
+  z-index: 1001;
+}
+
+.tdcss-hide-html .tdcss-dom-example {
+  width: 100%;
+}
+
+
+.tdcss-control-bar {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  display: table;
+  width: 100%;
+  padding: 0 2em;
+  font-size: 14px;
+  font-weight: 200;
+  background-color: #2f2f2f;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.tdcss-title,
+.tdcss-controls {
+  display: table-cell;
+  height: 2em;
+  vertical-align: middle;
+}
+
+.tdcss-title {
+  font-size: 2em;
+  font-weight: 200;
+  color: #7A888D;
+}
+
+.tdcss-controls {
+  text-align: right;
+}
+
+.tdcss-html-snippet-toggle {
+  display: inline-block;
+  padding: 0.75em;
+  color: #afafaf;
+  text-decoration: none;
+}
+
+.tdcss-html-snippet-toggle:hover {
+  color: #ebebeb;
+}
+
+.tdcss-no-fragments {
+  font-weight: 200;
+  color: gray;
+  text-align: center;
+}
+
+
+/*******************************
+ * CODE SNIPPETS
+ *******************************/
+
+.tdcss-code-example {
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+  float: right;
+  padding: 1em 0;
+}
+
+.tdcss-hide-html .tdcss-code-example {
+  display: none;
+}
+
+.tdcss-code-example .tdcss-h3 {
+  padding: 0.25em;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-size: 14px;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #888;
+  background-color: #f0f0f0;
+  border-left: 4px solid #e7e7e7
+}
+pre.language-markup {
+  padding: 2em;
+  background-color: white;
+  margin: 0;
+  font-size: 14px;
+  font-family: 'Inconsolata', monospace;
+  color: #999;
+  line-height: 18px;
+  border-left: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  border-right: 1px solid #efefef;
+}
+.tag, .punctuation {
+  color: #6A808E;
+}
+.attr-name {
+  color: #2285C2;
+}
+.attr-value {
+  color: #CF5C60;
+  opacity: 0.8;
+}
+
+/* Hack: Overrides the inline custom height so the the element clears (the inner element already has this height) */
+.tdcss-fragment {
+  height: 100% !important;
+}
+
+
+.tdcss-usage-examples {
+  padding: 1em;
+  margin-top: 1.5em;
+  border: 1px solid #E5EBED;
+  background-color: #F7FAFB;
+  color: #888;
+}
+.tdcss-usage-examples h1,
+.tdcss-usage-examples h2,
+.tdcss-usage-examples h3,
+.tdcss-usage-examples h4,
+.tdcss-usage-examples h5,
+.tdcss-usage-examples h6,
+.tdcss-usage-examples li {
+  color: #68797E;
+}
+.tdcss-usage-examples li {
+  font-weight: 700;
+}
+.tdcss-usage-examples li li {
+  font-weight: 300;
+}
+
+/*******************************
+ * STICKY SIDEBAR
+ *******************************/
+.fixed {
+  position:fixed;
+  top:0;
+  z-index:99999;
+}
+
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}

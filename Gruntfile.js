@@ -29,8 +29,13 @@ module.exports = function (grunt) {
 
         src: {
             js: ['src/tdcss.js', 'node_modules/prismjs/prism.js', 'node_modules/html2canvas/dist/html2canvas.js', 'src/vendors/resemble-modified.js'],
-            css: ['src/themes/**/*.css', 'node_modules/prismjs/themes/prism.css']
+            prismcss: 'node_modules/prismjs/themes/prism.css',
+            themes: {
+                original: 'src/themes/original/tdcss.css',
+                sidebar: 'src/themes/sidebar/tdcss.css'
+            },
         },
+
 
         // Task configuration.
 
@@ -61,21 +66,19 @@ module.exports = function (grunt) {
             }
         },
         concat: {
+            options: {
+                banner: '<%= banner %>',
+                stripBanners: true
+            },
             css: {
-                src: '<%= src.css %>',
-                dest: 'build/themes/original/tdcss.css',
-                options: {
-                    banner: '<%= banner %>',
-                    stripBanners: true
-                }
+              files: {
+                'build/themes/original/tdcss.css': ['<%= src.themes.original %>', '<%= src.prismcss %>'],
+                'build/themes/sidebar/tdcss.css':  ['<%= src.themes.sidebar %>', '<%= src.prismcss %>'] 
+              },
             },
             js: {
                 src: '<%= src.js %>',
                 dest: 'build/tdcss.js',
-                options: {
-                    banner: '<%= banner %>',
-                    stripBanners: true
-                }
             }
         },
         jshint: {

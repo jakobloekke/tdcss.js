@@ -368,6 +368,27 @@ describe("TDCSS", function () {
             // Todo ...
         });
 
+        describe("theme", function () {
+            beforeEach(function() {
+                loadFixtures('simple.html');
+            });
+            it("should default to original theme", function () {
+                $("#tdcss").tdcss({theme: undefined});//mimic not setting theme
+                expect(tdcss[0].theme).toEqual("original");
+            });
+            it("should load sidebar theme", function () {
+                $("#tdcss").tdcss({theme: 'sidebar'});//mimic not setting theme
+                expect(tdcss[0].theme).toEqual("sidebar");
+            });
+
+            it("should have an extra navigation div for sections", function () {
+                $("#tdcss").tdcss({theme: 'sidebar'});//mimic not setting theme
+                expect($(".tdcss-navigation")).toExist();
+                expect($(".tdcss-navigation .tdcss-nav")).toExist();
+            });
+        });
+
+
         describe("internalize_background", function () {
             it("should set the background color of fragments to the background color of the project CSS", function () {
 
@@ -454,6 +475,13 @@ describe("TDCSS", function () {
             $("#tdcss").tdcss();
             expect($('.tdcss-section')).toHaveClass('wip');
             expect($('.tdcss-section .tdcss-h2').text().toLowerCase()).not.toContain('wip');
+        });
+
+        it("should allow WIP in section name and add wip class accordingly for sidebar too", function() {
+            loadFixtures('simple-wip.html');
+            $("#tdcss").tdcss({theme: 'sidebar'});
+            expect($('.tdcss-section')).toHaveClass('wip');
+            expect($('.tdcss-section-title')).toHaveClass('wip');
         });
 
         it("should contain a 'jump-to' dropdown html snippet", function () {
