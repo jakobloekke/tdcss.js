@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-recess');
 
     // Default task.
-    grunt.registerTask('default', ['clean', 'jshint', 'concat', 'recess', 'karma']);
+    grunt.registerTask('default', ['clean', 'jshint', 'concat'/*, 'recess'*/, 'karma']);
 
     // Travis CI task.
     grunt.registerTask('travis', 'concat', 'karma');
@@ -22,14 +22,14 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         banner: '/* <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-            '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-            '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-            '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
-            '* License: <%= pkg.license %> */\n\n\n',
+        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+        '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
+        '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' +
+        '* License: <%= pkg.license %> */\n\n\n',
 
         src: {
-            js: ['src/tdcss.js', 'src/vendors/jquery-cookie.js', 'src/vendors/prism/prism.js', 'src/vendors/html2canvas.js', 'src/vendors/resemble-modified.js'],
-            css: ['src/themes/**/*.css', 'src/vendors/prism/prism.css']
+            js: ['src/tdcss.js', 'node_modules/prismjs/prism.js', 'node_modules/html2canvas/dist/html2canvas.js', 'src/vendors/resemble-modified.js'],
+            css: ['src/themes/**/*.css', 'node_modules/prismjs/themes/prism.css']
         },
 
         // Task configuration.
@@ -51,19 +51,27 @@ module.exports = function (grunt) {
                     banner: '<%= banner %>',
                     stripBanners: true
                 },
-                files:[{
-                    expand:true,
-                    dest: 'download/',
+                files: [{
+                    expand: true,
+                    dest: 'build/',
                     cwd: 'src',      // Src matches are relative to this path.
                     src: ['themes/**/*.css'],
-                    ext:'.css'
+                    ext: '.css'
                 }]
             }
         },
         concat: {
+            css: {
+                src: '<%= src.css %>',
+                dest: 'build/themes/original/tdcss.css',
+                options: {
+                    banner: '<%= banner %>',
+                    stripBanners: true
+                }
+            },
             js: {
                 src: '<%= src.js %>',
-                dest: 'download/tdcss.js',
+                dest: 'build/tdcss.js',
                 options: {
                     banner: '<%= banner %>',
                     stripBanners: true

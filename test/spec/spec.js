@@ -103,11 +103,11 @@ describe("TDCSS", function () {
                 expect($('.tdcss-elements:first pre').html()).toContain('Here\'s a basic fragment');
             });
 
-            it("should render the fragment title in an h3 above the textarea", function () {
+            it("should render the fragment title in an h3 above the fragment", function () {
                 loadFixtures('simple.html');
                 $("#tdcss").tdcss();
 
-                expect($('.tdcss-elements:first .tdcss-fragment:first .tdcss-code-example h3').text()).toBe('Basic fragment');
+                expect($('.tdcss-elements:first .tdcss-fragment:first .tdcss-fragment-title').text()).toBe('Basic fragment');
             });
 
             it("should render section dividers above each set of fragments that belong to a section", function () {
@@ -165,7 +165,7 @@ describe("TDCSS", function () {
 
             describe("JavaScript fragments", function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     loadFixtures('simple-js-snippet.html');
                     $("#tdcss").tdcss();
                 });
@@ -192,7 +192,7 @@ describe("TDCSS", function () {
 
         describe("CoffeeScript Support", function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
                 loadFixtures('simple-coffeescript-snippet.html');
                 $("#tdcss").tdcss();
             });
@@ -217,7 +217,7 @@ describe("TDCSS", function () {
 
         describe("No Snippet fragments", function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
                 loadFixtures('simple-no-snippet.html');
                 $("#tdcss").tdcss();
             });
@@ -310,7 +310,6 @@ describe("TDCSS", function () {
 
         });
 
-
         it("should remove information on collapsed sections from url fragment, when they are shown again", function () {
             loadFixtures('multiple-sections.html');
 
@@ -390,11 +389,30 @@ describe("TDCSS", function () {
         });
 
 
+        describe("internalize_background", function () {
+            it("should set the background color of fragments to the background color of the project CSS", function () {
+
+                loadFixtures('simple.html');
+                $("#tdcss").tdcss({internalize_background: true});
+
+                expect($(".tdcss-dom-example:first").css("backgroundColor")).toBe("rgba(0, 0, 0, 0)");
+
+
+                // Contains body background color:
+                loadStyleFixtures('body-background.css');
+                $("#tdcss").tdcss({internalize_background: true});
+
+                expect($(".tdcss-dom-example:first").css("backgroundColor")).toBe("rgb(255, 0, 0)");
+            });
+        });
+
         describe("neutralize_background", function () {
             it("should remove any background set on the body element by the project CSS", function () {
 
                 loadStyleFixtures('body-background.css');
                 loadFixtures('simple.html');
+
+                $("#tdcss").tdcss({neutralize_background: false});
 
                 expect($("body").css("backgroundColor")).toBe("rgb(255, 0, 0)");
                 expect($("body").css("backgroundImage")).toBe("url(data:image/bmp;base64,Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAA/38AAAAA)");
@@ -407,8 +425,6 @@ describe("TDCSS", function () {
             });
         });
     });
-
-
 
 
     describe("Control Bar", function () {
@@ -444,7 +460,7 @@ describe("TDCSS", function () {
             expect($(".tdcss-control-bar .tdcss-html-snippet-toggle")).toHaveText("Hide HTML");
         });
 
-        it("should handle section names with more than one space in them", function() {
+        it("should handle section names with more than one space in them", function () {
             //Fix for: 'My Super Long Section' results in: "my-super%20long%20section"
             //We want it to become "my-super-long-section" instead
             loadFixtures('simple-long-section.html');
@@ -452,21 +468,21 @@ describe("TDCSS", function () {
 
             var sectionKlass = $('.tdcss-section').last().attr('id');
             expect(sectionKlass).toEqual('my-super-long-section');
-        })
+        });
 
-        it("should allow WIP at beginning of section name and add wip class but remove wip from section title", function() {
+        it("should allow WIP at beginning of section name and add wip class but remove wip from section title", function () {
             loadFixtures('simple-wip.html');
             $("#tdcss").tdcss();
             expect($('.tdcss-section')).toHaveClass('wip');
             expect($('.tdcss-section .tdcss-h2').text().toLowerCase()).not.toContain('wip');
-        })
+        });
 
         it("should allow WIP in section name and add wip class accordingly for sidebar too", function() {
             loadFixtures('simple-wip.html');
             $("#tdcss").tdcss({theme: 'sidebar'});
             expect($('.tdcss-section')).toHaveClass('wip');
             expect($('.tdcss-section-title')).toHaveClass('wip');
-        })
+        });
 
         it("should contain a 'jump-to' dropdown html snippet", function () {
             loadFixtures('simple.html');
