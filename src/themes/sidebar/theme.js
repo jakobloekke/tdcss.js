@@ -10,6 +10,17 @@ if (typeof tdcss_theme !== 'function') {
                 $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
             },
 
+            makeTopBar: function(module, makeJumpTo, makeHTMLToggle) {
+                $('.tdcss-header').show();
+                $('.tdcss-subheader-nav').show();
+
+                var htmlToggleContainer =
+                    '<ul class="tdcss-html-toggle"><li class="tdcss-toggle-link"></li></ul>';
+                $('.docked-menu').prepend(htmlToggleContainer);
+                $('.tdcss-toggle-link').append(makeHTMLToggle());
+            },
+
+
             setup: function () {
 
                 //Wrap the .tdcss-elements and .tdd-navigation (which are adjacent) in container
@@ -99,7 +110,8 @@ if (typeof tdcss_theme !== 'function') {
         var _public = {
             name: 'sidebar',
             beforeAddNewSection: _private.beforeAddNewSection,
-            setup: _private.setup
+            setup: _private.setup,
+            makeTopBar: _private.makeTopBar,
         };
 
         return _public;

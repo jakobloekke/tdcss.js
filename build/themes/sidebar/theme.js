@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-03-16
+/* tdcss.js - v0.8.1 - 2016-03-17
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -15,6 +15,17 @@ if (typeof tdcss_theme !== 'function') {
                 var sectionTitleKlass = isWorkInProgress ? 'tdcss-section-title wip' : 'tdcss-section-title';
                 $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
             },
+
+            makeTopBar: function(module, makeJumpTo, makeHTMLToggle) {
+                $('.tdcss-header').show();
+                $('.tdcss-subheader-nav').show();
+
+                var htmlToggleContainer =
+                    '<ul class="tdcss-html-toggle"><li class="tdcss-toggle-link"></li></ul>';
+                $('.docked-menu').prepend(htmlToggleContainer);
+                $('.tdcss-toggle-link').append(makeHTMLToggle());
+            },
+
 
             setup: function () {
 
@@ -105,7 +116,8 @@ if (typeof tdcss_theme !== 'function') {
         var _public = {
             name: 'sidebar',
             beforeAddNewSection: _private.beforeAddNewSection,
-            setup: _private.setup
+            setup: _private.setup,
+            makeTopBar: _private.makeTopBar,
         };
 
         return _public;
