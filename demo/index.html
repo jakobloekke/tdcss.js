@@ -3,12 +3,17 @@
 <head>
     <title>tdcss.js demo</title>
 
-    <link rel="stylesheet" href="../build/themes/original/tdcss.css" type="text/css" media="screen">
-
     <!-- TDCSS uses css themes. The default, "original" set up
     to load by default. If you'd like to try sidebar, uncomment below
-    sections below, and comment out the corresponding "original" -->
+    sidebar includes, and comment out the corresponding "original" ones -->
+
+    <!--  ORIGINAL THEME -->
+    <link rel="stylesheet" href="../build/themes/original/tdcss.css" type="text/css" media="screen">
+    <script type="text/javascript" src="../build/themes/original/theme.js"></script>
+
+    <!--  SIDEBAR THEME -->
     <!-- <link rel="stylesheet" href="../build/themes/sidebar/tdcss.css" type="text/css" media="screen"> -->
+    <!-- <script type="text/javascript" src="../build/themes/sidebar/theme.js"></script> -->
 
     <!-- Project CSS -->
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
@@ -18,10 +23,10 @@
     <script type="text/javascript" src="../src/vendors/coffee-script.js"></script>
 
     <script type="text/javascript" src="../build/tdcss.js"></script>
+
+
     <script type="text/javascript">
         $(function () {
-            // TDCSS defaults to loading "original" theme
-            // $("#tdcss").tdcss({theme: 'sidebar'});
             $("#tdcss").tdcss({});
         })
     </script>

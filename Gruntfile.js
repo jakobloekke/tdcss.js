@@ -31,8 +31,12 @@ module.exports = function (grunt) {
             js: ['src/tdcss.js', 'node_modules/prismjs/prism.js', 'node_modules/html2canvas/dist/html2canvas.js', 'src/vendors/resemble-modified.js'],
             prismcss: 'node_modules/prismjs/themes/prism.css',
             themes: {
-                original: 'src/themes/original/tdcss.css',
-                sidebar: 'src/themes/sidebar/tdcss.css'
+                original_js: 'src/themes/original/theme.js',
+                sidebar_js: 'src/themes/sidebar/theme.js',
+                sidebar_accordian_js: 'src/themes/sidebar_accordian/theme.js',
+                original_css: 'src/themes/original/tdcss.css',
+                sidebar_css: 'src/themes/sidebar/tdcss.css',
+                sidebar_accordian_css: 'src/themes/sidebar_accordian/tdcss.css',
             },
         },
 
@@ -72,13 +76,18 @@ module.exports = function (grunt) {
             },
             css: {
               files: {
-                'build/themes/original/tdcss.css': ['<%= src.themes.original %>', '<%= src.prismcss %>'],
-                'build/themes/sidebar/tdcss.css':  ['<%= src.themes.sidebar %>', '<%= src.prismcss %>'] 
+                'build/themes/original/tdcss.css': ['<%= src.themes.original_css %>', '<%= src.prismcss %>'],
+                'build/themes/sidebar/tdcss.css':  ['<%= src.themes.sidebar_css %>', '<%= src.prismcss %>'],
+                'build/themes/sidebar_accordian/tdcss.css':  ['<%= src.themes.sidebar_accordian_css %>', '<%= src.prismcss %>'],
               },
             },
             js: {
-                src: '<%= src.js %>',
-                dest: 'build/tdcss.js',
+              files: {
+                'build/tdcss.js': '<%= src.js %>',
+                'build/themes/original/theme.js': '<%= src.themes.original_js %>',
+                'build/themes/sidebar/theme.js':  ['<%= src.themes.sidebar_js %>'],
+                'build/themes/sidebar_accordian/theme.js':  ['<%= src.themes.sidebar_accordian_js %>'],
+              },
             }
         },
         jshint: {

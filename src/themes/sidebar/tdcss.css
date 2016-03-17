@@ -51,6 +51,7 @@ body {
 #logo a:hover {
   opacity: 1
 }
+
 /*******************************
  * SUBHEADER
  *******************************/
@@ -86,7 +87,6 @@ body {
 .tdcss-subheader-nav a:hover {
   color: #999;
 }
-
 
 #tdcss {
   overflow: auto;
