@@ -4,7 +4,10 @@
 * License: MIT */
 
 
-
+.wip {
+  text-decoration: line-through;
+  opacity: .4;
+}
 code[class*="language-"],
 pre[class*="language-"] {
 	color: black;

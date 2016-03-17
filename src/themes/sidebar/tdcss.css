@@ -9,6 +9,11 @@ body {
   margin: 0;
 }
 
+.wip {
+  text-decoration: line-through;
+  opacity: .4;
+}
+
 [class*='tdcss-'] {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;

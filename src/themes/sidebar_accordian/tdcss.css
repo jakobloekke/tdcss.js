@@ -4,3 +4,8 @@
  * @author Jakob Løkke Madsen
  * @url http://www.jakobloekkemadsen.com
  */
+
+.wip {
+  text-decoration: line-through;
+  opacity: .4;
+}
