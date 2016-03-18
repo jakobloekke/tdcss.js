@@ -76,6 +76,9 @@
 
 
         function reset() {
+            if (module.theme.beforeReset !== undefined) {
+                module.theme.beforeReset(settings.fragment_types);
+            }
             module.fragments.length = 0;
         }
 
@@ -112,45 +115,44 @@
             that.raw_comment_node = raw_comment_node;
             that.type = getFragmentType();
 
+            var data = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types[that.type].identifier)[1]);
+
             if (that.type === "section") {
-                that.section_name = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.section.identifier)[1]);
+                that.section_name = data;
             }
 
             if (that.type === "description") {
-                that.description_text = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.description.identifier)[1]);
+                that.description_text = data;
             }
 
             if (that.type === "snippet") {
-                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.snippet.identifier)[1]);
+                that.snippet_title = data;
                 that.custom_height = $.trim(getCommentMeta(that.raw_comment_node)[1]);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
             if (that.type === "jssnippet") {
-                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types[that.type].identifier)[1]);
+                that.snippet_title = data;
                 that.raw_script = getFragmentScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
             if (that.type === "coffeesnippet") {
                 if (!window.CoffeeScript) throw new Error("Include CoffeeScript Compiler to evaluate CoffeeScript with tdcss.");
-
-                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types[that.type].identifier)[1]);
-
+                that.snippet_title = data;
                 that.raw_script = getFragmentCoffeeScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
             if (that.type === "no_snippet") {
-                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.no_snippet.identifier)[1]);
+                that.snippet_title = data;
                 that.custom_height = $.trim(getCommentMeta(that.raw_comment_node)[1]);
                 that.html = getFragmentHTML(that.raw_comment_node);
+            }
+
+            if (module.theme.beforeFragment !== undefined) {
+                module.theme.beforeFragment(that, data, getCommentMeta);
             }
 
             return that;
@@ -219,6 +221,10 @@
 
                 if (fragment.type === "description") {
                     addNewDescription(fragment);
+                }
+
+                if (module.theme.beforeRenderFragment !== undefined) {
+                    module.theme.beforeRenderFragment(fragment);
                 }
             }
         }

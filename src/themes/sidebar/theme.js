@@ -5,9 +5,35 @@ if (typeof tdcss_theme !== 'function') {
         // private
         var _private = {
 
+            beforeReset: function (fragment_types) {
+                fragment_types.category = {identifier: "@"};
+            },
+
+            beforeFragment: function (that, data, getCommentMetaFn) {
+                if (that.type === "category") {
+                    that.category_name = data;
+                }
+            },
+
+            beforeRenderFragment: function (fragment, isWorkInProgress) {
+                if (fragment.type === "category") {
+                    var markup = getCategory(fragment);
+                    $('.docked-menu').append(markup);
+                }
+
+                function getCategory(fragment) {
+                    var categoryName = fragment.category_name;
+                    var isWorkInProgress = /^wip/i.test($.trim(categoryName));
+                    categoryName = isWorkInProgress ? $.trim(categoryName).replace(/^wip/i, '') : categoryName;
+                    var categoryHyphenated = encodeURIComponent(categoryName.replace(/\s+/g, '-').toLowerCase());
+                    var categoryKlass = isWorkInProgress ? 'tdcss-nav-category wip' : 'tdcss-nav-category';
+                    return '<ul class="' + categoryKlass + '" id="' + categoryHyphenated + '"><li><a href="#" class="tdcss-category-title">' + categoryName + '</a></li></ul>';
+                }
+            },
+
             beforeAddNewSection: function (markup, isWorkInProgress, sectionHyphenated, section_name) {
                 var sectionTitleKlass = isWorkInProgress ? 'tdcss-section-title wip' : 'tdcss-section-title';
-                $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
+                $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></li></ul>');
             },
 
             makeTopBar: function(module, makeJumpTo, makeHTMLToggle) {
@@ -19,7 +45,6 @@ if (typeof tdcss_theme !== 'function') {
                 $('.docked-menu').prepend(htmlToggleContainer);
                 $('.tdcss-toggle-link').append(makeHTMLToggle());
             },
-
 
             setup: function () {
 
@@ -109,6 +134,9 @@ if (typeof tdcss_theme !== 'function') {
 
         var _public = {
             name: 'sidebar',
+            beforeReset: _private.beforeReset,
+            beforeFragment: _private.beforeFragment,
+            beforeRenderFragment: _private.beforeRenderFragment,
             beforeAddNewSection: _private.beforeAddNewSection,
             setup: _private.setup,
             makeTopBar: _private.makeTopBar,
