@@ -368,16 +368,57 @@ describe("TDCSS", function () {
             // Todo ...
         });
 
-        describe("theme", function () {
+        describe("theme defaults", function () {
             beforeEach(function() {
                 loadFixtures('simple.html');
             });
+
             it("should default to original theme", function () {
                 $("#tdcss").tdcss({});
                 expect(tdcss[0].theme.name).toEqual("original");
             });
         });
 
+
+        describe("theme methods", function () {
+            var original, stub, theme;
+
+            beforeEach(function() {
+                loadFixtures('simple.html');
+                original = window.tdcss_theme;
+                stub = function(){};
+
+                theme = window.tdcss_theme = {
+                    beforeReset: stub,
+                    beforeFragment: stub,
+                    beforeRenderFragment: stub,
+                    beforeAddNewSection: stub,
+                    setup: stub,
+                    makeTopBar: stub,
+                }
+
+                //Spy on above theme's methods
+                for (var p in theme) {
+                    if (theme.hasOwnProperty(p) && typeof theme[p] === 'function') {
+                        spyOn(theme, p);
+                    }
+                }
+
+            });
+
+            afterEach(function() {
+                window.tdcss_theme = original;
+            });
+
+            it("should call theme methods if exist", function () {
+                $("#tdcss").tdcss({});
+                for (var p in theme) {
+                    if (theme.hasOwnProperty(p) && typeof theme[p] === 'function') {
+                        expect(theme[p]).toHaveBeenCalled();
+                    }
+                }
+            });
+        });
 
         describe("internalize_background", function () {
             it("should set the background color of fragments to the background color of the project CSS", function () {

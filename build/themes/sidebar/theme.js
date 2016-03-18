@@ -172,9 +172,6 @@ if (typeof tdcss_theme !== 'function') {
                         }, 600, 'swing', function () {});
                     });
                 });
-
-
-
             }
         };
 
