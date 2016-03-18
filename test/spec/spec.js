@@ -376,17 +376,6 @@ describe("TDCSS", function () {
                 $("#tdcss").tdcss({});
                 expect(tdcss[0].theme.name).toEqual("original");
             });
-
-            xit("should load sidebar theme", function () {
-                $("#tdcss").tdcss({theme: 'sidebar'});
-                expect(tdcss[0].theme).toEqual("sidebar");
-            });
-
-            xit("should have an extra navigation div for sections", function () {
-                $("#tdcss").tdcss({theme: 'sidebar'});
-                expect($(".tdcss-navigation")).toExist();
-                expect($(".tdcss-navigation .tdcss-nav")).toExist();
-            });
         });
 
 
@@ -476,13 +465,6 @@ describe("TDCSS", function () {
             $("#tdcss").tdcss();
             expect($('.tdcss-section')).toHaveClass('wip');
             expect($('.tdcss-section .tdcss-h2').text().toLowerCase()).not.toContain('wip');
-        });
-
-        xit("should allow WIP in section name and add wip class accordingly for sidebar too", function() {
-            loadFixtures('simple-wip.html');
-            $("#tdcss").tdcss({theme: 'sidebar'});
-            expect($('.tdcss-section')).toHaveClass('wip');
-            expect($('.tdcss-section-title')).toHaveClass('wip');
         });
 
         it("should contain a 'jump-to' dropdown html snippet", function () {
