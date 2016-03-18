@@ -8,8 +8,9 @@ if (typeof tdcss_theme !== 'function') {
 
     tdcss_theme = (function () {
 
-        // private
         var _private = {
+
+            currentCategorySelector: null,
 
             beforeReset: function (fragment_types) {
                 fragment_types.category = {identifier: "@"};
@@ -33,13 +34,24 @@ if (typeof tdcss_theme !== 'function') {
                     categoryName = isWorkInProgress ? $.trim(categoryName).replace(/^wip/i, '') : categoryName;
                     var categoryHyphenated = encodeURIComponent(categoryName.replace(/\s+/g, '-').toLowerCase());
                     var categoryKlass = isWorkInProgress ? 'tdcss-nav-category wip' : 'tdcss-nav-category';
+
+                    //We want to be able to find the current category for when we add sub-items later
+                    _private.currentCategorySelector = '#' + categoryHyphenated;
+
                     return '<ul class="' + categoryKlass + '" id="' + categoryHyphenated + '"><li><a href="#" class="tdcss-category-title">' + categoryName + '</a></li></ul>';
                 }
             },
 
             beforeAddNewSection: function (markup, isWorkInProgress, sectionHyphenated, section_name) {
                 var sectionTitleKlass = isWorkInProgress ? 'tdcss-section-title wip' : 'tdcss-section-title';
-                $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></li></ul>');
+
+                var markup = '<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></li></ul>';
+
+                if (_private.currentCategorySelector) {
+                    $(_private.currentCategorySelector + ' > li').append(markup);
+                } else {
+                    $('.docked-menu').append(markup);
+                }
             },
 
             makeTopBar: function(module, makeJumpTo, makeHTMLToggle) {
@@ -52,7 +64,34 @@ if (typeof tdcss_theme !== 'function') {
                 $('.tdcss-toggle-link').append(makeHTMLToggle());
             },
 
+            setupAccordian: function () {
+
+                function toggleAccordion(li) {
+                    var dur = 250;
+
+                    if (li.hasClass('active')) {
+                        li.removeClass('active');
+                        $('.tdcss-nav > li', li).slideUp({duration: dur});
+                    } else {
+                        $('.tdcss-nav-category.active .tdcss-nav > li').slideUp({duration: dur});
+                        $('li.active').removeClass('active');
+                        li.addClass('active');
+                        $('.tdcss-nav > li', li).slideDown({duration: dur});
+                    }
+                }
+
+                $('.docked-menu .tdcss-nav-category li').click(function (ev) {
+                    toggleAccordion($(this));
+                }).find('.tdcss-nav > li').hide();
+
+                $('.docked-menu li').click(function (e) {
+                    e.preventDefault();
+                });
+
+            },
+
             setup: function () {
+                var self = this;
 
                 //Wrap the .tdcss-elements and .tdd-navigation (which are adjacent) in container
                 $(".tdcss-elements").each(function (index) {
@@ -65,6 +104,7 @@ if (typeof tdcss_theme !== 'function') {
                     var headerTop = 120;
                     var subheaderHeight = 40;
 
+                    self.setupAccordian();
 
                     //Grab the offset locations of links
                     var locationsInPage = [];
@@ -145,6 +185,7 @@ if (typeof tdcss_theme !== 'function') {
             beforeRenderFragment: _private.beforeRenderFragment,
             beforeAddNewSection: _private.beforeAddNewSection,
             setup: _private.setup,
+            setupAccordian: _private.setupAccordian,
             makeTopBar: _private.makeTopBar,
         };
 
