@@ -67,7 +67,9 @@
                 neutralizeBackground();
             }
 
-            module.theme.setup();
+            if (module.theme.setup !== undefined) {
+                module.theme.setup();
+            }
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
@@ -101,7 +103,11 @@
                     "</div>");
             } else {
                 comments.each(function () {
-                    module.fragments.push(new Fragment(this));
+                    var fragment = new Fragment(this);
+                    
+                    if (fragment) {
+                        module.fragments.push(new Fragment(this));
+                    }
                 });
             }
 
@@ -113,6 +119,8 @@
 
             that.raw_comment_node = raw_comment_node;
             that.type = getFragmentType();
+
+            if (!that.type) return false;
 
             var data = $.trim(getCommentMeta(that.raw_comment_node)[0]
                     .split(settings.fragment_types[that.type].identifier)[1]);
