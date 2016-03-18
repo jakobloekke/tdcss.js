@@ -170,7 +170,10 @@
                 for (var fragment_type in settings.fragment_types) {
                     if (settings.fragment_types.hasOwnProperty(fragment_type)) {
                         var identifier = settings.fragment_types[fragment_type].identifier;
-                        if (that.raw_comment_node.nodeValue.match(new RegExp(identifier))) {
+
+                        //Only match if it's at beginning of comment or preceeded by spaces
+                        var regex = new RegExp('^\\s*' + identifier);
+                        if (that.raw_comment_node.nodeValue.match(regex)) {
                             found_type = fragment_type;
                         }
                     }

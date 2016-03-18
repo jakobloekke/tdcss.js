@@ -61,6 +61,15 @@ describe("TDCSS", function () {
             expect(tdcss[0].fragments[0].type).toBe("section");
             expect(tdcss[0].fragments[1].type).toBe("snippet");
         });
+
+        it("should only match on first non-space character", function () {
+            loadFixtures('bem-bug.html');
+            $("#tdcss").tdcss();
+
+            expect(tdcss[0].fragments.length).toBe(2);
+            expect(tdcss[0].fragments[0].type).toBe("section");
+            expect(tdcss[0].fragments[1].type).toBe("");
+        });
     });
 
     describe("Rendering", function () {
