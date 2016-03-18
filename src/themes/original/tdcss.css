@@ -17,6 +17,11 @@ body {
     box-sizing: border-box;
 }
 
+.wip {
+  text-decoration: line-through;
+:  opacity: .4;
+}
+
 /************************************
  * Hidden unless sidebar theme used
  ************************************/

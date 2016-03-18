@@ -22,6 +22,7 @@ files = [
     'test/lib/jasmine-jquery.js',
     'src/vendors/coffee-script.js',
 
+    'build/themes/original/theme.js',
     'build/tdcss.js',
     'test/spec/spec.js'
 

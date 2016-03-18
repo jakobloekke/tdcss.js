@@ -3,12 +3,17 @@
 <head>
     <title>tdcss.js demo</title>
 
-    <link rel="stylesheet" href="../build/themes/original/tdcss.css" type="text/css" media="screen">
-
     <!-- TDCSS uses css themes. The default, "original" set up
     to load by default. If you'd like to try sidebar, uncomment below
-    sections below, and comment out the corresponding "original" -->
+    sidebar includes, and comment out the corresponding "original" ones -->
+
+    <!--  ORIGINAL THEME -->
+    <link rel="stylesheet" href="../build/themes/original/tdcss.css" type="text/css" media="screen">
+    <script type="text/javascript" src="../build/themes/original/theme.js"></script>
+
+    <!--  SIDEBAR THEME -->
     <!-- <link rel="stylesheet" href="../build/themes/sidebar/tdcss.css" type="text/css" media="screen"> -->
+    <!-- <script type="text/javascript" src="../build/themes/sidebar/theme.js"></script> -->
 
     <!-- Project CSS -->
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
@@ -18,12 +23,12 @@
     <script type="text/javascript" src="../src/vendors/coffee-script.js"></script>
 
     <script type="text/javascript" src="../build/tdcss.js"></script>
+
+
     <script type="text/javascript">
         $(function () {
-            // TDCSS defaults to loading "original" theme
-            // $("#tdcss").tdcss({theme: 'sidebar'});
             $("#tdcss").tdcss({});
-        })
+        });
     </script>
 
 </head>
@@ -37,19 +42,12 @@
       </div>
     </div>
 </header>
-<nav class='tdcss-subheader-nav'>
-    <div class="tdcss-container">
-        <ul>
-           <li><a href="#">Link One</a></li> 
-           <li><a href="#">Link Two</a></li> 
-           <li class="active"><a href="#">Link Three</a></li> 
-        </ul>
-    </div>
-</nav>
 
 <div id="tdcss">
 
-<!-- # WIP JavaScript Test-->
+<!-- @ Menu One -->
+
+<!-- # JavaScript Test-->
 <!-- & This is a test of a js component. -->
 <!-- _  js fragment example -->
 <div id="js-test"></div>
@@ -89,6 +87,7 @@
     <p>This is an alert box.</p>
 </div>
 
+<!-- @ Menu Two -->
 
 <!-- # Typography -->
 
@@ -134,24 +133,9 @@
 <!-- : Some element that needs a lot of space; 700px -->
 <h3>This is a test.</h3>
 
-<!-- # WIP JavaScript Test-->
-<!-- & This is a test of a js component. -->
-<!-- _  js fragment example -->
-<div id="js-test"></div>
-<script type="text/javascript">
-    $('#js-test').append('<h1>Test is fini!</h1>');
-</script>
-
-<!-- # CoffeeScript Test-->
-<!-- & This is a test of a coffeescript component. -->
-<!-- ->  coffeescript -->
-<div id="coffee"></div>
-<script type="text/coffeescript">
-    $('#coffee').append '<h1>Test from coffeescript</h1>'
-</script>
-
-
-
+<!-- # WIP Basics -->
+<!-- : Basic fragment; 300px -->
+<div class="basic_fragment">Here's a basic fragment marked "work-in-progress". This adds the ".wip" class which you can style as desired (for example, we've used a line-through).</div>
 
 </div>
 <!-- ENDS TDCSS -->

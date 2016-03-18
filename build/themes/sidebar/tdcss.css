@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-03-16
+/* tdcss.js - v0.8.1 - 2016-03-18
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -6,6 +6,11 @@
 
 body {
   margin: 0;
+}
+
+.wip {
+  text-decoration: line-through;
+  opacity: .4;
 }
 
 [class*='tdcss-'] {
@@ -50,6 +55,7 @@ body {
 #logo a:hover {
   opacity: 1
 }
+
 /*******************************
  * SUBHEADER
  *******************************/
@@ -86,7 +92,6 @@ body {
   color: #999;
 }
 
-
 #tdcss {
   overflow: auto;
 }
@@ -97,20 +102,31 @@ body {
 
 .tdcss-elements {
   position: relative;
-  width: 85%;
+  width: 80%;
   float: right;
   padding-left: 15px;
 }
 
 .tdcss-navigation {
-  width: 15%;
+  width: 20%;
   float: left;
   margin-top: 64px;
 }
 
 .tdcss-navigation ul {
   list-style-type: none;
+  padding-left: 10px;
 }
+
+.tdcss-nav-category li {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+}
+
+.tdcss-category-title + .tdcss-nav {
+  padding-top: 1rem;
+}
+
 .tdcss-navigation a {
   text-decoration: none;
   transition: color 600ms;

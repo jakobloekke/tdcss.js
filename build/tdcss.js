@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-03-16
+/* tdcss.js - v0.8.1 - 2016-03-18
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -39,15 +39,12 @@
                 container: null,
                 fragments: [],
                 snippet_count: 0,
-                theme: 'original'
+                theme: window.tdcss_theme
             },
             jump_to_menu_options = '<option>Jump To Section:</option>';
 
         return this.each(function (i) {
             module.container = this;
-            if (settings.theme) {
-                module.theme = settings.theme;
-            }
 
             reset();
             setup();
@@ -70,89 +67,8 @@
                 neutralizeBackground();
             }
 
-            if (settings.theme === 'sidebar') {
-                //Wrap the .tdcss-elements and .tdd-navigation (which are adjacent) in container
-                $(".tdcss-elements").each(function (index) {
-                    $(this).next(".tdcss-navigation").addBack().wrapAll("<div class='tdcss-container' />");
-                });
-
-                //Sticky Sidebar
-                $(document).ready(function () {
-
-                    var sidebarMarginTop = 64;
-                    var headerTop = 120;
-                    var subheaderHeight = 40;
-
-
-                    //Grab the offset locations of links
-                    var locationsInPage = [];
-                    $('.tdcss-nav a').each(function () {
-                        var href = $(this).attr('href');
-                        var locationInPage = $(href).offset().top;
-                        locationsInPage.push(locationInPage);
-                    });
-
-                    var scrollingAdjustment = 12;//hack: readjusts margin-top to "catch up" w/user's scrolling
-
-                    $(window).scroll(function (event) {
-                        var that = this;
-                        var y = $(this).scrollTop();
-
-                        //Header scrolled off top of screen
-                        if (y >= headerTop) {
-                            // Subheader primary navbar fixed when top header scrolled off
-                            $('.tdcss-subheader-nav').addClass('fixed');
-
-                            //Add margin top on first section so it roughly lines up with sidebar
-                            $('.tdcss-section').first().css('margin-top', sidebarMarginTop + subheaderHeight - scrollingAdjustment);
-
-                            //Fix position the docked sidebar menu and add margin top there. Now that we've fixed positioned
-                            //the tdcss-subheader-nav, tdcss-navigation's margin top is useless.
-                            $('.docked-menu').addClass('fixed').css('margin-top', sidebarMarginTop + subheaderHeight);
-                        }
-                        else {
-                            $('.tdcss-subheader-nav').removeClass('fixed');
-                            $('.tdcss-section').first().css('margin-top', sidebarMarginTop);
-                            //Switches back to using the tdcss-navigation for margin-top
-                            $('.docked-menu').removeClass('fixed').css('margin-top', 0);
-                            $('.tdcss-navigation').css('margin-top', sidebarMarginTop);
-                        }
-
-                        //The docked-menu sidebar will always need to calculate against its parent esp. when it
-                        //becomes fixed positioned thus taken out of flow of document
-                        $('.docked-menu').width($('.docked-menu').parent().width());
-
-
-                        //Now we need to highlight the currently scrolled to active secondary nav link
-                        //by comparing our position against that of each of the sidebar link
-                        $.each(locationsInPage, function (i, loc) {
-                            var y = $(that).scrollTop();
-
-                            var isLast = locationsInPage - 1 === i;
-                            
-                            //Add the subnav height and scrolling adujstment to current Y so the left nav
-                            //active links are updated when the section bar is a few pixels below subnav
-                            var extraPadding = scrollingAdjustment + 4;
-                            if (y + subheaderHeight + extraPadding >= loc - scrollingAdjustment) {
-                                $('.tdcss-nav li').removeClass('active').eq(i).addClass('active');
-                            }
-
-                        });
-                    });
-
-                    $('.tdcss-section-title a').on('click', function (ev) {
-                        ev.preventDefault();
-
-                        var href = $(this).attr('href');
-                        var   target = $(href);
-                        $('html, body').stop().animate({
-                            'scrollTop': target.offset().top - 50
-                        }, 600, 'swing', function () {});
-                    });
-
-
-
-                });
+            if (module.theme.setup !== undefined) {
+                module.theme.setup();
             }
 
             window.tdcss = window.tdcss || [];
@@ -161,6 +77,9 @@
 
 
         function reset() {
+            if (module.theme.beforeReset !== undefined) {
+                module.theme.beforeReset(settings.fragment_types);
+            }
             module.fragments.length = 0;
         }
 
@@ -184,7 +103,11 @@
                     "</div>");
             } else {
                 comments.each(function () {
-                    module.fragments.push(new Fragment(this));
+                    var fragment = new Fragment(this);
+                    
+                    if (fragment) {
+                        module.fragments.push(new Fragment(this));
+                    }
                 });
             }
 
@@ -197,45 +120,46 @@
             that.raw_comment_node = raw_comment_node;
             that.type = getFragmentType();
 
+            if (!that.type) return false;
+
+            var data = $.trim(getCommentMeta(that.raw_comment_node)[0]
+                    .split(settings.fragment_types[that.type].identifier)[1]);
+
             if (that.type === "section") {
-                that.section_name = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.section.identifier)[1]);
+                that.section_name = data;
             }
 
             if (that.type === "description") {
-                that.description_text = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.description.identifier)[1]);
+                that.description_text = data;
             }
 
             if (that.type === "snippet") {
-                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.snippet.identifier)[1]);
+                that.snippet_title = data;
                 that.custom_height = $.trim(getCommentMeta(that.raw_comment_node)[1]);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
             if (that.type === "jssnippet") {
-                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types[that.type].identifier)[1]);
+                that.snippet_title = data;
                 that.raw_script = getFragmentScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
             if (that.type === "coffeesnippet") {
                 if (!window.CoffeeScript) throw new Error("Include CoffeeScript Compiler to evaluate CoffeeScript with tdcss.");
-
-                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types[that.type].identifier)[1]);
-
+                that.snippet_title = data;
                 that.raw_script = getFragmentCoffeeScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
             if (that.type === "no_snippet") {
-                that.snippet_title = $.trim(getCommentMeta(that.raw_comment_node)[0]
-                    .split(settings.fragment_types.no_snippet.identifier)[1]);
+                that.snippet_title = data;
                 that.custom_height = $.trim(getCommentMeta(that.raw_comment_node)[1]);
                 that.html = getFragmentHTML(that.raw_comment_node);
+            }
+
+            if (module.theme.beforeFragment !== undefined) {
+                module.theme.beforeFragment(that, data, getCommentMeta);
             }
 
             return that;
@@ -305,6 +229,10 @@
                 if (fragment.type === "description") {
                     addNewDescription(fragment);
                 }
+
+                if (module.theme.beforeRenderFragment !== undefined) {
+                    module.theme.beforeRenderFragment(fragment);
+                }
             }
         }
 
@@ -329,16 +257,14 @@
             var sectionKlass = isWorkInProgress ? 'tdcss-section wip' : 'tdcss-section';
             markup = '<div class="' + sectionKlass + '" id="' + encodeURIComponent(sectionHyphenated) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
 
-            if (module.theme === 'sidebar') {
-                //Add ULs with section-names in class so they can easily be custom styled. wip css class added if isWorkInProgress
-                var sectionTitleKlass = isWorkInProgress ? 'tdcss-section-title wip' : 'tdcss-section-title';
-                $('.docked-menu').append('<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></h2></div>');
-            }
-
             if (insertBackToTop) {
                 //prepend the back to top link to section markup
                 backToTop = '<div class="tdcss-top"><a class="tddcss-top-link" href="#">Back to Top</a></div>';
                 markup = backToTop + markup;
+            }
+
+            if (module.theme.beforeAddNewSection !== undefined) {
+                module.theme.beforeAddNewSection(markup, isWorkInProgress, sectionHyphenated, section_name);
             }
 
             $(module.container).next(".tdcss-elements").append(markup);
@@ -545,27 +471,7 @@
         }
 
         function makeTopBar() {
-            switch (module.theme) {
-            case 'sidebar':
-                $('.tdcss-header').show();
-                $('.tdcss-subheader-nav').show();
-
-                var htmlToggleContainer =
-                    '<ul class="tdcss-html-toggle"><li class="tdcss-toggle-link"></li></ul>';
-                $('.docked-menu').prepend(htmlToggleContainer);
-                $('.tdcss-toggle-link').append(makeHTMLToggle());
-                break;
-            default:
-                $(module.container).after("<div class='tdcss-control-bar'>" +
-                    "<h1 class='tdcss-title'></h1>" +
-                    "<div class='tdcss-controls'></div>" +
-                    "</div>");
-
-                $(".tdcss-title").text($("title").text());
-                $(".tdcss-controls")
-                    .append(makeJumpTo())
-                    .append(makeHTMLToggle());
-            }
+            module.theme.makeTopBar(module, makeJumpTo, makeHTMLToggle);
         }
 
         function makeJumpTo() {
