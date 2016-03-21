@@ -82,6 +82,20 @@ describe("TDCSS", function () {
 
         });
 
+        it ("should call hook indicating all fragments have rendered", function() {
+            var hooks = {
+                afterFragmentsRendered: function() {}
+            };
+            var spy = spyOn(hooks, 'afterFragmentsRendered')
+
+            loadFixtures('multiple-sections.html');
+
+            $("#tdcss").tdcss({
+                afterFragmentsRendered: hooks.afterFragmentsRendered
+            });
+            expect(spy).toHaveBeenCalled();
+        });
+
         it("should render descriptions as description text blocks", function () {
             loadFixtures('description.html');
             $("#tdcss").tdcss();

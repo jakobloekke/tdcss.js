@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-03-18
+/* tdcss.js - v0.8.1 - 2016-03-21
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -30,6 +30,7 @@
                 hide_html: false,
                 neutralize_background: false,
                 internalize_background_color: true,
+                afterFragmentsRendered: null,
                 control_bar_text: {
                     show_html: "Show HTML",
                     hide_html: "Hide HTML"
@@ -236,6 +237,10 @@
                 if (module.theme.beforeRenderFragment !== undefined) {
                     module.theme.beforeRenderFragment(fragment);
                 }
+            }
+
+            if (settings.afterFragmentsRendered) {
+                settings.afterFragmentsRendered();
             }
         }
 
