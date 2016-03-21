@@ -31,6 +31,7 @@
                 hide_html: false,
                 neutralize_background: false,
                 internalize_background_color: true,
+                afterFragmentsRendered: null,
                 control_bar_text: {
                     show_html: "Show HTML",
                     hide_html: "Hide HTML"
@@ -74,6 +75,10 @@
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
+
+            if (settings.onLoaded) {
+                settings.onLoaded();
+            }
         });
 
 
@@ -237,6 +242,10 @@
                 if (module.theme.beforeRenderFragment !== undefined) {
                     module.theme.beforeRenderFragment(fragment);
                 }
+            }
+
+            if (settings.afterFragmentsRendered) {
+                settings.afterFragmentsRendered();
             }
         }
 
