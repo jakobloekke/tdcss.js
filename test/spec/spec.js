@@ -82,18 +82,22 @@ describe("TDCSS", function () {
 
         });
 
-        it ("should call hook indicating all fragments have rendered", function() {
+        it ("should call hook indicating all fragments have rendered and plugin is loaded", function() {
             var hooks = {
-                afterFragmentsRendered: function() {}
+                afterFragmentsRendered: function() {},
+                onLoaded: function() {}
             };
-            var spy = spyOn(hooks, 'afterFragmentsRendered')
+            var afterRenderedSpy = spyOn(hooks, 'afterFragmentsRendered')
+            var loadedSpy = spyOn(hooks, 'onLoaded')
 
             loadFixtures('multiple-sections.html');
 
             $("#tdcss").tdcss({
-                afterFragmentsRendered: hooks.afterFragmentsRendered
+                afterFragmentsRendered: hooks.afterFragmentsRendered,
+                onLoaded: hooks.onLoaded
             });
-            expect(spy).toHaveBeenCalled();
+            expect(afterRenderedSpy).toHaveBeenCalled();
+            expect(loadedSpy).toHaveBeenCalled();
         });
 
         it("should render descriptions as description text blocks", function () {

@@ -75,6 +75,10 @@
 
             window.tdcss = window.tdcss || [];
             window.tdcss[i] = module;
+
+            if (settings.onLoaded) {
+                settings.onLoaded();
+            }
         });
 
 
