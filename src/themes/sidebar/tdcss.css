@@ -117,15 +117,25 @@ body {
 .tdcss-navigation ul {
   list-style-type: none;
   padding-left: 10px;
+  margin:0;
+  max-height: 60%;
+  overflow-y: auto;
 }
 
 .tdcss-nav-category li {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}
+
+.tdcss-category-title {
+  display: block;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  padding-left: 10px;
 }
 
 .tdcss-category-title + .tdcss-nav {
-  padding-top: 1rem;
+  padding-top: .5rem;
 }
 
 .tdcss-navigation a {
@@ -430,6 +440,7 @@ pre.language-markup {
 .fixed {
   position:fixed;
   top:0;
+  bottom:0;
   z-index:99999;
 }
 
