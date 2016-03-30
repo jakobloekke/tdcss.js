@@ -131,6 +131,7 @@ body {
   display: block;
   padding-top: .5rem;
   padding-bottom: .5rem;
+  padding-left: 10px;
 }
 
 .tdcss-category-title + .tdcss-nav {

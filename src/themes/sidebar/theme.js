@@ -26,13 +26,14 @@ if (typeof tdcss_theme !== 'function') {
                     var categoryName = fragment.category_name;
                     var isWorkInProgress = /^wip/i.test($.trim(categoryName));
                     categoryName = isWorkInProgress ? $.trim(categoryName).replace(/^wip/i, '') : categoryName;
+                    var categoryTitleLink = '<a href="#" class="tdcss-category-title">' + categoryName + '</a>';
                     var categoryHyphenated = encodeURIComponent(categoryName.replace(/\s+/g, '-').toLowerCase());
                     var categoryKlass = isWorkInProgress ? 'tdcss-nav-category wip' : 'tdcss-nav-category';
 
                     //We want to be able to find the current category for when we add sub-items later
                     _private.currentCategorySelector = '#' + categoryHyphenated;
 
-                    return '<ul class="' + categoryKlass + '" id="' + categoryHyphenated + '"><li><a href="#" class="tdcss-category-title">' + categoryName + '</a></li></ul>';
+                    return categoryTitleLink + '<ul class="' + categoryKlass + '" id="' + categoryHyphenated + '"><li></li></ul>';
                 }
             },
 
@@ -75,9 +76,9 @@ if (typeof tdcss_theme !== 'function') {
                 }
 
                 $('.docked-menu .tdcss-category-title').click(function (ev) {
-                    var sectionLI = $(this).parent();
+                    var sectionLI = $(this).next().find('> li');
                     toggleAccordion(sectionLI);
-                }).parent().find('.tdcss-nav > li').hide();
+                }).next().find('.tdcss-nav > li').hide();
 
                 $('.docked-menu li').click(function (e) {
                     e.preventDefault();
