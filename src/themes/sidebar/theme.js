@@ -89,7 +89,6 @@ if (typeof tdcss_theme !== 'function') {
             setupStickySidebar: function() {
                 var sidebarMarginTop = 64;
                 var headerTop = 120;
-                var subheaderHeight = 40;
 
                 //Grab the offset locations of links
                 var locationsInPage = [];
@@ -111,11 +110,11 @@ if (typeof tdcss_theme !== 'function') {
                         $('.tdcss-subheader-nav').addClass('fixed');
 
                         //Add margin top on first section so it roughly lines up with sidebar
-                        $('.tdcss-section').first().css('margin-top', sidebarMarginTop + subheaderHeight - scrollingAdjustment);
+                        $('.tdcss-section').first().css('margin-top', sidebarMarginTop - scrollingAdjustment);
 
                         //Fix position the docked sidebar menu and add margin top there. Now that we've fixed positioned
                         //the tdcss-subheader-nav, tdcss-navigation's margin top is useless.
-                        $('.docked-menu').addClass('fixed').css('margin-top', sidebarMarginTop + subheaderHeight);
+                        $('.docked-menu').addClass('fixed').css('margin-top', sidebarMarginTop);
                     }
                     else {
                         $('.tdcss-subheader-nav').removeClass('fixed');
@@ -140,7 +139,7 @@ if (typeof tdcss_theme !== 'function') {
                         //Add the subnav height and scrolling adjustment to current Y so the left nav
                         //active links are updated when the section bar is a few pixels below subnav
                         var extraPadding = scrollingAdjustment + 4;
-                        if (y + subheaderHeight + extraPadding >= loc - scrollingAdjustment) {
+                        if (y + extraPadding >= loc - scrollingAdjustment) {
                             $('.tdcss-nav li').removeClass('active').eq(i).addClass('active');
                         }
                     });
