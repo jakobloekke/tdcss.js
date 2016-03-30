@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-03-21
+/* tdcss.js - v0.8.1 - 2016-03-30
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -73,16 +73,17 @@ if (typeof tdcss_theme !== 'function') {
                         li.removeClass('active');
                         $('.tdcss-nav > li', li).slideUp({duration: dur});
                     } else {
-                        $('.tdcss-nav-category.active .tdcss-nav > li').slideUp({duration: dur});
+                        $('.tdcss-nav-category li.active .tdcss-nav > li').slideUp({duration: dur});
                         $('li.active').removeClass('active');
                         li.addClass('active');
                         $('.tdcss-nav > li', li).slideDown({duration: dur});
                     }
                 }
 
-                $('.docked-menu .tdcss-nav-category li').click(function (ev) {
-                    toggleAccordion($(this));
-                }).find('.tdcss-nav > li').hide();
+                $('.docked-menu .tdcss-category-title').click(function (ev) {
+                    var sectionLI = $(this).parent();
+                    toggleAccordion(sectionLI);
+                }).parent().find('.tdcss-nav > li').hide();
 
                 $('.docked-menu li').click(function (e) {
                     e.preventDefault();
