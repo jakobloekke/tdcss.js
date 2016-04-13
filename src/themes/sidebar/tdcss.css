@@ -38,13 +38,13 @@ body {
 }
 .tdcss-header {
   background-color: #333;
-  height: 120px;
+  height: 100px;
 }
 #logo {
   width: 20%;
   float: left;
   margin-left: 40px;
-  line-height: 120px;
+  line-height: 100px;
 }
 #logo a {
   text-decoration: none;

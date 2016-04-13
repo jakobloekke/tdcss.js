@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-03-30
+/* tdcss.js - v0.8.1 - 2016-04-13
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -69,7 +69,7 @@
             }
 
             if (module.theme.setup !== undefined) {
-                module.theme.setup();
+                module.theme.setup(settings);
             }
 
             window.tdcss = window.tdcss || [];
