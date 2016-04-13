@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-03-30
+/* tdcss.js - v0.8.1 - 2016-04-13
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -65,7 +65,7 @@ if (typeof tdcss_theme !== 'function') {
                 $('.tdcss-toggle-link').append(makeHTMLToggle());
             },
 
-            setupAccordian: function () {
+            setupAccordian: function (settings) {
 
                 function toggleAccordion(li) {
                     var dur = 250;
@@ -92,9 +92,13 @@ if (typeof tdcss_theme !== 'function') {
 
             },
 
-            setupStickySidebar: function() {
+            setupStickySidebar: function(settings) {
                 var sidebarMarginTop = 64;
+
                 var headerTop = 120;
+                if (settings.headerTop !== undefined) {
+                    headerTop = settings.headerTop;
+                }
 
                 //Grab the offset locations of links
                 var locationsInPage = [];
@@ -162,7 +166,7 @@ if (typeof tdcss_theme !== 'function') {
                 });
             },
 
-            setup: function () {
+            setup: function (settings) {
                 var self = this;
 
                 //Wrap the .tdcss-elements and .tdd-navigation (which are adjacent) in container
@@ -172,8 +176,8 @@ if (typeof tdcss_theme !== 'function') {
 
                 //Sets up the Accordian / Sticky Sidebar on document loaded
                 $(function(){ 
-                    _private.setupAccordian();
-                    _private.setupStickySidebar();
+                    _private.setupAccordian(settings);
+                    _private.setupStickySidebar(settings);
                 });
             }
         };
