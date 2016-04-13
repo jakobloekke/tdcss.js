@@ -70,7 +70,7 @@
             }
 
             if (module.theme.setup !== undefined) {
-                module.theme.setup();
+                module.theme.setup(settings);
             }
 
             window.tdcss = window.tdcss || [];
