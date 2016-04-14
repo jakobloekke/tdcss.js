@@ -73,17 +73,23 @@ if (typeof tdcss_theme !== 'function') {
                     if (li.hasClass('active')) {
                         li.removeClass('active');
                         $('.tdcss-nav > li', li).slideUp({duration: dur});
+
                     } else {
                         $('.tdcss-nav-category li.active .tdcss-nav > li').slideUp({duration: dur});
                         $('li.active').removeClass('active');
                         li.addClass('active');
                         $('.tdcss-nav > li', li).slideDown({duration: dur});
+
+                        if (settings.onAccordionActivated !== undefined) {
+                            settings.onAccordionActivated(li);
+                        }
                     }
                 }
 
-                $('.docked-menu .tdcss-category-title').click(function (ev) {
+                $('.docked-menu .tdcss-category-title').click(function (e) {
                     var sectionLI = $(this).next().find('> li');
                     toggleAccordion(sectionLI);
+                    e.preventDefault();
                 }).next().find('.tdcss-nav > li').hide();
 
                 $('.docked-menu li').click(function (e) {
