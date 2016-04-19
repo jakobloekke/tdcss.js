@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-13
+/* tdcss.js - v0.8.1 - 2016-04-19
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -57,7 +57,6 @@ if (typeof tdcss_theme !== 'function') {
 
             makeTopBar: function(module, makeJumpTo, makeHTMLToggle) {
                 $('.tdcss-header').show();
-                $('.tdcss-subheader-nav').show();
 
                 var htmlToggleContainer =
                     '<ul class="tdcss-html-toggle"><li class="tdcss-toggle-link"></li></ul>';
@@ -98,6 +97,32 @@ if (typeof tdcss_theme !== 'function') {
 
             },
 
+            _throttle: function(func, wait, options) {
+                var context, args, timeout, result;
+                var previous = 0;
+                var later = function() {
+                    previous = new Date;
+                    timeout = null;
+                    result = func.apply(context, args);
+                };
+                return function() {
+                    var now = new Date;
+                    var remaining = wait - (now - previous);
+                    context = this;
+                    args = arguments;
+                    if (remaining <= 0) {
+                        clearTimeout(timeout);
+                        timeout = null;
+                        previous = now;
+                        result = func.apply(context, args);
+                    } else if (!timeout) {
+                        timeout = setTimeout(later, remaining);
+                    }
+                    return result;
+                };
+            },
+
+
             setupStickySidebar: function(settings) {
                 var sidebarMarginTop = 64;
 
@@ -115,25 +140,21 @@ if (typeof tdcss_theme !== 'function') {
                 });
 
                 var scrollingAdjustment = 12;//hack: readjusts margin-top to "catch up" w/user's scrolling
+                var extraPadding = scrollingAdjustment + 4;
 
-                $(window).scroll(function (event) {
+                var scrollFn = _private._throttle(function() {
                     var that = this;
                     var y = $(this).scrollTop();
 
                     //Header scrolled off top of screen
                     if (y >= headerTop) {
-                        // Subheader primary navbar fixed when top header scrolled off
-                        $('.tdcss-subheader-nav').addClass('fixed');
-
                         //Add margin top on first section so it roughly lines up with sidebar
                         $('.tdcss-section').first().css('margin-top', sidebarMarginTop - scrollingAdjustment);
 
                         //Fix position the docked sidebar menu and add margin top there. Now that we've fixed positioned
-                        //the tdcss-subheader-nav, tdcss-navigation's margin top is useless.
                         $('.docked-menu').addClass('fixed').css('margin-top', sidebarMarginTop);
                     }
                     else {
-                        $('.tdcss-subheader-nav').removeClass('fixed');
                         $('.tdcss-section').first().css('margin-top', sidebarMarginTop);
                         //Switches back to using the tdcss-navigation for margin-top
                         $('.docked-menu').removeClass('fixed').css('margin-top', 0);
@@ -151,15 +172,16 @@ if (typeof tdcss_theme !== 'function') {
                         var y = $(that).scrollTop();
 
                         var isLast = locationsInPage - 1 === i;
-                        
+
                         //Add the subnav height and scrolling adjustment to current Y so the left nav
                         //active links are updated when the section bar is a few pixels below subnav
-                        var extraPadding = scrollingAdjustment + 4;
                         if (y + extraPadding >= loc - scrollingAdjustment) {
                             $('.tdcss-nav li').removeClass('active').eq(i).addClass('active');
                         }
                     });
-                });
+                }, 50);
+
+                window.addEventListener('scroll', scrollFn);
 
                 $('.tdcss-section-title a').on('click', function (ev) {
                     ev.preventDefault();
@@ -181,7 +203,7 @@ if (typeof tdcss_theme !== 'function') {
                 });
 
                 //Sets up the Accordian / Sticky Sidebar on document loaded
-                $(function(){ 
+                $(function(){
                     _private.setupAccordian(settings);
                     _private.setupStickySidebar(settings);
                 });
