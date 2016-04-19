@@ -98,6 +98,21 @@ if (typeof tdcss_theme !== 'function') {
 
             },
 
+            _debounce: function(func, wait, immediate) {
+                var timeout;
+                return function() {
+                    var context = this, args = arguments;
+                    var later = function() {
+                        timeout = null;
+                        if (!immediate) func.apply(context, args);
+                    };
+                    var callNow = immediate && !timeout;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                    if (callNow) func.apply(context, args);
+                };
+            },
+
             setupStickySidebar: function(settings) {
                 var sidebarMarginTop = 64;
 
@@ -115,8 +130,9 @@ if (typeof tdcss_theme !== 'function') {
                 });
 
                 var scrollingAdjustment = 12;//hack: readjusts margin-top to "catch up" w/user's scrolling
+                var extraPadding = scrollingAdjustment + 4;
 
-                $(window).scroll(function (event) {
+                var scrollFn = _private._debounce(function() {
                     var that = this;
                     var y = $(this).scrollTop();
 
@@ -151,15 +167,16 @@ if (typeof tdcss_theme !== 'function') {
                         var y = $(that).scrollTop();
 
                         var isLast = locationsInPage - 1 === i;
-                        
+
                         //Add the subnav height and scrolling adjustment to current Y so the left nav
                         //active links are updated when the section bar is a few pixels below subnav
-                        var extraPadding = scrollingAdjustment + 4;
                         if (y + extraPadding >= loc - scrollingAdjustment) {
                             $('.tdcss-nav li').removeClass('active').eq(i).addClass('active');
                         }
                     });
-                });
+                }, 200);
+
+                window.addEventListener('scroll', scrollFn);
 
                 $('.tdcss-section-title a').on('click', function (ev) {
                     ev.preventDefault();
