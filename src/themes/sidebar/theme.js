@@ -148,7 +148,6 @@ if (typeof tdcss_theme !== 'function') {
 
                     //Header scrolled off top of screen
                     if (y >= headerTop) {
-                        console.log("y greater...")
                         //Add margin top on first section so it roughly lines up with sidebar
                         $('.tdcss-section').first().css('margin-top', sidebarMarginTop - scrollingAdjustment);
 
@@ -156,7 +155,6 @@ if (typeof tdcss_theme !== 'function') {
                         $('.docked-menu').addClass('fixed').css('margin-top', sidebarMarginTop);
                     }
                     else {
-                        console.log("y less...")
                         $('.tdcss-section').first().css('margin-top', sidebarMarginTop);
                         //Switches back to using the tdcss-navigation for margin-top
                         $('.docked-menu').removeClass('fixed').css('margin-top', 0);
@@ -205,7 +203,7 @@ if (typeof tdcss_theme !== 'function') {
                 });
 
                 //Sets up the Accordian / Sticky Sidebar on document loaded
-                $(function(){ 
+                $(function(){
                     _private.setupAccordian(settings);
                     _private.setupStickySidebar(settings);
                 });
