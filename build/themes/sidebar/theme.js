@@ -149,14 +149,10 @@ if (typeof tdcss_theme !== 'function') {
 
                     //Header scrolled off top of screen
                     if (y >= headerTop) {
-                        //Add margin top on first section so it roughly lines up with sidebar
-                        $('.tdcss-section').first().css('margin-top', sidebarMarginTop - scrollingAdjustment);
-
                         //Fix position the docked sidebar menu and add margin top there. Now that we've fixed positioned
                         $('.docked-menu').addClass('fixed').css('margin-top', sidebarMarginTop);
                     }
                     else {
-                        $('.tdcss-section').first().css('margin-top', sidebarMarginTop);
                         //Switches back to using the tdcss-navigation for margin-top
                         $('.docked-menu').removeClass('fixed').css('margin-top', 0);
                         $('.tdcss-navigation').css('margin-top', sidebarMarginTop);
