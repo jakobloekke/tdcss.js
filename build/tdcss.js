@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-19
+/* tdcss.js - v0.8.1 - 2016-04-20
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -28,6 +28,7 @@
                     'href'
                 ],
                 hide_html: false,
+                use_categories: false,
                 neutralize_background: false,
                 internalize_background_color: true,
                 afterFragmentsRendered: null,
@@ -46,6 +47,10 @@
 
         return this.each(function (i) {
             module.container = this;
+
+            if (module.theme.useCategories !== undefined & module.theme.useCategories) {
+                settings.use_categories = true;
+            }
 
             reset();
             setup();
@@ -216,6 +221,10 @@
             for (var i = 0; i < module.fragments.length; i++) {
                 var fragment = module.fragments[i];
 
+                if (module.theme.beforeRenderFragment !== undefined) {
+                    module.theme.beforeRenderFragment(module, fragment);
+                }
+
                 if (fragment.type === "section") {
                     //Don't insert the "Back to Top" for very first section
                     insertBackToTop = sectionCount > 0 ? true : false;
@@ -238,9 +247,6 @@
                     addNewDescription(fragment);
                 }
 
-                if (module.theme.beforeRenderFragment !== undefined) {
-                    module.theme.beforeRenderFragment(fragment);
-                }
             }
 
             if (settings.afterFragmentsRendered) {
@@ -279,7 +285,11 @@
                 module.theme.beforeAddNewSection(markup, isWorkInProgress, sectionHyphenated, section_name);
             }
 
-            $(module.container).next(".tdcss-elements").append(markup);
+            if (settings.use_categories) {
+                $(module.container).next('.tdcss-elements').find('.category:last-child').append(markup);
+            } else {
+                $(module.container).next('.tdcss-elements').append(markup);
+            }
         }
 
         function _addFragment(fragment, renderSnippet) {
@@ -304,7 +314,12 @@
                 $row.append($dom_example);
             }
 
-            $(module.container).next(".tdcss-elements").append($row);
+
+            if (settings.use_categories) {
+                $(module.container).next('.tdcss-elements').find('.category:last-child').append($row);
+            } else {
+                $(module.container).next('.tdcss-elements').append($row);
+            }
 
             //We wait until here since we've now appended the $row to our module container
             if (fragment.type === 'coffeesnippet' && window.CoffeeScript) {
@@ -355,7 +370,12 @@
 
         function addNewDescription(fragment) {
             var description = $("<div class='tdcss-description'>" + fragment.description_text + "</div> ");
-            $(module.container).next(".tdcss-elements").append(description);
+
+            if (settings.use_categories) {
+                $(module.container).next('.tdcss-elements').find('.category:last-child').append(description);
+            } else {
+                $(module.container).next('.tdcss-elements').append(description);
+            }
         }
 
         function bindSectionCollapseHandlers() {

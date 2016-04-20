@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-19
+/* tdcss.js - v0.8.1 - 2016-04-20
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -22,10 +22,11 @@ if (typeof tdcss_theme !== 'function') {
                 }
             },
 
-            beforeRenderFragment: function (fragment, isWorkInProgress) {
+            beforeRenderFragment: function (module, fragment) {
                 if (fragment.type === "category") {
                     var markup = getCategory(fragment);
                     $('.docked-menu').append(markup);
+                    $(module.container).next(".tdcss-elements").append('<div class="category"></div>');
                 }
 
                 function getCategory(fragment) {
@@ -203,7 +204,7 @@ if (typeof tdcss_theme !== 'function') {
                 });
 
                 //Sets up the Accordian / Sticky Sidebar on document loaded
-                $(function(){
+                $(function(){ 
                     _private.setupAccordian(settings);
                     _private.setupStickySidebar(settings);
                 });
@@ -212,6 +213,7 @@ if (typeof tdcss_theme !== 'function') {
 
         var _public = {
             name: 'sidebar',
+            useCategories: true,
             beforeReset: _private.beforeReset,
             beforeFragment: _private.beforeFragment,
             beforeRenderFragment: _private.beforeRenderFragment,
