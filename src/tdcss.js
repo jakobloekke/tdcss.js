@@ -145,6 +145,7 @@
         function Fragment(raw_comment_node) {
             var that = this;
 
+            that.prism_language = 'language-markup';
             that.raw_comment_node = raw_comment_node;
             that.type = getFragmentType();
 
@@ -169,12 +170,14 @@
 
             if (that.type === "jssnippet") {
                 that.snippet_title = data;
+                that.prism_language = 'language-javascript';
                 that.raw_script = getFragmentScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
             if (that.type === "coffeesnippet") {
                 if (!window.CoffeeScript) throw new Error("Include CoffeeScript Compiler to evaluate CoffeeScript with tdcss.");
+                that.prism_language = 'language-coffeescript';
                 that.snippet_title = data;
                 that.raw_script = getFragmentCoffeeScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
@@ -331,7 +334,7 @@
             var height = getFragmentHeightCSSProperty(fragment),
                 $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'><h3 class='tdcss-fragment-title'>" + title + "</h3></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
-                $code_example = $("<div class='tdcss-code-example'><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
+                $code_example = $("<div class='tdcss-code-example'><pre><code class='" + fragment.prism_language + "'>" + escaped_html + "</code></pre></div>");
 
             if (renderSnippet) {
                 $row.append($dom_example, $code_example);

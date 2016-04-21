@@ -144,6 +144,7 @@
         function Fragment(raw_comment_node) {
             var that = this;
 
+            that.prism_language = 'language-markup';
             that.raw_comment_node = raw_comment_node;
             that.type = getFragmentType();
 
@@ -168,12 +169,14 @@
 
             if (that.type === "jssnippet") {
                 that.snippet_title = data;
+                that.prism_language = 'language-javascript';
                 that.raw_script = getFragmentScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
             }
 
             if (that.type === "coffeesnippet") {
                 if (!window.CoffeeScript) throw new Error("Include CoffeeScript Compiler to evaluate CoffeeScript with tdcss.");
+                that.prism_language = 'language-coffeescript';
                 that.snippet_title = data;
                 that.raw_script = getFragmentCoffeeScriptHTML(that.raw_comment_node);
                 that.html = getFragmentHTML(that.raw_comment_node);
@@ -330,7 +333,7 @@
             var height = getFragmentHeightCSSProperty(fragment),
                 $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'><h3 class='tdcss-fragment-title'>" + title + "</h3></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
-                $code_example = $("<div class='tdcss-code-example'><pre><code class='language-markup'>" + escaped_html + "</code></pre></div>");
+                $code_example = $("<div class='tdcss-code-example'><pre><code class='" + fragment.prism_language + "'>" + escaped_html + "</code></pre></div>");
 
             if (renderSnippet) {
                 $row.append($dom_example, $code_example);
@@ -1363,6 +1366,89 @@ Prism.languages.js = Prism.languages.javascript;
 
 })();
 
+(function(Prism) {
+
+// Ignore comments starting with { to privilege string interpolation highlighting
+var comment = /#(?!\{).+/,
+    interpolation = {
+    	pattern: /#\{[^}]+\}/,
+    	alias: 'variable'
+    };
+
+Prism.languages.coffeescript = Prism.languages.extend('javascript', {
+	'comment': comment,
+	'string': [
+
+		// Strings are multiline
+		/'(?:\\?[^\\])*?'/,
+
+		{
+			// Strings are multiline
+			pattern: /"(?:\\?[^\\])*?"/,
+			inside: {
+				'interpolation': interpolation
+			}
+		}
+	],
+	'keyword': /\b(and|break|by|catch|class|continue|debugger|delete|do|each|else|extend|extends|false|finally|for|if|in|instanceof|is|isnt|let|loop|namespace|new|no|not|null|of|off|on|or|own|return|super|switch|then|this|throw|true|try|typeof|undefined|unless|until|when|while|window|with|yes|yield)\b/,
+	'class-member': {
+		pattern: /@(?!\d)\w+/,
+		alias: 'variable'
+	}
+});
+
+Prism.languages.insertBefore('coffeescript', 'comment', {
+	'multiline-comment': {
+		pattern: /###[\s\S]+?###/,
+		alias: 'comment'
+	},
+
+	// Block regexp can contain comments and interpolation
+	'block-regex': {
+		pattern: /\/{3}[\s\S]*?\/{3}/,
+		alias: 'regex',
+		inside: {
+			'comment': comment,
+			'interpolation': interpolation
+		}
+	}
+});
+
+Prism.languages.insertBefore('coffeescript', 'string', {
+	'inline-javascript': {
+		pattern: /`(?:\\?[\s\S])*?`/,
+		inside: {
+			'delimiter': {
+				pattern: /^`|`$/,
+				alias: 'punctuation'
+			},
+			rest: Prism.languages.javascript
+		}
+	},
+
+	// Block strings
+	'multiline-string': [
+		{
+			pattern: /'''[\s\S]*?'''/,
+			alias: 'string'
+		},
+		{
+			pattern: /"""[\s\S]*?"""/,
+			alias: 'string',
+			inside: {
+				interpolation: interpolation
+			}
+		}
+	]
+
+});
+
+Prism.languages.insertBefore('coffeescript', 'keyword', {
+	// Object property
+	'property': /(?!\d)\w+(?=\s*:(?!:))/
+});
+
+}(Prism));
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.html2canvas = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.0 by @mathias */

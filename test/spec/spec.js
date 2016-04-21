@@ -209,7 +209,7 @@ describe("TDCSS", function () {
                 });
 
                 it("should use auto for js snippet height", function () {
-                    var heightStyle = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example .language-markup').attr('style');
+                    var heightStyle = $('#javascript-test').nextAll('.tdcss-fragment').find('.tdcss-code-example .language-javascript').attr('style');
                     expect(/auto/.test(heightStyle)).toBeTruthy();
                 });
 

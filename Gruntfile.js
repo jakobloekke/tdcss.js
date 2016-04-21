@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         '* License: <%= pkg.license %> */\n\n\n',
 
         src: {
-            js: ['src/tdcss.js', 'node_modules/prismjs/prism.js', 'node_modules/html2canvas/dist/html2canvas.js', 'src/vendors/resemble-modified.js'],
+            js: ['src/tdcss.js', 'node_modules/prismjs/prism.js', 'node_modules/prismjs/components/prism-coffeescript.js', 'node_modules/html2canvas/dist/html2canvas.js', 'src/vendors/resemble-modified.js'],
             prismcss: 'node_modules/prismjs/themes/prism.css',
             themes: {
                 original_js: 'src/themes/original/theme.js',
