@@ -444,3 +444,28 @@ pre.language-markup {
   z-index:99999;
 }
 
+
+.tdcss-section {
+  margin-top: 0;
+  position: relative;
+}
+
+.tdcss-section .tdcss-bookmarkable {
+  visibility: hidden;
+  font-size: 16px;
+  width: 16px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-48%);
+  left: 2px;
+  right: 0;
+  bottom: 0;
+}
+
+.tdcss-section:hover .tdcss-bookmarkable {
+  visibility: visible;
+  text-decoration: none;
+}
+
+
+

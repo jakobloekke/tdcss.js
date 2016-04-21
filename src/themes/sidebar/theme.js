@@ -47,12 +47,12 @@ if (typeof tdcss_theme !== 'function') {
             beforeAddNewSection: function (markup, isWorkInProgress, sectionHyphenated, section_name) {
                 var sectionTitleKlass = isWorkInProgress ? 'tdcss-section-title wip' : 'tdcss-section-title';
 
-                var markup = '<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></li></ul>';
+                var html = '<ul class="tdcss-nav ' + sectionHyphenated + '"><li class="' + sectionTitleKlass + '"><a href="#' + sectionHyphenated + '">' + section_name + '</a></li></ul>';
 
                 if (_private.currentCategorySelector) {
-                    $(_private.currentCategorySelector + ' > li').append(markup);
+                    $(_private.currentCategorySelector + ' > li').append(html);
                 } else {
-                    $('.docked-menu').append(markup);
+                    $('.docked-menu').append(html);
                 }
             },
 
@@ -210,6 +210,7 @@ if (typeof tdcss_theme !== 'function') {
         var _public = {
             name: 'sidebar',
             useCategories: true,
+            use_bookmarkables: true,
             beforeReset: _private.beforeReset,
             beforeFragment: _private.beforeFragment,
             beforeRenderFragment: _private.beforeRenderFragment,
