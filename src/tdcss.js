@@ -30,6 +30,7 @@
                 ],
                 hide_html: false,
                 use_categories: false,
+                use_bookmarkables: false,
                 neutralize_background: false,
                 internalize_background_color: true,
                 afterFragmentsRendered: null,
@@ -51,6 +52,10 @@
 
             if (module.theme.useCategories !== undefined & module.theme.useCategories) {
                 settings.use_categories = true;
+            }
+
+            if (module.theme.use_bookmarkables !== undefined & module.theme.use_bookmarkables) {
+                settings.use_bookmarkables = true;
             }
 
             reset();
@@ -276,6 +281,13 @@
             var sectionKlass = isWorkInProgress ? 'tdcss-section wip' : 'tdcss-section';
             markup = '<div class="' + sectionKlass + '" id="' + encodeURIComponent(sectionHyphenated) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
 
+            if (settings.use_bookmarkables) {
+                markup = '<div class="' + sectionKlass + '" id="' + encodeURIComponent(sectionHyphenated) + '">' +
+                            '<a class="tdcss-bookmarkable" href="#' + encodeURIComponent(sectionHyphenated) + '">&#128279;</a><h2 class="tdcss-h2">' + section_name + '</h2></div>';
+            } else {
+                markup = '<div class="' + sectionKlass + '" id="' + encodeURIComponent(sectionHyphenated) + '"><h2 class="tdcss-h2">' + section_name + '</h2></div>';
+            }
+
             if (insertBackToTop) {
                 //prepend the back to top link to section markup
                 backToTop = '<div class="tdcss-top"><a class="tddcss-top-link" href="#">Back to Top</a></div>';
@@ -419,8 +431,12 @@
                     };
 
                     $(that.header_element).on("click", function (ev) {
-                        ev.preventDefault();
-                        that.toggle();
+                        //If they've clicked on a bookmarkable then let that behave as anchor click
+                        var isBookmark = $(ev.target).hasClass('tdcss-bookmarkable');
+                        if (!isBookmark) {
+                            ev.preventDefault();
+                            that.toggle();
+                        }
                     });
 
                     return that;
