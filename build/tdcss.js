@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-20
+/* tdcss.js - v0.8.1 - 2016-04-21
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -30,6 +30,7 @@
                 hide_html: false,
                 use_categories: false,
                 use_bookmarkables: false,
+                use_collapsing: true,
                 neutralize_background: false,
                 internalize_background_color: true,
                 afterFragmentsRendered: null,
@@ -49,19 +50,16 @@
         return this.each(function (i) {
             module.container = this;
 
-            if (module.theme.useCategories !== undefined & module.theme.useCategories) {
-                settings.use_categories = true;
-            }
-
-            if (module.theme.use_bookmarkables !== undefined & module.theme.use_bookmarkables) {
-                settings.use_bookmarkables = true;
-            }
-
+            setupThemeSettings();
             reset();
             setup();
             parse();
             render();
-            bindSectionCollapseHandlers();
+
+            if (settings.use_collapsing) {
+                bindSectionCollapseHandlers();
+            }
+
             restoreCollapsedSectionsFromUrl();
             highlightSyntax();
             makeTopBar();
@@ -90,6 +88,20 @@
             }
         });
 
+
+        function setupThemeSettings() {
+            if (module.theme.useCategories !== undefined & module.theme.useCategories) {
+                settings.use_categories = true;
+            }
+
+            if (module.theme.use_bookmarkables !== undefined & module.theme.use_bookmarkables) {
+                settings.use_bookmarkables = true;
+            }
+
+            if (module.theme.use_collapsing !== undefined & module.theme.use_collapsing === false) {
+                settings.use_collapsing = false;
+            }
+        }
 
         function reset() {
             if (module.theme.beforeReset !== undefined) {
@@ -429,7 +441,7 @@
                         window.location.hash = window.location.hash.replace(that.state_string, "");
                     };
 
-                    $(that.header_element).on("click", function (ev) {
+                    $(that).on("click", function (ev) {
                         //If they've clicked on a bookmarkable then let that behave as anchor click
                         var isBookmark = $(ev.target).hasClass('tdcss-bookmarkable');
                         if (!isBookmark) {
@@ -441,7 +453,6 @@
                     return that;
                 });
             };
-
             $(".tdcss-section").makeCollapsible();
         }
 

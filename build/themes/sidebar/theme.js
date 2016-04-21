@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-20
+/* tdcss.js - v0.8.1 - 2016-04-21
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -210,6 +210,7 @@ if (typeof tdcss_theme !== 'function') {
         var _public = {
             name: 'sidebar',
             useCategories: true,
+            use_collapsing: false,
             use_bookmarkables: true,
             beforeReset: _private.beforeReset,
             beforeFragment: _private.beforeFragment,
