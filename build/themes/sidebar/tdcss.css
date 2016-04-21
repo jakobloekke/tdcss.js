@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-20
+/* tdcss.js - v0.8.1 - 2016-04-21
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -447,6 +447,7 @@ pre.language-markup {
 .tdcss-section {
   margin-top: 0;
   position: relative;
+  cursor: default;
 }
 
 .tdcss-section .tdcss-bookmarkable {
@@ -465,6 +466,15 @@ pre.language-markup {
   visibility: visible;
   text-decoration: none;
 }
+
+.tdcss-section .tdcss-h2:after {
+  content: none;
+}
+
+.tdcss-section.is-collapsed .tdcss-h2:after {
+  content: none;
+}
+
 
 
 
