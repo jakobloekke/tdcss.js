@@ -26,9 +26,15 @@ if (typeof tdcss_theme !== 'function') {
                 if (fragment.type === "category") {
                     var markup = getCategory(fragment);
                     $('.docked-menu').append(markup);
-                    $(module.container).next(".tdcss-elements").append('<div class="category"></div>');
-                }
 
+                    var categoryID = fragment.category_name.toLowerCase().replace(' ', '-').trim();
+
+                    var html = "<div class='category " + encodeURIComponent(categoryID) + "' id='#" + encodeURIComponent(categoryID) + "'><div class='tdcss-category-wrap'><div class='tdcss-category'>" +
+                                 "<h2 class='tdcss-h2'>" + fragment.category_name + "</h2></div></div></div>";
+
+                    $(module.container).next(".tdcss-elements").append(html);
+                }
+                
                 function getCategory(fragment) {
                     var categoryName = fragment.category_name;
                     var isWorkInProgress = /^wip/i.test($.trim(categoryName));
