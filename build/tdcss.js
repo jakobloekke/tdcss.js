@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-23
+/* tdcss.js - v0.8.1 - 2016-04-24
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -212,7 +212,7 @@
         }
 
         function getCommentMeta(elem) {
-            return elem.nodeValue.split(settings.fragment_info_splitter);
+            return _htmlDecode(elem.nodeValue).split(settings.fragment_info_splitter);
         }
 
         function getFragmentScriptHTML(elem) {
@@ -385,6 +385,10 @@
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;');
             }
+        }
+
+        function _htmlDecode(value) {
+            return $('<div/>').html(value).text();
         }
 
         function addNewNoSnippet(fragment) {
