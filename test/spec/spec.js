@@ -70,6 +70,17 @@ describe("TDCSS", function () {
             expect(tdcss[0].fragments[0].type).toBe("section");
             expect(tdcss[0].fragments[1].type).toBe("");
         });
+
+        it("should allow most special characters in description", function () {
+            //Note: ampersands and semi-colons still get stripped
+            loadFixtures('punctuation-bug.html');
+            $("#tdcss").tdcss();
+
+            expect(tdcss[0].fragments.length).toBe(2);
+            expect(tdcss[0].fragments[0].type).toBe("section");
+            expect(tdcss[0].fragments[1].type).toBe("description");
+            expect(tdcss[0].fragments[1].description_text).toEqual('Foo © bar 𝌆 baz ☃ qux < less than ’(,.#!?)');
+        });
     });
 
     describe("Rendering", function () {

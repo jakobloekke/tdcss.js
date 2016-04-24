@@ -213,7 +213,7 @@
         }
 
         function getCommentMeta(elem) {
-            return elem.nodeValue.split(settings.fragment_info_splitter);
+            return _htmlDecode(elem.nodeValue).split(settings.fragment_info_splitter);
         }
 
         function getFragmentScriptHTML(elem) {
@@ -386,6 +386,10 @@
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;');
             }
+        }
+
+        function _htmlDecode(value) {
+            return $('<div/>').html(value).text();
         }
 
         function addNewNoSnippet(fragment) {
