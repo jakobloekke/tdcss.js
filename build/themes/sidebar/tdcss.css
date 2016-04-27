@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-23
+/* tdcss.js - v0.8.1 - 2016-04-27
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -475,8 +475,23 @@ pre.language-markup {
   content: none;
 }
 
+.tdcss-category-go {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity .3s ease-out;
+}
 
+.tdcss-category-title-wrap {
+  position: relative;
+}
 
+.tdcss-category-title-wrap:hover .tdcss-category-go {
+  opacity: 1;
+}
 
 
 code[class*="language-"],
