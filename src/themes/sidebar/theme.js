@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-20
+/* tdcss.js - v0.8.1 - 2016-04-21
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -29,7 +29,7 @@ if (typeof tdcss_theme !== 'function') {
 
                     var categoryID = fragment.category_name.toLowerCase().replace(' ', '-').trim();
 
-                    var html = "<div class='category " + encodeURIComponent(categoryID) + "' id='#" + encodeURIComponent(categoryID) + "'><div class='tdcss-category-wrap'><div class='tdcss-category'>" +
+                    var html = "<div class='category " + encodeURIComponent(categoryID) + "' id='" + encodeURIComponent(categoryID) + "'><div class='tdcss-category-wrap'><div class='tdcss-category'>" +
                                  "<h2 class='tdcss-h2'>" + fragment.category_name + "</h2></div></div></div>";
 
                     $(module.container).next(".tdcss-elements").append(html);
@@ -39,14 +39,15 @@ if (typeof tdcss_theme !== 'function') {
                     var categoryName = fragment.category_name;
                     var isWorkInProgress = /^wip/i.test($.trim(categoryName));
                     categoryName = isWorkInProgress ? $.trim(categoryName).replace(/^wip/i, '') : categoryName;
-                    var categoryTitleLink = '<a href="#" class="tdcss-category-title">' + categoryName + '</a>';
                     var categoryHyphenated = encodeURIComponent(categoryName.replace(/\s+/g, '-').toLowerCase());
+                    var categoryTitleLink = '<a href="#' + categoryHyphenated + '" class="tdcss-category-title">' + categoryName + '</a>';
+                    var categoryGoLink = '<a href="#' + categoryHyphenated + '" class="tdcss-category-go">&#128279;</a>';
                     var categoryKlass = isWorkInProgress ? 'tdcss-nav-category wip' : 'tdcss-nav-category';
 
                     //We want to be able to find the current category for when we add sub-items later
                     _private.currentCategorySelector = '#' + categoryHyphenated;
 
-                    return categoryTitleLink + '<ul class="' + categoryKlass + '" id="' + categoryHyphenated + '"><li></li></ul>';
+                    return '<div class="tdcss-category-title-wrap">' + categoryTitleLink + categoryGoLink + '</div><ul class="' + categoryKlass + '" id="' + categoryHyphenated + '"><li></li></ul>';
                 }
             },
 
@@ -93,15 +94,10 @@ if (typeof tdcss_theme !== 'function') {
                 }
 
                 $('.docked-menu .tdcss-category-title').click(function (e) {
-                    var sectionLI = $(this).next().find('> li');
+                    var sectionLI = $(this).parent().next().find('> li');
                     toggleAccordion(sectionLI);
                     e.preventDefault();
-                }).next().find('.tdcss-nav > li').hide();
-
-                $('.docked-menu li').click(function (e) {
-                    e.preventDefault();
-                });
-
+                }).parent().next().find('.tdcss-nav > li').hide();
             },
 
             _throttle: function(func, wait, options) {
@@ -186,15 +182,23 @@ if (typeof tdcss_theme !== 'function') {
 
                 window.addEventListener('scroll', scrollFn);
 
-                $('.tdcss-section-title a').on('click', function (ev) {
-                    ev.preventDefault();
+                $('.tdcss-category-go').on('click', function (ev) {
+                    jumpToLink(this, ev);
+                });
 
-                    var href = $(this).attr('href');
-                    var   target = $(href);
+                $('.tdcss-section-title a').on('click', function (ev) {
+                    jumpToLink(this, ev);
+                });
+
+                function jumpToLink(that, ev) {
+                    ev.preventDefault();
+                    var href = $(that).attr('href');
+                    var target = $(href);
+
                     $('html, body').stop().animate({
                         'scrollTop': target.offset().top - 50
                     }, 600, 'swing', function () {});
-                });
+                }
             },
 
             setup: function (settings) {
