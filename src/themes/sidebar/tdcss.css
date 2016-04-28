@@ -375,9 +375,9 @@ body {
   position: absolute;
   right: 0;
   top: 0;
-  background-color: palette(neutral, x-light);
   border: 0;
-  color: palette(neutral, mid-dark);
+  background-color: #f8f8f5;
+  color: #838383;
   width: 70px;
   height: 35px;
   cursor: pointer;
