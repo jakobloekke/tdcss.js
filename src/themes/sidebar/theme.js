@@ -219,8 +219,9 @@ if (typeof tdcss_theme !== 'function') {
 
         var _public = {
             name: 'sidebar',
-            useCategories: true,
+            use_categories: true,
             use_collapsing: false,
+            use_code_copy_button: true,
             use_bookmarkables: true,
             beforeReset: _private.beforeReset,
             beforeFragment: _private.beforeFragment,

@@ -32,6 +32,7 @@
                 use_categories: false,
                 use_bookmarkables: false,
                 use_collapsing: true,
+                use_code_copy_button: false,
                 neutralize_background: false,
                 internalize_background_color: true,
                 afterFragmentsRendered: null,
@@ -91,7 +92,7 @@
 
 
         function setupThemeSettings() {
-            if (module.theme.useCategories !== undefined & module.theme.useCategories) {
+            if (module.theme.use_categories !== undefined & module.theme.use_categories) {
                 settings.use_categories = true;
             }
 
@@ -101,6 +102,9 @@
 
             if (module.theme.use_collapsing !== undefined & module.theme.use_collapsing === false) {
                 settings.use_collapsing = false;
+            }
+            if (module.theme.use_code_copy_button !== undefined && module.theme.use_code_copy_button) {
+                settings.use_code_copy_button = true;
             }
         }
 
@@ -331,10 +335,16 @@
                 escaped_html = htmlEscape(html);
             }
 
+            //We only add a copy code button if the theme asks for it
+            var codeButton = '';
+            if (settings.use_code_copy_button) {
+                codeButton = '<button class="tdcss-copy-btn"><i class="tdcss-code-cut"></i> Copy</button>';
+            }
+
             var height = getFragmentHeightCSSProperty(fragment),
                 $row = $("<div style='height:" + height + "' class='tdcss-fragment' id='fragment-" + module.snippet_count + "'><h3 class='tdcss-fragment-title'>" + title + "</h3></div>"),
                 $dom_example = $("<div class='tdcss-dom-example'>" + html + "</div>"),
-                $code_example = $("<div class='tdcss-code-example'><pre><code class='" + fragment.prism_language + "'>" + escaped_html + "</code></pre></div>");
+                $code_example = $("<div class='tdcss-code-example'><pre>" + codeButton + "<code class='" + fragment.prism_language + "'>" + escaped_html + "</code></pre></div>");
 
             if (renderSnippet) {
                 $row.append($dom_example, $code_example);
