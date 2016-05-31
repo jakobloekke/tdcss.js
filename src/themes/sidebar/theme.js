@@ -174,8 +174,6 @@ if (typeof tdcss_theme !== 'function') {
 
                         //Add the subnav height and scrolling adjustment to current Y so the left nav
                         //active links are updated when the section bar is a few pixels below subnav
-
-
                         if (y + extraPadding >= loc - scrollingAdjustment) {
                             $('.tdcss-nav li').removeClass('active').eq(i).addClass('active');
                         }
