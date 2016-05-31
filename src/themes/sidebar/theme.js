@@ -133,6 +133,11 @@ if (typeof tdcss_theme !== 'function') {
                 if (settings.headerTop !== undefined) {
                     headerTop = settings.headerTop;
                 }
+                
+                //If the header is using fixed position, we need to add it to the sidebar's margin
+                if (settings.useFixedHeader !== undefined) {
+                    sidebarMarginTop = sidebarMarginTop + headerTop;
+                }
 
                 //Grab the offset locations of links
                 var locationsInPage = [];
