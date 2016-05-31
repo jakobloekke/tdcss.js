@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-04-28
+/* tdcss.js - v0.8.1 - 2016-05-31
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -133,6 +133,11 @@ if (typeof tdcss_theme !== 'function') {
                 if (settings.headerTop !== undefined) {
                     headerTop = settings.headerTop;
                 }
+                
+                //If the header is using fixed position, we need to add it to the sidebar's margin
+                if (settings.useFixedHeader !== undefined) {
+                    sidebarMarginTop = sidebarMarginTop + headerTop;
+                }
 
                 //Grab the offset locations of links
                 var locationsInPage = [];
@@ -196,7 +201,7 @@ if (typeof tdcss_theme !== 'function') {
                     var target = $(href);
 
                     $('html, body').stop().animate({
-                        'scrollTop': target.offset().top - 50
+                        'scrollTop': target.offset().top
                     }, 600, 'swing', function () {});
                 }
             },
