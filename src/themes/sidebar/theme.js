@@ -196,7 +196,7 @@ if (typeof tdcss_theme !== 'function') {
                     var target = $(href);
 
                     $('html, body').stop().animate({
-                        'scrollTop': target.offset().top - 50
+                        'scrollTop': target.offset().top
                     }, 600, 'swing', function () {});
                 }
             },
