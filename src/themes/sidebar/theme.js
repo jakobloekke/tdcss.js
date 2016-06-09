@@ -11,6 +11,7 @@ if (typeof tdcss_theme !== 'function') {
         var _private = {
 
             currentCategorySelector: null,
+            isJumping: false,
 
             beforeReset: function (fragment_types) {
                 fragment_types.category = {identifier: "@"};
@@ -195,8 +196,8 @@ if (typeof tdcss_theme !== 'function') {
 
                     var activeCategoryLI = that.getActiveAccordian();
 
-                    //If The Accordian is opened
-                    if (activeCategoryLI) {
+                    //If The Accordian is opened and we're not jumping to a link
+                    if (activeCategoryLI && !that.isJumping) {
                         var href = activeCategoryLI.parent().prev().find('.tdcss-category-title').attr('href');
                         var activeY = $(href).offset().top;
 
@@ -253,9 +254,17 @@ if (typeof tdcss_theme !== 'function') {
                     jumpToLink(this, ev);
                 });
 
-                function jumpToLink(that, ev) {
+                function jumpToLink(context, ev) {
                     ev.preventDefault();
-                    var href = $(that).attr('href');
+
+                    //We set this so that the Accordian detection doesn't kick in, 
+                    //and violently open/close categories :)
+                    that.isJumping = true;
+                    setTimeout(function() {
+                        that.isJumping = false;
+                    }, 650);
+
+                    var href = $(context).attr('href');
                     var target = $(href);
 
                     $('html, body').stop().animate({
