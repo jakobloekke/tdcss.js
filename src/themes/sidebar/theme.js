@@ -72,30 +72,53 @@ if (typeof tdcss_theme !== 'function') {
                 $('.tdcss-toggle-link').append(makeHTMLToggle());
             },
 
-            setupAccordian: function (settings) {
+            isFirstAccordian: function(li) {
+                var first = $('.tdcss-category-title').first().parent().next().find('> li');
+                return $(first).is(li);
+            },
 
-                function toggleAccordion(li) {
-                    var dur = 250;
+            isLastAccordian: function(li) {
+                var last = $('.tdcss-category-title').last().parent().next().find('> li');
+                return $(last).is(li);
+            },
 
-                    if (li.hasClass('active')) {
-                        li.removeClass('active');
-                        $('.tdcss-nav > li', li).slideUp({duration: dur});
+            getActiveAccordian: function() {
+                var active = null;
+                $('.tdcss-category-title').each(function () {
+                    var sectionLI = $(this).parent().next().find('> li');
 
-                    } else {
-                        $('.tdcss-nav-category li.active .tdcss-nav > li').slideUp({duration: dur});
-                        $('li.active').removeClass('active');
-                        li.addClass('active');
-                        $('.tdcss-nav > li', li).slideDown({duration: dur});
+                    if (sectionLI.hasClass('active')) {
+                        active = sectionLI;
+                    }
+                });
+                return active;
+            },
 
-                        if (settings.onAccordionActivated !== undefined) {
-                            settings.onAccordionActivated(li);
-                        }
+            toggleAccordion: function (settings, li) {
+                var dur = 250;
+
+                if (li.hasClass('active')) {
+                    li.removeClass('active');
+                    $('.tdcss-nav > li', li).slideUp({duration: dur});
+
+                } else {
+                    $('.tdcss-nav-category li.active .tdcss-nav > li').slideUp({duration: dur});
+                    $('li.active').removeClass('active');
+                    li.addClass('active');
+                    $('.tdcss-nav > li', li).slideDown({duration: dur});
+
+                    if (settings.onAccordionActivated !== undefined) {
+                        settings.onAccordionActivated(li);
                     }
                 }
+            },
+
+            setupAccordian: function (settings) {
+                var that = this;
 
                 $('.docked-menu .tdcss-category-title').click(function (e) {
                     var sectionLI = $(this).parent().next().find('> li');
-                    toggleAccordion(sectionLI);
+                    that.toggleAccordion(settings, sectionLI);
                     e.preventDefault();
                 }).parent().next().find('.tdcss-nav > li').hide();
             },
@@ -127,6 +150,7 @@ if (typeof tdcss_theme !== 'function') {
 
 
             setupStickySidebar: function(settings) {
+                var that = this;
                 var sidebarMarginTop = 64;
 
                 var headerTop = 120;
@@ -139,19 +163,18 @@ if (typeof tdcss_theme !== 'function') {
                     sidebarMarginTop = sidebarMarginTop + headerTop;
                 }
 
-                //Grab the offset locations of links
-                var locationsInPage = [];
+                //Grab the offset locations of section links
+                var sectionsInPage = [];
                 $('.tdcss-nav a').each(function () {
                     var href = $(this).attr('href');
                     var locationInPage = $(href).offset().top;
-                    locationsInPage.push(locationInPage);
+                    sectionsInPage.push(locationInPage);
                 });
 
                 var scrollingAdjustment = 12;//hack: readjusts margin-top to "catch up" w/user's scrolling
                 var extraPadding = scrollingAdjustment + 4;
 
                 var scrollFn = _private._throttle(function() {
-                    var that = this;
                     var y = $(this).scrollTop();
 
                     //Header scrolled off top of screen
@@ -168,14 +191,49 @@ if (typeof tdcss_theme !== 'function') {
                     //The docked-menu sidebar will always need to calculate against its parent esp. when it
                     //becomes fixed positioned thus taken out of flow of document
                     $('.docked-menu').width($('.docked-menu').parent().width());
+                        
 
+                    var activeCategoryLI = that.getActiveAccordian();
+
+                    //If The Accordian is opened
+                    if (activeCategoryLI) {
+                        var href = activeCategoryLI.parent().prev().find('.tdcss-category-title').attr('href');
+                        var activeY = $(href).offset().top;
+
+                        var nextCategory = activeCategoryLI.parent().nextAll('.tdcss-nav-category').get(0);
+                        var nextCategoryLI = $(nextCategory).find('> li');
+                        href = $(nextCategory).prev().find('.tdcss-category-title').attr('href');
+                        var nextY = href ? $(href).offset().top : null;
+
+                        var prevCategory = activeCategoryLI.parent().prevAll('.tdcss-nav-category').get(0);
+                        var prevCategoryLI = $(prevCategory).find('> li');
+                        href = $(prevCategory).prev().find('.tdcss-category-title').attr('href');
+                        var prevY = href ? $(href).offset().top : null;
+
+                        // console.log("Y: ", y);
+                        // console.log("activeY: ", activeY);
+                        // console.log("nextY: ", nextY);
+                        // console.log("prevY: ", prevY);
+
+                        var isFirst = that.isFirstAccordian(activeCategoryLI);
+                        var isLast = that.isLastAccordian(activeCategoryLI);
+
+                        //Scrolled past active accordian's "next section" and not on last? Open next.
+                        if (y > nextY && !isLast) {
+                            that.toggleAccordion(settings, activeCategoryLI);
+                            that.toggleAccordion(settings, nextCategoryLI);
+
+                        //Scrolled before active section and not on first? Open previous.
+                        } else if (y < activeY && !isFirst) {
+                            that.toggleAccordion(settings, activeCategoryLI);
+                            that.toggleAccordion(settings, prevCategoryLI);
+                        } else { /* NOP */ }
+                    }
 
                     //Now we need to highlight the currently scrolled to active secondary nav link
                     //by comparing our position against that of each of the sidebar link
-                    $.each(locationsInPage, function (i, loc) {
-                        var y = $(that).scrollTop();
-
-                        var isLast = locationsInPage - 1 === i;
+                    $.each(sectionsInPage, function (i, loc) {
+                        var isLast = sectionsInPage - 1 === i;
 
                         //Add the subnav height and scrolling adjustment to current Y so the left nav
                         //active links are updated when the section bar is a few pixels below subnav
@@ -207,8 +265,6 @@ if (typeof tdcss_theme !== 'function') {
             },
 
             setup: function (settings) {
-                var self = this;
-
                 //Wrap the .tdcss-elements and .tdd-navigation (which are adjacent) in container
                 $(".tdcss-elements").each(function (index) {
                     $(this).next(".tdcss-navigation").addBack().wrapAll("<div class='tdcss-container' />");
