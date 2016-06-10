@@ -238,7 +238,7 @@ if (typeof tdcss_theme !== 'function') {
 
                         //Add the subnav height and scrolling adjustment to current Y so the left nav
                         //active links are updated when the section bar is a few pixels below subnav
-                        if (y + extraPadding >= loc - scrollingAdjustment) {
+                        if (!that.isJumping && y + extraPadding >= loc - scrollingAdjustment) {
                             $('.tdcss-nav li').removeClass('active').eq(i).addClass('active');
                         }
                     });
@@ -255,8 +255,6 @@ if (typeof tdcss_theme !== 'function') {
                 });
 
                 function jumpToLink(context, ev) {
-                    ev.preventDefault();
-
                     //We set this so that the Accordian detection doesn't kick in, 
                     //and violently open/close categories :)
                     that.isJumping = true;
@@ -269,7 +267,12 @@ if (typeof tdcss_theme !== 'function') {
 
                     $('html, body').stop().animate({
                         'scrollTop': target.offset().top
-                    }, 600, 'swing', function () {});
+                    }, 600, 'swing', function () {
+                        //For jump links, we set isJumping to prevent the scrolling listener from adding
+                        //active, so, once we've "landed", we need to add that here.
+                        $('.tdcss-nav li').removeClass('active');
+                        $(context).parent().addClass('active');
+                    });
                 }
             },
 
