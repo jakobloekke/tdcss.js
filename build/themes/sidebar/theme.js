@@ -1,4 +1,4 @@
-/* tdcss.js - v0.8.1 - 2016-08-12
+/* tdcss.js - v0.8.1 - 2016-08-29
 * http://jakobloekke.github.io/tdcss.js/
 * Copyright (c) 2016 Jakob Løkke Madsen <jakob@jakobloekkemadsen.com> (http://www.jakobloekkemadsen.com);
 * License: MIT */
@@ -12,6 +12,8 @@ if (typeof tdcss_theme !== 'function') {
 
             currentCategorySelector: null,
             isJumping: false,
+            currentMousePos: { x: -1, y: -1 },
+            sidebarMarginTop: 64,
 
             beforeReset: function (fragment_types) {
                 fragment_types.category = {identifier: "@"};
@@ -83,6 +85,15 @@ if (typeof tdcss_theme !== 'function') {
                 return $(last).is(li);
             },
 
+            isMouseInAccordian: function() {
+                var left = $('.docked-menu').offset().left;
+                var right = parseInt(left + $('.docked-menu').width());
+                var x = this.currentMousePos.x;
+                var y = this.currentMousePos.y;
+
+                return x > left && x < right && y > this.sidebarMarginTop;
+            },
+
             getActiveAccordian: function() {
                 var active = null;
                 $('.tdcss-category-title').each(function () {
@@ -152,7 +163,13 @@ if (typeof tdcss_theme !== 'function') {
 
             setupStickySidebar: function(settings) {
                 var that = this;
-                var sidebarMarginTop = 64;
+                var sidebarMarginTop;
+
+                //Store mouse positions
+                $(document).mousemove(function(event) {
+                    that.currentMousePos.x = event.pageX;
+                    that.currentMousePos.y = event.pageY;
+                });
 
                 var headerTop = 120;
                 if (settings.headerTop !== undefined) {
@@ -161,7 +178,7 @@ if (typeof tdcss_theme !== 'function') {
                 
                 //If the header is using fixed position, we need to add it to the sidebar's margin
                 if (settings.useFixedHeader !== undefined) {
-                    sidebarMarginTop = sidebarMarginTop + headerTop;
+                    that.sidebarMarginTop = sidebarMarginTop + headerTop;
                 }
 
                 //Grab the offset locations of section links
@@ -181,12 +198,12 @@ if (typeof tdcss_theme !== 'function') {
                     //Header scrolled off top of screen
                     if (y >= headerTop) {
                         //Fix position the docked sidebar menu and add margin top there. Now that we've fixed positioned
-                        $('.docked-menu').addClass('fixed').css('margin-top', sidebarMarginTop);
+                        $('.docked-menu').addClass('fixed').css('margin-top', that.sidebarMarginTop);
                     }
                     else {
                         //Switches back to using the tdcss-navigation for margin-top
                         $('.docked-menu').removeClass('fixed').css('margin-top', 0);
-                        $('.tdcss-navigation').css('margin-top', sidebarMarginTop);
+                        $('.tdcss-navigation').css('margin-top', that.sidebarMarginTop);
                     }
 
                     //The docked-menu sidebar will always need to calculate against its parent esp. when it
@@ -196,8 +213,11 @@ if (typeof tdcss_theme !== 'function') {
 
                     var activeCategoryLI = that.getActiveAccordian();
 
+                    var isMouseInAccordian = that.isMouseInAccordian();
+
+
                     //If The Accordian is opened and we're not jumping to a link
-                    if (activeCategoryLI && !that.isJumping) {
+                    if (activeCategoryLI && !isMouseInAccordian && !that.isJumping) {
                         var href = activeCategoryLI.parent().prev().find('.tdcss-category-title').attr('href');
                         var activeY = $(href).offset().top;
 
