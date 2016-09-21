@@ -4,16 +4,18 @@ if (typeof tdcss_theme !== 'function') {
 
         // private
         var _private = {
-            makeTopBar: function(module, makeJumpTo, makeHTMLToggle) {
+            makeTopBar: function(module, makeJumpTo, makeHTMLToggle, useHtmlToggle) {
                 $(module.container).after("<div class='tdcss-control-bar'>" +
                     "<h1 class='tdcss-title'></h1>" +
                     "<div class='tdcss-controls'></div>" +
                     "</div>");
 
                 $(".tdcss-title").text($("title").text());
-                $(".tdcss-controls")
-                    .append(makeJumpTo())
-                    .append(makeHTMLToggle()); 
+                $(".tdcss-controls").append(makeJumpTo());
+
+                if (useHtmlToggle) {
+                    $(".tdcss-controls").append(makeJumpTo()).append(makeHTMLToggle());
+                }
             }
         };
 

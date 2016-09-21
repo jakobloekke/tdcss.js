@@ -29,6 +29,7 @@
                     'href'
                 ],
                 hide_html: false,
+                use_html_toggle: true,
                 use_categories: false,
                 use_bookmarkables: false,
                 use_collapsing: true,
@@ -548,7 +549,7 @@
         }
 
         function makeTopBar() {
-            module.theme.makeTopBar(module, makeJumpTo, makeHTMLToggle);
+            module.theme.makeTopBar(module, makeJumpTo, makeHTMLToggle, settings.use_html_toggle);
         }
 
         function makeJumpTo() {
