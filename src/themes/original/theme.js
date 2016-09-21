@@ -14,7 +14,7 @@ if (typeof tdcss_theme !== 'function') {
                 $(".tdcss-controls").append(makeJumpTo());
 
                 if (useHtmlToggle) {
-                    $(".tdcss-controls").append(makeJumpTo()).append(makeHTMLToggle());
+                    $(".tdcss-controls").append(makeHTMLToggle());
                 }
             }
         };
