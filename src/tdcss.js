@@ -22,6 +22,7 @@
                 },
                 fragment_info_splitter: ";",
                 replacementContent: "...",
+                rowHeight: null,
                 hideTextContent: false,
                 setCollapsedStateInUrl: true,
                 hideTheseAttributesContent: [

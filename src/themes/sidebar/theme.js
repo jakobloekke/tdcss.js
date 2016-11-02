@@ -126,6 +126,56 @@ if (typeof tdcss_theme !== 'function') {
                         settings.onAccordionActivated(li);
                     }
                 }
+
+                _private.adjustScrollingCategory(settings, li); 
+            },
+
+            //Provides an affordance that there are more sections available within an
+            //open category in the Accordian. Essentially, it will adjust the height
+            //such that there's an extra half of a row, giving the user a clue that more
+            //sections are available if they scroll (similar to how a carousel player might
+            //show half of a thumbnail)
+            adjustScrollingCategory: function (settings, li) {
+
+                //We only can adjust the scrollable category accordian area if a row height
+                //has been provided.
+                if (!settings.rowHeight) {
+                    return;
+                }
+
+                //Reset min/max heights to their original values
+                $('.tdcss-nav-category').css('min-height', 0);
+
+                //This reset must reflect the CSS set in the theme/tdcss.css:
+                //.tdcss-navigation ul { max-height: 60% ...
+                $('.tdcss-nav-category').css('max-height', '60%');
+
+
+                // We calculate the scroll height vs. offset height.
+                // If greater we have scrollbar and we adjust the min or max
+                // height of the list to cause a half row overlap affordance
+                setTimeout(function() {
+                    var tdcssNavCategory = $(li).parent();
+                    var scrollHeight = $(tdcssNavCategory)[0].scrollHeight;
+                    var offsetHeight = $(tdcssNavCategory)[0].offsetHeight;
+
+                    if (scrollHeight > offsetHeight) {
+                        var height = parseInt( $(tdcssNavCategory).css('height'));
+
+                        // Create a half row extra height
+                        var rowHeight = settings.rowHeight;
+                        var half = rowHeight/2;
+                        var leftover = height % rowHeight;
+
+                        var additional = parseInt (half - leftover);
+                        if (leftover > half) {
+                            additional = parseInt(leftover - half);
+                            $(tdcssNavCategory).css('max-height', height - additional);
+                        } else {
+                            $(tdcssNavCategory).css('min-height', height + additional);
+                        }
+                    }
+                }, 200);
             },
 
             setupAccordian: function (settings) {
